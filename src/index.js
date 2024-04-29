@@ -6,6 +6,8 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Committee from './components/Committee';
+import GalleryTitle from './components/GalleryTitle';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,6 +22,14 @@ root.render(
         <Route path="/committee" element={
         <div>
           <Navbar />
+          <Committee  />
+          <Footer />
+        </div>
+        } />
+        <Route path="/gallery" element={
+        <div>
+          <Navbar />
+          <GalleryTitle />
           <Footer />
         </div>
         } />

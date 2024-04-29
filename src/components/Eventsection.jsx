@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from './Modal'; // Import the Modal component
 import hero_1 from '../assets/hero/hero_1.png';
 
@@ -36,7 +35,7 @@ function EventSection() {
 
     <div className="container mx-auto py-12">
     <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-    <div className="grid grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
     {/* Container 1 */}
     <div className="bg-white p-6 rounded-lg shadow-lg flex">
     <div className="flex-1">

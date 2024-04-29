@@ -12,7 +12,7 @@ function Navbar() {
       </div>
       <div className="flex space-x-12">
         <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
-        <a href="/" className="text-white text-2xl hover:text-gray-300">Gallery</a>
+        <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
         <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
         <JoinButton />
       </div>
