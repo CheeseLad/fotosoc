@@ -56,7 +56,7 @@ function EventSection() {
     </div>
     {/* Image */}
     <div className="flex-shrink-0 ml-6">
-    <img src={data.events.event_0.image} alt="Event 1" className="w-48 h-48 object-cover rounded-lg" />
+    <img src={data.events.event_0.image} alt="Event 1" className="w-48 h-48 object-cover rounded-lg transition-transform duration-300 transform hover:scale-105" />
     </div>
     {/* ... */}
     </div>
@@ -80,7 +80,7 @@ function EventSection() {
     </div>
     {/* Image */}
     <div className="flex-shrink-0 ml-6">
-    <img src={hero_1} alt="Event 1" className="w-48 h-48 object-cover rounded-lg" />
+    <img src={hero_1} alt="Event 1" className="w-48 h-48 object-cover rounded-lg transition-transform duration-300 transform hover:scale-105" />
     </div>
     </div>
     {/* ... */}
@@ -104,7 +104,7 @@ function EventSection() {
     </div>
     {/* Image */}
     <div className="flex-shrink-0 ml-6">
-    <img src={hero_1} alt="Event 1" className="w-48 h-48 object-cover rounded-lg" />
+    <img src={hero_1} alt="Event 1" className="w-48 h-48 object-cover rounded-lg transition-transform duration-300 transform hover:scale-105" />
     </div>
     </div>
     {/* ... */}

@@ -45,9 +45,9 @@ function Committee() {
   return (
     <div className="container mx-auto py-12">
     <h2 className="text-3xl font-bold text-center mb-8">Meet the Committee</h2>
-    <div className="grid grid-cols-1 mx-10 md:grid-cols-3 gap-10 mx-60">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-60 bg-gradient-to-r from-blue-900 to-blue-600 rounded-lg">
       {committeeMembers.map(member => (
-        <div key={member.id} className="rounded-lg shadow-lg p-4">
+        <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
           <div className="flex items-center justify-center mb-4">
             <img src={logo} alt={member.name} className="w-64 h-64 rounded-full" />
           </div>
