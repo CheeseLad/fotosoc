@@ -41,6 +41,7 @@ function Navbar() {
       {/* Desktop navigation */}
       <div className={`md:flex space-x-12 ${menuOpen ? 'block' : 'hidden'}`}>
         <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
+        <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
         <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
         <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
         <JoinButton />

@@ -7,7 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Committee from './components/Committee';
-import GalleryTitle from './components/GalleryTitle';
+import Store from './components/Store';
+import Gallery from './components/Gallery';
+import GalleryExhibition2024 from './components/GalleryExhibition2024';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -29,7 +31,21 @@ root.render(
         <Route path="/gallery" element={
         <div>
           <Navbar />
-          <GalleryTitle />
+          <Gallery title="Gallery" path="../images/gallery" />
+          <Footer />
+        </div>
+        } />
+        <Route path="/gallery/exhibition2024" element={
+        <div>
+          <Navbar />
+          <GalleryExhibition2024 />
+          <Footer />
+        </div>
+        } />
+        <Route path="/store" element={
+        <div>
+          <Navbar />
+          <Store />
           <Footer />
         </div>
         } />

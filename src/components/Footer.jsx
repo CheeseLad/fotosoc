@@ -7,7 +7,7 @@ function Footer() {
 <div className="mb-4 sm:mb-0">
   <p className="text-gray-400 text-center sm:text-left">
     DCU Fotosoc &copy; {new Date().getFullYear()}. Designed and maintained by 
-    <a href="https://www.jakefarrell.ie/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 hover:shadow-blue-500"> Jake Farrell</a>
+    <a href="https://www.jakefarrell.ie/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 hover:shadow-blue-500 text-white"> Jake Farrell</a>
   </p>
 </div>
 

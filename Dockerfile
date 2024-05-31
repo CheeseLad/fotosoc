@@ -1,8 +1,8 @@
 FROM node:18-alpine
-WORKDIR /app
-COPY public/ /app/public
-COPY src/ /app/src
-COPY package.json /app/
-RUN npm install
-CMD ["npm", "start"]
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN yarn cache clean && yarn --update-checksums
+COPY . ./
 EXPOSE 3000
+CMD ["yarn", "start"]
