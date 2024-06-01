@@ -23,7 +23,7 @@ const GalleryExhibition2024 = () => {
             <img
               src={image}
               alt={`Gallery Item ${index}`}
-              className="object-cover"
+              className="object-cover rounded shadow-md transition-transform duration-300 transform hover:scale-105"
               style={{ width: "100%", height: "100%" }}
             />
           </div>
