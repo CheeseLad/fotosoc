@@ -12,11 +12,9 @@ function Navbar() {
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center">
       <div className="flex items-center">
-        {/* Your logo */}
-        <img src={logo} alt="Logo" className="w-12 h-auto" />
-        <span className="text-white text-lg font-semibold ml-2">DCU Fotosoc</span>
+        <a href="/"><img src={logo} alt="Logo" className="w-12 h-auto" /></a>
+        <a href="/"><span className="text-white text-lg font-semibold ml-2">DCU Fotosoc</span></a>
       </div>
-      {/* Mobile hamburger menu */}
       <div className="block md:hidden">
         <button
           onClick={toggleMenu}
@@ -42,6 +40,7 @@ function Navbar() {
       <div className={`md:flex space-x-12 ${menuOpen ? 'block' : 'hidden'}`}>
         <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
         <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
+        <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
         <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
         <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
         <JoinButton />

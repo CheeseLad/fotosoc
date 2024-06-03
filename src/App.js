@@ -4,6 +4,7 @@ import EventSection from './components/Eventsection';
 import Footer from './components/Footer';
 import '@fortawesome/fontawesome-free/css/all.css';
 import About from './components/About';
+import FotoOfTheWeek from './components/FotoOfTheWeek';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <HeroSection />
       <EventSection />
       <About />
+      <FotoOfTheWeek />
       <Footer />
     </div>
   );

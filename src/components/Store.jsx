@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import hero_1 from '../assets/hero/hero_1.png';
+import hero_2 from '../assets/hero/hero_2.png';
+import hero_3 from '../assets/hero/hero_3.png';
+import hero_4 from '../assets/hero/hero_4.png';
 
 const items = [
   {
@@ -7,7 +11,7 @@ const items = [
     description: "Description for item 1",
     sizes: ["S", "M", "L"],
     price: "$20.00",
-    image: "./images/hero_1.png"
+    image: hero_1
   },
   {
     id: 2,
@@ -15,7 +19,7 @@ const items = [
     description: "Description for item 2",
     sizes: ["S", "M", "L"],
     price: "$30.00",
-    image: "./images/hero_2.png"
+    image: hero_2
   },
   {
     id: 3,
@@ -23,7 +27,7 @@ const items = [
     description: "Description for item 3",
     sizes: ["S", "M", "L"],
     price: "$25.00",
-    image: "./images/hero_3.png"
+    image: hero_3
   },
   {
     id: 4,
@@ -31,7 +35,7 @@ const items = [
     description: "Description for item 4",
     sizes: ["S", "M", "L"],
     price: "$22.00",
-    image: "./images/hero_4.png"
+    image: hero_4
   }
 ];
 

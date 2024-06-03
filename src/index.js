@@ -10,6 +10,9 @@ import Committee from './components/Committee';
 import Store from './components/Store';
 import Gallery from './components/Gallery';
 import GalleryExhibition2024 from './components/GalleryExhibition2024';
+import PreviousCommittees from './components/PreviousCommittees';
+import GalleryRemixer2024 from './components/GalleryRemixer2024';
+import Loans from './components/Loans';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -28,6 +31,13 @@ root.render(
           <Footer />
         </div>
         } />
+        <Route path="/previous-committees" element={
+        <div>
+          <Navbar />
+          <PreviousCommittees />
+          <Footer />
+        </div>
+        } />
         <Route path="/gallery" element={
         <div>
           <Navbar />
@@ -35,10 +45,17 @@ root.render(
           <Footer />
         </div>
         } />
-        <Route path="/gallery/exhibition2024" element={
+        <Route path="/gallery/exhibition-2024" element={
         <div>
           <Navbar />
           <GalleryExhibition2024 />
+          <Footer />
+        </div>
+        } />
+        <Route path="/gallery/remixer-2024" element={
+        <div>
+          <Navbar />
+          <GalleryRemixer2024 />
           <Footer />
         </div>
         } />
@@ -46,6 +63,13 @@ root.render(
         <div>
           <Navbar />
           <Store />
+          <Footer />
+        </div>
+        } />
+        <Route path="/loans" element={
+        <div>
+          <Navbar />
+          <Loans />
           <Footer />
         </div>
         } />

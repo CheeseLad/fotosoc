@@ -9,10 +9,6 @@ const Gallery = () => {
   return (
     <div className="container mx-auto py-12">
     <h2 className="text-3xl font-bold text-center mb-8">Our Gallery</h2>
-    <div className="text-center">
-      <a href='/gallery/exhibition-2024'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50">Fotosoc Exhibition 2024</button></a>
-      <a href='/gallery/remixer-2024'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50">Fotosoc Re-Mixer 2024</button></a>
-    </div>
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {images.map((image, index) => (
