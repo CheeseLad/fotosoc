@@ -28,7 +28,7 @@ const FotoOfTheWeek = () => {
             href="https://www.instagram.com/danielmc_1604" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="inline-block bg-pink-600 text-white py-2 px-4 mb-4 rounded-lg shadow-md hover:bg-pink-700 transition duration-300"
+            className="inline-block bg-pink-600 text-white py-2 px-4 mb-4 mr-4 rounded-lg shadow-md hover:bg-pink-700 transition duration-300"
           >
             Check out @danielmc_1604 on Instagram
           </a>

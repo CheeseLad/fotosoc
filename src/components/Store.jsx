@@ -57,11 +57,11 @@ const Store = () => {
           <div className="mt-2 text-xl font-bold">{selectedItem.price}</div>
           <div className="mt-4">
             <button className="bg-blue-500 text-white px-4 py-2 rounded mr-2">Buy</button>
-            <button className="bg-green-500 text-white px-4 py-2 rounded">Google Form</button>
+            <button className="bg-green-500 text-white px-4 py-2 rounded mt-2">Google Form</button>
           </div>
         </div>
       </div>
-      <div className="mt-8 grid grid-cols-4 gap-4">
+      <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-2 sm:grid-rows-2 md:grid-cols-4 md:grid-rows-1">
         {items.map(item => (
           <div key={item.id} className="border p-2 cursor-pointer" onClick={() => setSelectedItem(item)}>
             <img src={item.image} alt={item.name} className="w-full" />

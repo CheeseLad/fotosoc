@@ -48,7 +48,8 @@ function Committee() {
     <div className="text-center">
       <a href='/previous-committees'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50">View Previous Committees</button></a>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mx-60  rounded-lg">
+    <div className="flex justify-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {committeeMembers.map(member => (
         <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
           <div className="flex items-center justify-center mb-4">
@@ -71,6 +72,7 @@ function Committee() {
           </div>
         </div>
       ))}
+    </div>
     </div>
     </div>
   );
