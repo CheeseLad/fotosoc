@@ -1,47 +1,18 @@
+import { useEffect, useState } from 'react';
 import logo from '../assets/logo/logo.png';
-
-const committeeMembers = [
-  {
-    id: 1,
-    name: 'John Doe',
-    position: 'Chairperson',
-    image : 'image.jpg',
-    social1: 'https://www.instagram.com/example/',
-    social2: 'https://www.linkedin.com/in/example/',
-    email: 'john@example.com'
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    position: 'Vice Chair',
-    image : 'image.jpg',
-    social1: 'https://www.instagram.com/example/',
-    social2: 'https://www.linkedin.com/in/example/',
-    email: 'jane@example.com'
-  },
-  {
-    id: 3,
-    name: 'Alice Johnson',
-    position: 'Secretary',
-    image : 'image.jpg',
-    social1: 'https://www.instagram.com/example/',
-    social2: 'https://www.linkedin.com/in/example/',
-    email: 'alice@example.com'
-  },
-  {
-    id: 4,
-    name: 'Bob Brown',
-    position: 'Treasurer',
-    image : 'image.jpg',
-    social1: 'https://www.instagram.com/example/',
-    social2: 'https://www.linkedin.com/in/example/',
-    email: 'bob@example.com'
-  },
-  // Add more committee members as needed
-];
+import axios from 'axios';
 
 function Committee() {
 
+  const [committee, setCommittee] = useState([]);
+
+    useEffect(() => {
+      axios.get('http://localhost:3001/get-committee')
+        .then(response => setCommittee(response.data))
+        .catch(err => console.log(err));
+    }, []);
+  
+  
   return (
     <div className="container mx-auto py-12 ">
     <h2 className="text-3xl font-bold text-center mb-8">Meet the Committee</h2>
@@ -50,7 +21,7 @@ function Committee() {
     </div>
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      {committeeMembers.map(member => (
+      {committee.map(member => (
         <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
           <div className="flex items-center justify-center mb-4">
             <img src={logo} alt={member.name} className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105" />
