@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Modal from './Modal'; // Import the Modal component
-import hero_1 from '../assets/hero/hero_1.png';
+import hero_1 from '../images/hero/hero_1.png';
 
 function EventSection() {
 

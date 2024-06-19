@@ -1,5 +1,5 @@
 import React from 'react';
-import fotooftheweek from '../assets/fotooftheweek/19-03-2024.png';
+import fotooftheweek from '../images/fotooftheweek/19-03-2024.png';
 
 const FotoOfTheWeek = () => {
   return (

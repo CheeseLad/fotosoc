@@ -3,7 +3,7 @@ import React from "react";
 
 // Use require.context to import all images from the folder
 const importAll = (r) => r.keys().map(r);
-const images = importAll(require.context('../images/exhibition2024', false, /\.(png|jpe?g|svg)$/));
+const images = importAll(require.context('../images/gallery/exhibition2024', false, /\.(png|jpe?g|svg)$/));
 
 const GalleryExhibition2024 = () => {
   return (

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import logo from '../assets/logo/logo.png';
+import logo from '../images/logo/logo.png';
 import axios from 'axios';
 
 function Committee() {
