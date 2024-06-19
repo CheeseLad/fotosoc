@@ -13,19 +13,19 @@ function Footer() {
 
         <div className="flex items-center justify-center sm:justify-end">
           {/* Font Awesome icons */}
-          <a href="/" className="text-white hover:text-gray-400 mx-2">
+          <a href="https://www.facebook.com/DCUPhotographySociety" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 mx-2">
             <i className="fab fa-facebook"></i>
           </a>
-          <a href="/" className="text-white hover:text-gray-400 mx-2">
-            <i className="fab fa-twitter"></i>
+          <a href="mailto:webmasterdcufotosoc@gmail.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 mx-2">
+            <i className="fa fa-envelope"></i>
           </a>
-          <a href="/" className="text-white hover:text-gray-400 mx-2">
+          <a href="https://www.instagram.com/dcufotosoc" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 mx-2">
             <i className="fab fa-instagram"></i>
           </a>
-          <a href="/" className="text-white hover:text-gray-400 mx-2">
+          <a href="https://www.linkedin.com/company/dcufotosoc" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 mx-2">
             <i className="fab fa-linkedin"></i>
           </a>
-          <a href="/" className="text-white hover:text-gray-400 mx-2">
+          <a href="https://www.youtube.com/@dcufotosoc3388" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-400 mx-2">
             <i className="fab fa-youtube"></i>
           </a>
         </div>

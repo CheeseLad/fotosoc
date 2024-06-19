@@ -12,7 +12,7 @@ const FotoOfTheWeek = () => {
         <div className="w-full md:w-1/2">
           <img 
             src={fotooftheweek}
-            alt="Photo of the Week" 
+            alt="Foto of the Week" 
             className="rounded-lg w-full h-auto"
           />
         </div>

@@ -25,7 +25,7 @@ const About = () => {
       </a>
     </li>
     <li>
-      <a href="https://youtube.com/channel/UC37E0zQ0DYssPj7UlkPi-MQ" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.youtube.com/@dcufotosoc3388" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-youtube text-red-600 hover:text-red-800 text-5xl" />
       </a>
     </li>
@@ -35,13 +35,13 @@ const About = () => {
       </a>
     </li>
     <li>
-      <a href="https://linkedin.com/company/YourCompany" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.linkedin.com/company/dcufotosoc" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-linkedin text-blue-600 hover:text-blue-800 text-5xl" />
       </a>
     </li>
     <li>
-      <a href="mailto:dcufoto@gmail.com" target="_blank" rel="noopener noreferrer">
-        <i className="fa fa-envelope text-black hover:text-black- text-5xl" />
+      <a href="mailto:webmasterdcufotosoc@gmail.com" target="_blank" rel="noopener noreferrer">
+        <i className="fa fa-envelope text-gray-600 hover:text-black- text-5xl" />
       </a>
     </li>
   </ul>
