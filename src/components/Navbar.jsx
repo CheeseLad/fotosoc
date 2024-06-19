@@ -13,7 +13,7 @@ function Navbar() {
     <div>
       <nav className="bg-gray-800 p-4 flex justify-between items-center">
         <div className="flex items-center">
-          <a href="/"><img src={logo} alt="Logo" className="w-12 h-auto" /></a>
+          <a href="/"><img src={logo} width="100px" height="100px" alt="Logo" className="w-12 h-auto" /></a>
           <a href="/"><span className="text-white text-lg font-semibold ml-2">DCU Fotosoc</span></a>
         </div>
         <div className="block md:hidden">

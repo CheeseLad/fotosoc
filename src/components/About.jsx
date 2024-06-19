@@ -1,4 +1,5 @@
 import React from 'react';
+import YouTubePlayer from './YouTubePlayer';
 
 const About = () => {
   return (
@@ -6,41 +7,33 @@ const About = () => {
     <h2 className="text-3xl font-bold text-center mb-8">About Fotosoc</h2>
       <p className="text-lg mb-4">Get to know DCU's Elite Photography Society</p>
       <div className="video-container rounded-xl overflow-hidden shadow-2xl">
-  <iframe
-    width={560 * 1.5}
-    height={315 * 1.5}
-    src="https://www.youtube.com/embed/cFhEqk7LHYM"
-    title="YouTube video player"
-    frameBorder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowFullScreen
-  ></iframe>
+      <YouTubePlayer />
 </div>
 <div className="bg-white rounded-lg shadow-xl p-6 mt-10">
   <h3 className="text-xl font-bold mb-2 text-black text-center">Follow Us:</h3>
   <ul className="flex space-x-4">
     <li>
-      <a href="https://facebook.com/DCUPhotographySociety" target="_blank" rel="noopener noreferrer">
+      <a href="https://facebook.com/DCUPhotographySociety" aria-label="DCU Fotosoc Facebook" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-facebook text-blue-500 hover:text-blue-700 text-5xl" />
       </a>
     </li>
     <li>
-      <a href="https://www.youtube.com/@dcufotosoc3388" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.youtube.com/@dcufotosoc3388" aria-label="DCU Fotosoc YouTube" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-youtube text-red-600 hover:text-red-800 text-5xl" />
       </a>
     </li>
     <li>
-      <a href="https://instagram.com/dcufotosoc" target="_blank" rel="noopener noreferrer">
+      <a href="https://instagram.com/dcufotosoc" aria-label="DCU Fotosoc Instagram" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-instagram text-pink-500 hover:text-pink-700 text-5xl" />
       </a>
     </li>
     <li>
-      <a href="https://www.linkedin.com/company/dcufotosoc" target="_blank" rel="noopener noreferrer">
+      <a href="https://www.linkedin.com/company/dcufotosoc" aria-label="DCU Fotosoc LinkedIn" target="_blank" rel="noopener noreferrer">
         <i className="fab fa-linkedin text-blue-600 hover:text-blue-800 text-5xl" />
       </a>
     </li>
     <li>
-      <a href="mailto:webmasterdcufotosoc@gmail.com" target="_blank" rel="noopener noreferrer">
+      <a href="mailto:webmasterdcufotosoc@gmail.com" aria-label="DCU Fotosoc Email" target="_blank" rel="noopener noreferrer">
         <i className="fa fa-envelope text-gray-600 hover:text-black- text-5xl" />
       </a>
     </li>
