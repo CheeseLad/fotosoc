@@ -1,0 +1,223 @@
+[
+  {
+    "year": "2023/24",
+    "members": [
+      { "role": "Chairperson", "name": "Cian Hanlon" },
+      { "role": "Vice Chairperson", "name": "Jack Conlon" },
+      { "role": "Secretary", "name": "Joy Ruane" },
+      { "role": "Treasurer", "name": "Keelin Mc Evoy" },
+      { "role": "Public Relations Officer", "name": "Aine Purcell" },
+      { "role": "Assistant Events", "name": "Harry Gerrard Caffrey" },
+      { "role": "Brand Design Officer", "name": "Laura Maguire" },
+      { "role": "Curation Officer", "name": "Liam O Keeffe" },
+      { "role": "Equipment Officer", "name": "Thomas Carrigan" },
+      { "role": "Events Officer", "name": "Doireann Finn" },
+      { "role": "Ordinary Committee Member", "name": "Brandon Kearney" },
+      { "role": "Webmaster", "name": "Isabelle Garvey" }
+    ]
+  },
+  {
+    "year": "2022/23",
+    "members": [
+      { "role": "Chairperson", "name": "Abbie Hegarty" },
+      { "role": "Secretary", "name": "Leona Mc Cahill" },
+      { "role": "Treasurer", "name": "George Maas" },
+      { "role": "Public Relations Officer", "name": "Melanie Riley" },
+      { "role": "Assistant Events", "name": "Cian Hanlon" },
+      { "role": "Assistant Events", "name": "Jack Conlon" },
+      { "role": "Brand Design Officer", "name": "Liam O Keeffe" },
+      { "role": "Curation Officer", "name": "Blathnaid" },
+      { "role": "Equipment Officer", "name": "David Solola" },
+      { "role": "Ordinary Committee Member", "name": "Thomas Carrigan" },
+      { "role": "Vice Chairperson", "name": "Seán Byrne" },
+      { "role": "Webmaster", "name": "Aisling Hurley" }
+    ]
+  },
+  {
+    "year": "2021/22",
+    "members": [
+      { "role": "Chairperson", "name": "Eleanor Rushe" },
+      { "role": "Secretary", "name": "Aiden Muraca" },
+      { "role": "Treasurer", "name": "Seán Byrne" },
+      { "role": "Events Officer", "name": "Mark Lombard" },
+      { "role": "Public Relations Officer", "name": "Blathnaid Henry" },
+      { "role": "Assistant Events", "name": "Veronika" },
+      { "role": "Brand Design Officer", "name": "Abbie Hegarty" },
+      { "role": "Curation Officer", "name": "Cillian Doyle" },
+      { "role": "Equipment Officer", "name": "Fionn Gijsemans" },
+      { "role": "First Year Rep", "name": "Liam O Keeffe" },
+      { "role": "Ordinary Committee Member", "name": "Aoife McGrath" },
+      { "role": "Ordinary member", "name": "James Shannon" },
+      { "role": "Vice Chairperson", "name": "Patrick Watts" },
+      { "role": "Web Master", "name": "Darren Kelly" }
+    ]
+  },
+  {
+    "year": "2020/21",
+    "members": [
+      { "role": "Chairperson", "name": "Aoife McGrath" },
+      { "role": "Public Relations Officer", "name": "Eleanor Rushe" },
+      { "role": "Secretary", "name": "Pierce McCarthy" },
+      { "role": "Treasurer", "name": "James" },
+      { "role": "Brand Design Officer", "name": "Ciara" },
+      { "role": "Equipment Officer", "name": "Cillian Doyle" },
+      { "role": "Events Officer", "name": "Charlee-Jane Kelly" },
+      { "role": "Events Officer", "name": "David Lynam" },
+      { "role": "First Year Rep", "name": "Patrick Watts" },
+      { "role": "Ordinary Committee Member", "name": "Martha Clarke" },
+      { "role": "Ordinary Committee Member", "name": "Ella Marie" },
+      { "role": "Vice Chairperson", "name": "Sallyann Omalley" },
+      { "role": "Web Admin", "name": "Mark Lombard" }
+    ]
+  },
+  {
+    "year": "2019/20",
+    "members": [
+      { "role": "Chair", "name": "Ben Delaney" },
+      { "role": "Vice chair", "name": "Ríonach Hurley" },
+      { "role": "Secretary", "name": "Phoebe Cooney" },
+      { "role": "Treasurer", "name": "Jan Krcil" },
+      { "role": "PRO", "name": "Stef Stewart" },
+      { "role": "BDO", "name": "Lorcan O’Reilly" },
+      { "role": "Events officer", "name": "Iollann Ó Murchú" },
+      { "role": "Deputy events", "name": "Jack Keville" },
+      { "role": "Equipment officer", "name": "Conor Farrelly" },
+      { "role": "Ordinary member", "name": "Bryony Archer" }
+    ]
+  },
+  {
+    "year": "2018/19",
+    "members": [
+      { "role": "Chairperson", "name": "Ríonach Hurley" },
+      { "role": "Secretary", "name": "Andrew McClerie" },
+      { "role": "Treasurer", "name": "Phoebe Cooney" },
+      { "role": "Events officer", "name": "Bryony Archer" },
+      { "role": "PRO", "name": "Ben Delaney" },
+      { "role": "BDO", "name": "Katie Archer" },
+      { "role": "Equipment officer", "name": "Matthew McConnell" }
+    ]
+  },
+  {
+    "year": "2017/18",
+    "members": [
+      { "role": "Brand Design Officer", "name": "Niamh Balfe" },
+      { "role": "First Year Rep", "name": "Ríonach" },
+      { "role": "Content Coordinater", "name": "Phoebe" },
+      { "role": "Intersociety Officer", "name": "Eoin" }
+    ]
+  },
+  {
+    "year": "2016/17",
+    "members": [
+      { "role": "Chair", "name": "Deirbhile Úna Ní Chathail" },
+      { "role": "Secretary", "name": "Rosie Mc Sharry" },
+      { "role": "Treasurer", "name": "Colin Tonge" },
+      { "role": "PRO", "name": "Amy O'Connell" },
+      { "role": "Events Officer", "name": "Aaron Harper" },
+      { "role": "BDO", "name": "Hannah McWade" },
+      { "role": "Equipment Officer", "name": "Andrew McConnell" },
+      { "role": "Integration Officer", "name": "Mark Carroll" }
+    ]
+  },
+  {
+    "year": "2015/16",
+    "members": [
+      { "role": "Chair", "name": "Colin Tonge" },
+      { "role": "Secretary", "name": "Mark Crabbe" },
+      { "role": "Public Relations Officer", "name": "Paul Gallagher" },
+      { "role": "Events", "name": "Catherine Batstone" },
+      { "role": "Treasurer", "name": "Deirbhile Ní Chathail" },
+      { "role": "Equipment", "name": "Kayleigh Foran" },
+      { "role": "First Year Rep", "name": "Mark Carroll" }
+    ]
+  },
+  {
+    "year": "2014/15",
+    "members": [
+      { "role": "Chair", "name": "Marie Monnelly" },
+      { "role": "Secretary", "name": "Aidan Gray" },
+      { "role": "Public Relations Officer", "name": "Cian Hogan" },
+      { "role": "Events", "name": "Izzy McCullough / Jill O’Brien" },
+      { "role": "Treasurer", "name": "Éimear O’Sullivan" },
+      { "role": "Sponsorship", "name": "Lára Phillips" },
+      { "role": "Equipment", "name": "Niall McCormack" },
+      { "role": "Ordinary Member", "name": "Colin Tonge" },
+      { "role": "Webmaster", "name": "Felicity Neary" },
+      { "role": "First Year Rep", "name": "Rebecca Lumley" },
+      { "role": "St. Pats Rep", "name": "Orlaith Higgins" }
+    ]
+  },
+  {
+    "year": "2013/14",
+    "members": [
+      { "role": "Chair", "name": "Claire Peterson" },
+      { "role": "Secretary", "name": "Elle Hensen" },
+      { "role": "Public Relations Officer", "name": "Nicola Forde" },
+      { "role": "Events", "name": "Marie Monnelly" },
+      { "role": "Treasurer", "name": "Molly Hally" },
+      { "role": "Sponsorship", "name": "Izzy McCullough" },
+      { "role": "Equipment", "name": "Conor Palin-Stewart" },
+      { "role": "First Year Rep", "name": "Éimear O’Sullivan" },
+      { "role": "Webmaster", "name": "Sean Defoe" },
+      { "role": "Chair", "name": "Claire Petersen" },
+      { "role": "Secretary", "name": "Nicola Forde" },
+      { "role": "Treasurer", "name": "Sean Defoe" },
+      { "role": "PRO", "name": "Liam Hanlon" },
+      { "role": "Events", "name": "Mick Sammon" },
+      { "role": "Sponsorship Officer", "name": "Elle Hesnan" },
+      { "role": "Equipments Officer", "name": "Conor Palin Stewart" },
+      { "role": "CRO", "name": "Aidan Gray" },
+      { "role": "Webmaster", "name": "Breffni Banks" }
+    ]
+  },
+  {
+    "year": "2012/13",
+    "members": [
+      { "role": "Chair", "name": "Breffni Banks" },
+      { "role": "Secretary", "name": "James Harrold" },
+      { "role": "Public Relations Officer", "name": "Claire Petersen" },
+      { "role": "Events", "name": "Molly Hally" },
+      { "role": "Treasurer", "name": "Rachel Barry" },
+      { "role": "Sponsorship", "name": "Mark Young" },
+      { "role": "Equipment", "name": "Nicky Ryan" },
+      { "role": "First Year Rep", "name": "Sean Defoe" },
+      { "role": "Webmaster", "name": "Ian Goode" }
+    ]
+  },
+  {
+    "year": "2011/12",
+    "members": []
+  },
+  {
+    "year": "2010/11",
+    "members": []
+  },
+  {
+    "year": "2009/10",
+    "members": [
+      { "role": "Public Relations Officer", "name": "Claire Brown" }
+    ]
+  },
+  {
+    "year": "2004/05",
+    "members": [
+      { "role": "Chair", "name": "Rosa Tomrop-hofmann" },
+      { "role": "Secretary", "name": "Kate Murphy" },
+      { "role": "P.R.O.", "name": "Sarah McIntyre" },
+      { "role": "Treasurer", "name": "Eimear Clowry" },
+      { "role": "Sponsorship and guest workshop co-ordinator", "name": "Claire Kehoe" },
+      { "role": "Equipment + darkroom co-ordinator", "name": "Brid Stenson" },
+      { "role": "Webmaster", "name": "Lorcan Mulligan" },
+      { "role": "Fresher’s rep", "name": "Aisling O’Rourke" }
+    ]
+  },
+  {
+    "year": "2003/04",
+    "members": [
+      { "role": "Chair", "name": "Rosa Tomrop-hofmann" },
+      { "role": "Secretary", "name": "Eimear Clowry" },
+      { "role": "P.R.O.", "name": "Brid Stenson" },
+      { "role": "Treasurer", "name": "Sarah McIntyre" }
+    ]
+  }
+]

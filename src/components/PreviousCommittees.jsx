@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
+import previousCommitteeData from '../data/previous_committees.json';
 
 
 const PreviousCommittees = () => {
@@ -8,9 +9,10 @@ const PreviousCommittees = () => {
   const [previousCommittee, setPreviousCommittee] = useState([]);
 
     useEffect(() => {
-      axios.get('http://localhost:3001/get-previous-committee')
-        .then(response => setPreviousCommittee(response.data))
-        .catch(err => console.log(err));
+      //axios.get('http://localhost:3001/get-previous-committee')
+      //  .then(response => setPreviousCommittee(response.data))
+      //  .catch(err => console.log(err));
+      setPreviousCommittee(previousCommitteeData);
     }, []);
 
   return (

@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import logo from '../images/logo/logo.png';
-import axios from 'axios';
+//import axios from 'axios';
+import committeeData from '../data/committee.json';
 
 function Committee() {
 
   const [committee, setCommittee] = useState([]);
 
     useEffect(() => {
-      axios.get('http://localhost:3001/get-committee')
-        .then(response => setCommittee(response.data))
-        .catch(err => console.log(err));
+    //  axios.get('http://localhost:3001/get-committee')
+    //    .then(response => setCommittee(response.data))
+    //    .catch(err => console.log(err));
+      setCommittee(committeeData);
     }, []);
   
   

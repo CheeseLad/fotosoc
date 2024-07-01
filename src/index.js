@@ -73,6 +73,13 @@ root.render(
           <Footer />
         </div>
         } />
+        <Route path="/success" element={
+        <div>
+          <Navbar />
+          <h1>Success</h1>
+          <Footer />
+        </div>
+        } />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

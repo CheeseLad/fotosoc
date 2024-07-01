@@ -1,0 +1,38 @@
+[
+  {
+    "number": 1,
+    "name": "John Doe",
+    "position": "Chairperson",
+    "image" : "image.jpg",
+    "social1": "https://www.instagram.com/example/",
+    "social2": "https://www.linkedin.com/in/example/",
+    "email": "john@example.com"
+  },
+  {
+    "number": 2,
+    "name": "Jane Smith",
+    "position": "Vice Chair",
+    "image" : "image.jpg",
+    "social1": "https://www.instagram.com/example/",
+    "social2": "https://www.linkedin.com/in/example/",
+    "email": "jane@example.com"
+  },
+  {
+    "number": 3,
+    "name": "James Johnson",
+    "position": "Secretary",
+    "image" : "image.jpg",
+    "social1": "https://www.instagram.com/example/",
+    "social2": "https://www.linkedin.com/in/example/",
+    "email": "james@example.com"
+  },
+  {
+    "number": 4,
+    "name": "Judy Brown",
+    "position": "Treasurer",
+    "image" : "image.jpg",
+    "social1": "https://www.instagram.com/example/",
+    "social2": "https://www.linkedin.com/in/example/",
+    "email": "judy@example.com"
+  }
+]

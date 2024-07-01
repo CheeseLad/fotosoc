@@ -1,8 +1,8 @@
 import React from 'react';
 
 function Footer() {
-  return (
-    <footer className="bg-gray-900 text-white py-4">
+  return ( // bg-gray-900
+    <footer className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex flex-col items-center justify-center sm:flex-row sm:justify-between">
 <div className="mb-4 sm:mb-0">
   <p className="text-gray-400 text-center sm:text-left">
