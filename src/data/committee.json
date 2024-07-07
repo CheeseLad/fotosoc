@@ -1,38 +1,110 @@
 [
   {
     "number": 1,
-    "name": "John Doe",
+    "name": "Cian Hanlon",
     "position": "Chairperson",
-    "image" : "image.jpg",
-    "social1": "https://www.instagram.com/example/",
-    "social2": "https://www.linkedin.com/in/example/",
-    "email": "john@example.com"
+    "image" : "cian_hanlon.png",
+    "social1": "",
+    "social2": "",
+    "email": "chair@dcufotosoc.ie"
   },
   {
     "number": 2,
-    "name": "Jane Smith",
-    "position": "Vice Chair",
-    "image" : "image.jpg",
-    "social1": "https://www.instagram.com/example/",
-    "social2": "https://www.linkedin.com/in/example/",
-    "email": "jane@example.com"
+    "name": "Jack Conlon",
+    "position": "Vice Chairperson",
+    "image" : "jack_conlon.png",
+    "social1": "",
+    "social2": "",
+    "email": "vicechair@dcufotosoc.ie"
   },
   {
     "number": 3,
-    "name": "James Johnson",
+    "name": "Joy Ruane",
     "position": "Secretary",
-    "image" : "image.jpg",
-    "social1": "https://www.instagram.com/example/",
-    "social2": "https://www.linkedin.com/in/example/",
-    "email": "james@example.com"
+    "image" : "joy_ruane.png",
+    "social1": "",
+    "social2": "",
+    "email": "secretary@dcufotosoc.ie"
   },
   {
     "number": 4,
-    "name": "Judy Brown",
+    "name": "Keelin Mc Evoy",
     "position": "Treasurer",
-    "image" : "image.jpg",
-    "social1": "https://www.instagram.com/example/",
-    "social2": "https://www.linkedin.com/in/example/",
-    "email": "judy@example.com"
+    "image" : "keelin_mc_evoy.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 5,
+    "name": "Aine Purcell",
+    "position": "Public Relations Officer",
+    "image" : "aine_purcell.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  }, 
+  {
+    "number": 6,
+    "name": "Harry Gerrard Caffrey",
+    "position": "Assistant Events",
+    "image" : "harry_gerrard_caffrey.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 7,
+    "name": "Laura Maguire",
+    "position": "Brand Design Officer",
+    "image" : "laura_maguire.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 8,
+    "name": "Liam O Keeffe",
+    "position": "Curation Officer",
+    "image" : "liam_o_keeffe.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 9,
+    "name": "Thomas Carrigan",
+    "position": "Equipment Officer",
+    "image" : "thomas_carrigan.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 10,
+    "name": "Doireann Finn",
+    "position": "Events Officer",
+    "image" : "doireann_finn.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 11,
+    "name": "Brandon Kearney",
+    "position": "Ordinary Committee Member",
+    "image" : "brandon_kearney.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
+  },
+  {
+    "number": 12,
+    "name": "Isabelle Garvey",
+    "position": "Webmaster",
+    "image" : "isabelle_garvey.png",
+    "social1": "",
+    "social2": "",
+    "email": ""
   }
 ]

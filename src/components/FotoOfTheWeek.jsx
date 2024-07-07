@@ -1,5 +1,5 @@
 import React from 'react';
-import fotooftheweek from '../images/fotooftheweek/19-03-2024.png';
+import fotooftheweek from '../images/fotooftheweek/hero_3.png';
 
 const FotoOfTheWeek = () => {
   return (
@@ -13,7 +13,7 @@ const FotoOfTheWeek = () => {
           <img 
             src={fotooftheweek}
             alt="Foto of the Week" 
-            className="rounded-lg w-full h-auto"
+            className="rounded-lg w-full h-auto shadow-md transition-transform duration-300 transform hover:scale-105" 
           />
         </div>
         <div className="mt-6 md:mt-0 md:ml-8 w-full md:w-1/2">
@@ -24,19 +24,20 @@ const FotoOfTheWeek = () => {
           <p className="text-md mb-4 text-black">
             <b>Shot By:</b> Daniel McCarthy
           </p>
+          
           <a 
             href="https://www.instagram.com/danielmc_1604" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="inline-block bg-pink-600 text-white py-2 px-4 mb-4 mr-4 rounded-lg shadow-md hover:bg-pink-700 transition duration-300"
+            className="inline-block bg-pink-600 text-white py-2 px-4 mr-4 my-4 rounded-lg shadow-md hover:bg-pink-700 transition duration-300 hvr-grow"
           >
-            Check out @danielmc_1604 on Instagram
+           <i className="fab fa-instagram"></i> danielmc_1604
           </a>
           <a 
-            href="/gallery/foto-of-the-week" 
+            href="/gallery/foto-of-the-week-winners" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="inline-block bg-purple-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-600 transition duration-300"
+            className="inline-block bg-purple-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-600 transition duration-300 hvr-grow"
           >
             View Previous Winners
           </a>

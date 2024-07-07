@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
+import './css/hover.css';
+import './css/hover.css.map';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar';
@@ -13,6 +15,7 @@ import GalleryExhibition2024 from './components/GalleryExhibition2024';
 import PreviousCommittees from './components/PreviousCommittees';
 import GalleryRemixer2024 from './components/GalleryRemixer2024';
 import Loans from './components/Loans';
+import GalleryFOTW from './components/GalleryFOTW';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -56,6 +59,13 @@ root.render(
         <div>
           <Navbar />
           <GalleryRemixer2024 />
+          <Footer />
+        </div>
+        } />
+        <Route path="/gallery/foto-of-the-week-winners" element={
+        <div>
+          <Navbar />
+          <GalleryFOTW />
           <Footer />
         </div>
         } />

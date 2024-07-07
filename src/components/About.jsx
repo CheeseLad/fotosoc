@@ -14,27 +14,27 @@ const About = () => {
   <ul className="flex space-x-4">
     <li>
       <a href="https://facebook.com/DCUPhotographySociety" aria-label="DCU Fotosoc Facebook" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-facebook text-blue-500 hover:text-blue-700 text-5xl" />
+        <i className="fab fa-facebook text-blue-500 hover:text-blue-700 text-5xl hvr-bob" />
       </a>
     </li>
     <li>
       <a href="https://www.youtube.com/@dcufotosoc3388" aria-label="DCU Fotosoc YouTube" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-youtube text-red-600 hover:text-red-800 text-5xl" />
+        <i className="fab fa-youtube text-red-600 hover:text-red-800 text-5xl hvr-bob" />
       </a>
     </li>
     <li>
       <a href="https://instagram.com/dcufotosoc" aria-label="DCU Fotosoc Instagram" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-instagram text-pink-500 hover:text-pink-700 text-5xl" />
+        <i className="fab fa-instagram text-pink-500 hover:text-pink-700 text-5xl hvr-bob" />
       </a>
     </li>
     <li>
       <a href="https://www.linkedin.com/company/dcufotosoc" aria-label="DCU Fotosoc LinkedIn" target="_blank" rel="noopener noreferrer">
-        <i className="fab fa-linkedin text-blue-600 hover:text-blue-800 text-5xl" />
+        <i className="fab fa-linkedin text-blue-600 hover:text-blue-800 text-5xl hvr-bob" />
       </a>
     </li>
     <li>
       <a href="mailto:webmasterdcufotosoc@gmail.com" aria-label="DCU Fotosoc Email" target="_blank" rel="noopener noreferrer">
-        <i className="fa fa-envelope text-gray-600 hover:text-black- text-5xl" />
+        <i className="fa fa-envelope text-gray-600 hover:text-black- text-5xl hvr-bob" />
       </a>
     </li>
   </ul>

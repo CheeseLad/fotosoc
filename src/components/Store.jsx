@@ -27,7 +27,7 @@ const items = [
   {
     id: 3,
     name: "Connection III: Reflection",
-    description: "We are so excited to share our zine with, there has been so much love, time and effort put into this from all of the amazing photographers featured to those working behind the scenes to put it together!",
+    description: "Check out our latest zine, Connection III: Reflection!",
     sizes: null,
     price: "€10.00",
     image: connection_iii
@@ -35,7 +35,7 @@ const items = [
   {
     id: 4,
     name: "Connection IV: Balance",
-    description: "The moment you’ve all been waiting for: the latest and greatest issue of Connection!! We are all thrilled to announce that orders for our amazing zine are now open! \n\n This years we’ve decided to partner up with “Save Our Sons and Daughters” (SOSAD): an Irish charity which aims to raise awareness for, and help prevent, suicide in Ireland. \n SOSAD offers support and services for those who are struggling with mental health issues such as suicidal ideation, self harming, depression, bereavement, stress, and anxiety, including free counselling and a 24-hour helpline for those in need. \nEach zine costs €10 with proceeds from each and every sale going straight to SOSAD. \nThank you to everyone for all the beautiful submissions, DCU truly does have some amazing talent <3",
+    description: "Check out our latest zine, Connection IV: Balance!",
     sizes: null,
     price: "€10.00",
     image: connection_iv
