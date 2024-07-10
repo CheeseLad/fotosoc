@@ -1,9 +1,15 @@
 FROM node:21-alpine AS build
+
+ARG REACT_APP_STRIPE_PUBLISHABLE_KEY 
+ARG REACT_APP_STRIPE_PRICE_ID 
+
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install
 COPY . ./
-RUN npm run build
+RUN REACT_APP_STRIPE_PUBLISHABLE_KEY =${REACT_APP_STRIPE_PUBLISHABLE_KEY } \ 
+  REACT_APP_STRIPE_PRICE_ID=${REACT_APP_STRIPE_PRICE_ID} \ 
+  npm run build 
 
 FROM nginx:latest as prod
 
