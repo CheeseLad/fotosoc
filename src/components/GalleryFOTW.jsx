@@ -15,11 +15,11 @@ const GalleryFOTW = () => {
       <ReturnGalleryButton />
     </div>
     <div className="flex justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {images2023_2024.map((image, index) => (
           <div
             key={index}
-            className="flex justify-center items-center bg-gray-200"
+            className="flex justify-center items-center bg-gray-200 m-2"
             style={{
               width: "300px",
               height: "300px",
@@ -37,11 +37,11 @@ const GalleryFOTW = () => {
     </div>
     <h2 className="text-3xl font-bold text-center mb-8">Foto of the Week Winners 2022/2023</h2>
     <div className="flex justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {images2022_2023.map((image, index) => (
           <div
             key={index}
-            className="flex justify-center items-center bg-gray-200"
+            className="flex justify-center items-center bg-gray-200 m-2"
             style={{
               width: "300px",
               height: "300px",

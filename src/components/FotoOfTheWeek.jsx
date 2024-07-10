@@ -18,10 +18,10 @@ const FotoOfTheWeek = () => {
         </div>
         <div className="mt-6 md:mt-0 md:ml-8 w-full md:w-1/2">
           <h3 className="text-xl font-bold mb-2 text-black">✨ Foto of the Week ✨</h3>
-          <p className="text-md mb-4 text-black">
+          <p className="text-md mb-2 text-black">
             <b>Caption:</b> Same time tomorrow?
           </p>
-          <p className="text-md mb-4 text-black">
+          <p className="text-md text-black">
             <b>Shot By:</b> Daniel McCarthy
           </p>
           

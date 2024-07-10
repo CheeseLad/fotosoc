@@ -15,11 +15,11 @@ const Gallery = () => {
       <a href='/gallery/foto-of-the-week-winners'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">Foto of the Week Winners</button></a>
     </div>
     <div className="flex justify-center">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {images.map((image, index) => (
           <div
             key={index}
-            className="flex justify-center items-center bg-gray-200"
+            className="flex justify-center items-center bg-gray-200 m-2"
             style={{
               width: "300px",
               height: "300px",

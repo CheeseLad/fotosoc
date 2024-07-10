@@ -1,9 +1,10 @@
 import { loadStripe } from '@stripe/stripe-js';
 
-const stripePublicKey = process.env.STRIPE_PUBLISHABLE_KEY;
+const stripePublicKey = process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY;
 
 let stripePromise;
 const getStripe = () => {
+  console.log(stripePublicKey);
   if (!stripePromise) {
     stripePromise = loadStripe(stripePublicKey);
   }
