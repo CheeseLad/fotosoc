@@ -16,6 +16,11 @@ import PreviousCommittees from './components/PreviousCommittees';
 import GalleryRemixer2024 from './components/GalleryRemixer2024';
 import Loans from './components/Loans';
 import GalleryFOTW from './components/GalleryFOTW';
+import NotFound from './components/NotFound';
+import MemberPortfolio from './components/MemberPortfolio';
+import Contact from './components/Contact';
+import Workshops from './components/Workshops';
+import Linktree from './components/Linktree';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -89,6 +94,41 @@ root.render(
           <h1>Success</h1>
           <Footer />
         </div>
+        } />
+        <Route path="/portfolio/jake-farrell" element={
+          <div>
+            <Navbar />
+            <MemberPortfolio name={"Jake Farrell"} description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec interdum magna. Nam rutrum dignissim sodales. Sed nec ipsum vitae nulla tristique feugiat consequat eget ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque erat ex, dignissim lobortis felis ut, tincidunt faucibus mauris. Duis eleifend, lacus vel mattis pulvinar, lacus augue faucibus quam, euismod facilisis magna orci ut ante. In iaculis magna in dui mollis lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis accumsan vehicula. "} />
+            <Footer />
+          </div>
+        } />
+        <Route path="/contact" element={
+        <div>
+          <Navbar />
+          <Contact />
+          <Footer />
+        </div>
+        } />
+        <Route path="/workshops" element={
+        <div>
+          <Navbar />
+          <Workshops />
+          <Footer />
+        </div>
+        } />
+        <Route path="/links" element={
+        <div>
+          <Navbar />
+          <Linktree />
+          <Footer />
+        </div>
+        } />
+        <Route path="*" element={ 
+          <div>
+            <Navbar />
+            <NotFound />
+            <Footer />
+          </div>
         } />
       </Routes>
     </BrowserRouter>

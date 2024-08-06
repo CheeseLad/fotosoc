@@ -40,10 +40,13 @@ function Navbar() {
         {/* Desktop navigation */}
         <div className="hidden md:flex space-x-12">
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
+          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
+          <a href="/portfolio/jake-farrell" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
           <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
+          <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           <JoinButton />
         </div>
       </nav>
