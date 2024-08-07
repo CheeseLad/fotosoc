@@ -53,11 +53,14 @@ function Navbar() {
       {/* Mobile navigation */}
       <div className={`md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
         <div className="bg-gray-800 flex flex-col items-left pl-5 space-y-4 py-4">
-          <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
+        <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
+          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
+          <a href="/portfolio/jake-farrell" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
           <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
+          <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           <JoinButton />
         </div>
       </div>
