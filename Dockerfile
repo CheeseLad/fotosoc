@@ -1,10 +1,10 @@
 # build environment
 FROM node:21-alpine AS build
 WORKDIR /app
-COPY package.json yarn.lock .env ./
-RUN yarn install --frozen-lockfile
+COPY package.json package-lock.json .env ./
+RUN npm install
 COPY . .
-RUN yarn build
+RUN npm run build
 
 # production environment
 FROM nginx:stable-alpine
