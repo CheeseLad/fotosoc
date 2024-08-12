@@ -1,6 +1,5 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-//import axios from 'axios';
 import previousCommitteeData from '../data/previous_committees.json';
 
 
@@ -9,9 +8,6 @@ const PreviousCommittees = () => {
   const [previousCommittee, setPreviousCommittee] = useState([]);
 
     useEffect(() => {
-      //axios.get('http://localhost:3001/get-previous-committee')
-      //  .then(response => setPreviousCommittee(response.data))
-      //  .catch(err => console.log(err));
       setPreviousCommittee(previousCommitteeData);
     }, []);
 
@@ -21,7 +17,7 @@ const PreviousCommittees = () => {
   <p className="text-lg px-10 text-center">Meet the committees who ran DCU Fotosoc over the years!</p>
   <p className="text-lg px-10 text-center">If you were previously on the committee and are not on this list, please contact <a className="hover:underline" href="mailto:webmasterdcufotosoc@gmail.com">webmasterdcufotosoc@gmail.com</a></p>
   {previousCommittee.map((committee, index) => (
-    <div key={index} className="bg-white rounded-lg shadow-xl p-6 mt-10 mx-10 md:min-w-[500px] sm:min-w-[400px]"> {/* Added min-w-[300px] */}
+    <div key={index} className="bg-white rounded-lg shadow-xl p-6 mt-10 mx-10 md:min-w-[500px] sm:min-w-[400px]">
       <h3 className="text-xl font-bold mb-2 text-black text-center">Committee {committee.year}</h3>
       <ul className='text-black'>
         {committee.members.map((member, idx) => (

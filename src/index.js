@@ -21,6 +21,13 @@ import MemberPortfolio from './components/MemberPortfolio';
 import Contact from './components/Contact';
 import Workshops from './components/Workshops';
 import Linktree from './components/Linktree';
+import AddMemberPortfolioForm from './components/AddMemberPortfolioForm';
+import Register from './components/user/Register';
+import Login from './components/user/Login';
+import ResetPassword from './components/user/ResetPassword';
+import AdminGalleryForm from './components/user/AdminGalleryForm';
+import MemberGallery from './components/user/AdminGallery';
+import GalleryHomepage from './components/gallery/GalleryHomepage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -49,7 +56,7 @@ root.render(
         <Route path="/gallery" element={
         <div>
           <Navbar />
-          <Gallery title="Gallery" path="../images/gallery" />
+          <GalleryHomepage />
           <Footer />
         </div>
         } />
@@ -95,10 +102,17 @@ root.render(
           <Footer />
         </div>
         } />
-        <Route path="/portfolio/jake-farrell" element={
+        <Route path="/portfolio/:portfolioLink" element={
           <div>
             <Navbar />
-            <MemberPortfolio name={"Jake Farrell"} description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec interdum magna. Nam rutrum dignissim sodales. Sed nec ipsum vitae nulla tristique feugiat consequat eget ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Quisque erat ex, dignissim lobortis felis ut, tincidunt faucibus mauris. Duis eleifend, lacus vel mattis pulvinar, lacus augue faucibus quam, euismod facilisis magna orci ut ante. In iaculis magna in dui mollis lobortis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi convallis accumsan vehicula. "} />
+            <MemberPortfolio />
+            <Footer />
+          </div>
+        } />
+        <Route path="/gallery/:portfolioLink" element={
+          <div>
+            <Navbar />
+            <MemberGallery />
             <Footer />
           </div>
         } />
@@ -130,6 +144,35 @@ root.render(
             <Footer />
           </div>
         } />
+        <Route path="/create-portfolio" element={
+          <div>
+            <Navbar />
+            <AddMemberPortfolioForm />
+            <Footer />
+          </div>
+        } />
+        <Route path="/create-gallery" element={
+          <div>
+            <Navbar />
+            <AdminGalleryForm />
+            <Footer />
+          </div>
+        } />
+        <Route path="/register" element={          <div>
+            <Navbar />
+            <Register />
+            <Footer />
+          </div>} />
+        <Route path="/login" element={<div>
+            <Navbar />
+            <Login />
+            <Footer />
+          </div>} />
+        <Route path="/reset-password" element={<div>
+            <Navbar />
+            <ResetPassword />
+            <Footer />
+          </div>} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
