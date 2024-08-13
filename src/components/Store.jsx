@@ -5,7 +5,7 @@ import hoodies from '../images/store/hoodies.png';
 import tote_bag from '../images/store/tote-bag.png';
 import getStripe from '../scripts/getStripe';
 
-const stripePriceID = process.env.REACT_APP_STRIPE_PRICE_ID;
+const stripePriceID = process.env.REACT_APP_STRIPE_PRICE_ID || window._env_.REACT_APP_STRIPE_PRICE_ID;
 
 const items = [
   {

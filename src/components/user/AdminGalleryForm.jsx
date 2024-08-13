@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
-const ALLOWED_USER_ID = "process.env.REACT_APP_ADMIN_USER_ID"; 
+const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID || window._env_.REACT_APP_ADMIN_USER_ID; 
 
 const AddGalleryPageForm = () => {
   const [galleryInfo, setGalleryInfo] = useState({
