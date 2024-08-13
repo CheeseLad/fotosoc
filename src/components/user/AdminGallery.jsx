@@ -2,9 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; 
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase'; 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedinIn, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Gallery from '../Gallery'; 
 
 const MemberGallery = () => {
@@ -52,13 +49,6 @@ const MemberGallery = () => {
       <Gallery galleries={gallery.galleries} />
     </div>
   );
-};
-
-
-const socialIcons = {
-  instagram: faInstagram,
-  linkedin: faLinkedinIn,
-  email: faEnvelope,
 };
 
 export default MemberGallery;

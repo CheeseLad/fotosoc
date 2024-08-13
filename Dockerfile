@@ -1,23 +1,27 @@
-# build environment
-FROM node:21-alpine AS build
+# Use an official Node.js runtime as a parent image
+FROM node:21 AS build
+
+# Set the working directory
 WORKDIR /app
-COPY package.json package-lock.json .env ./
+
+# Install dependencies
+COPY package*.json ./
 RUN npm install
+
+# Copy the rest of the application code
 COPY . .
+
+# Build the React app
 RUN npm run build
 
-# production environment
-FROM nginx:stable-alpine
-RUN apk add --update nodejs npm
-COPY --from=build /app/nginx.conf /etc/nginx/conf.d/default.conf    
-COPY --from=build /app/node_modules/cra-envs/package.json ./cra-envs-package.json
-RUN npm i -g cra-envs@`node -e 'console.log(require("./cra-envs-package.json")["version"])'`
-WORKDIR /usr/share/nginx
-COPY --from=build /app/build ./html
-# Needed for knowing what envs we are allowed to inject (an applying the correct defaults)
-COPY --from=build /app/.env .
-# (optional) For being able to deduce the %PUBLIC_URL% from the "homepage" field.
-COPY --from=build /app/package.json .
-# (optional) For being able to re-render the public/index.html file that is infact an .ejs file.
-COPY --from=build /app/public/index.html ./public/
-ENTRYPOINT sh -c "npx embed-environnement-variables && nginx -g 'daemon off;'"
+# Use a lightweight web server for serving the React app
+FROM nginx:alpine
+
+# Copy the build files from the previous stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
