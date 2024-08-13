@@ -7,6 +7,9 @@ build
 # Logs
 *.log
 
+# env files
+.env
+
 # OS-specific files
 .DS_Store
 Thumbs.db
