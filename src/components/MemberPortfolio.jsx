@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Gallery from './Gallery';
+import logo from '../images/logo/logo.png'; // assuming you have a default logo image
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -50,35 +51,48 @@ const MemberPortfolio = () => {
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
       <h2 className="text-3xl font-bold text-center mb-8">Member Portfolio: {portfolio.name}</h2>
 
-      <div className="max-w-5xl w-full bg-white rounded-lg shadow-xl p-6 grid gap-4 grid-cols-1 md:grid-cols-2">
-        <div className="flex flex-col items-center md:items-start">
-          <img
-            src={portfolio.profileImage || 'default-image.png'}
-            alt={portfolio.name}
-            className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105 mb-4 aspect-square"
-          />
-          <div className="flex justify-center mb-4">
-            {portfolio.socialButtons.map((button, index) => (
-              <a
-                key={index}
-                href={button.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mx-2 hvr-bob"
-              >
-                <FontAwesomeIcon
-                  icon={socialIcons[button.platform]}
-                  className="text-3xl text-blue-600"
-                />
-              </a>
-            ))}
+      {/* Outer White Box */}
+      <div className="max-w-5xl w-full bg-white rounded-lg shadow-2xl p-6 m-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+          
+          {/* Light Blue Box (Left Column) */}
+          <div className="flex flex-col items-center bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg p-6 shadow-md">
+            <div className="flex items-center justify-center mb-4">
+              <img
+                src={portfolio.profileImage || logo}
+                alt={portfolio.name}
+                className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105"
+              />
+            </div>
+            <div className="text-center">
+              <h3 className="text-3xl font-semibold">{portfolio.name}</h3>
+              <p className="text-xl italic">{portfolio.position || "Member"}</p>
+              <div className="flex justify-center mt-4">
+                {portfolio.socialButtons.map((button, index) => (
+                  <a
+                    key={index}
+                    href={button.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mx-4 hvr-bob"
+                  >
+                    <FontAwesomeIcon
+                      icon={socialIcons[button.platform]}
+                      className="text-4xl text-white"
+                    />
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className="flex flex-auto">
-          <p className="text-lg text-black">
-            {portfolio.bio}
-          </p>
+          {/* Bio Text (Right Column) */}
+          <div className="flex items-center">
+            <div className="text-lg text-black p-4">
+              <p>{portfolio.bio}</p>
+            </div>
+          </div>
+
         </div>
       </div>
 
