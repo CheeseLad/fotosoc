@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const Workshops = () => {
-  // Array of presentation URLs
   const presentationUrls = [
-    'https://drive.google.com/file/d/1kxtmNjMrZSQsU8akMax9RirwO7q-RhwE/preview', // Replace with actual URLs
-    'https://drive.google.com/file/d/1nE_8a7vfo1doiVspHBEAG5R90OwHcU-t/preview', // Add more URLs as needed
-    // Add more URLs here
+    "https://drive.google.com/file/d/1kxtmNjMrZSQsU8akMax9RirwO7q-RhwE/preview",
+    "https://drive.google.com/file/d/1zjaZoUlE3uCooeTgu5o7mxop4vZMDDnh/preview",
+    "https://drive.google.com/file/d/1wtT3g9z5TdRej5IEBDEXSqJtRMahFTu-/preview",
   ];
 
-  // State to manage the current URL index
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Function to go to the next URL
   const goToNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % presentationUrls.length);
   };
 
-  // Function to go to the previous URL
   const goToPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + presentationUrls.length) % presentationUrls.length);
+    setCurrentIndex(
+      (prevIndex) =>
+        (prevIndex - 1 + presentationUrls.length) % presentationUrls.length
+    );
   };
 
   return (
@@ -31,8 +30,8 @@ const Workshops = () => {
         <div className="flex-1 flex flex-col items-center justify-center">
           <iframe
             src={presentationUrls[currentIndex]}
-            width="80%" // Adjust width as needed
-            height="600" // Adjust height as needed
+            width="80%"
+            height="600" 
             frameBorder="0"
             allow="autoplay"
             title="Workshops Presentation"
