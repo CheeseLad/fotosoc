@@ -24,14 +24,14 @@ const Workshops = () => {
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-blue-900 to-blue-600 text-white">
       <div className="flex flex-col flex-1">
         <h2 className="text-3xl font-bold text-center mt-8 mb-4">Workshops</h2>
-        <p className="text-lg mb-4 px-2 text-center">
+        <p className="text-lg px-2 text-center">
           View the PowerPoint presentations for the workshops below.
         </p>
         <div className="flex-1 flex flex-col items-center justify-center">
           <iframe
             src={presentationUrls[currentIndex]}
             width="80%"
-            height="600" 
+            height="600"  
             frameBorder="0"
             allow="autoplay"
             title="Workshops Presentation"
@@ -41,13 +41,13 @@ const Workshops = () => {
           <div className="mt-4 flex space-x-4">
             <button
               onClick={goToPrevious}
-              className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700"
+              className="px-4 py-2 bg-purple-500 text-white my-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow"
             >
               Previous
             </button>
             <button
               onClick={goToNext}
-              className="px-4 py-2 bg-blue-800 text-white rounded hover:bg-blue-700"
+              className="px-4 py-2 bg-purple-500 text-white my-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow"
             >
               Next
             </button>

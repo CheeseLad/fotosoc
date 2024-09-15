@@ -1,5 +1,5 @@
 import React from 'react';
-import fotooftheweek from '../images/fotooftheweek/hero_3.png';
+import fotooftheweek from '../../images/fotooftheweek/hero_3.png';
 
 const FotoOfTheWeek = () => {
   return (
@@ -34,7 +34,7 @@ const FotoOfTheWeek = () => {
            <i className="fab fa-instagram"></i> danielmc_1604
           </a>
           <a 
-            href="/gallery/foto-of-the-week-winners" 
+            href="/gallery/foto-of-the-week" 
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline-block bg-purple-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-600 transition duration-300 hvr-grow"

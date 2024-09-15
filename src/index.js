@@ -24,6 +24,7 @@ import ResetPassword from "./components/user/ResetPassword";
 import AdminGalleryForm from "./components/user/AdminGalleryForm";
 import MemberGallery from "./components/user/AdminGallery";
 import GalleryHomepage from "./components/gallery/GalleryHomepage";
+import MemberPortfoliosGrid from "./components/portfolio/MemberPortfolioGrid";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -99,11 +100,21 @@ root.render(
           }
         />
         <Route
-          path="/portfolio/:portfolioLink"
+          path="/portfolios/:portfolioLink"
           element={
             <div>
               <Navbar />
               <MemberPortfolio />
+              <Footer />
+            </div>
+          }
+        />
+                <Route
+          path="/portfolios"
+          element={
+            <div>
+              <Navbar />
+              <MemberPortfoliosGrid />
               <Footer />
             </div>
           }

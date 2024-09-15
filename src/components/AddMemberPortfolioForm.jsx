@@ -140,7 +140,7 @@ const AddMemberPortfolioForm = () => {
       });
 
       alert(
-        `Member portfolio added successfully! Share your link: /portfolio/${memberInfo.portfolioLink}`
+        `Member portfolio added successfully! Share your link: /portfolios/${memberInfo.portfolioLink}`
       );
       setMemberInfo({
         name: "",

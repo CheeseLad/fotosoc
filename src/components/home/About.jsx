@@ -1,5 +1,5 @@
 import React from 'react';
-import YouTubePlayer from './YouTubePlayer';
+import YouTubePlayer from '../YouTubePlayer';
 
 const About = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
-import fotocrawl from '../images/whatwedo/fotocrawl.png'
-import workshop from '../images/whatwedo/workshop.png'
-import fototrip from '../images/whatwedo/fototrip.png'
+import fotocrawl from '../../images/whatwedo/fotocrawl.png'
+import workshop from '../../images/whatwedo/workshop.png'
+import fototrip from '../../images/whatwedo/fototrip.png'
 
 const whatWeDo = [
   { id: 1,

@@ -13,9 +13,6 @@ function Modal({ title, content, closeModal }) {
         <hr className="border-t border-gray-300 mb-4" />
         <p>{content}</p>
         <hr className="border-t border-gray-300 mt-4 mb-4" />
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors" onClick={closeModal}>
-          Close
-        </button>
       </div>
     </div>
   );

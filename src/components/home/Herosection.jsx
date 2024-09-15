@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import hero_1 from '../images/hero/hero_1.png';
-import hero_2 from '../images/hero/hero_2.png';
-import hero_3 from '../images/hero/hero_3.png';
-import hero_4 from '../images/hero/hero_4.png';
-import hero_5 from '../images/hero/hero_5.png';
-import hero_6 from '../images/hero/hero_6.png';
-import JoinButton from './Joinbutton';
+import hero_1 from '../../images/hero/hero_1.png';
+import hero_2 from '../../images/hero/hero_2.png';
+import hero_3 from '../../images/hero/hero_3.png';
+import hero_4 from '../../images/hero/hero_4.png';
+import hero_5 from '../../images/hero/hero_5.png';
+import hero_6 from '../../images/hero/hero_6.png';
+import JoinButton from '../Joinbutton';
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
