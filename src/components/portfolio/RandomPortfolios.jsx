@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { db } from '../../firebase';
 import logo from '../../images/logo/logo.png';
 
-const MemberPortfoliosGrid = () => {
+const RandomPortfolios = () => {
   const [portfolios, setPortfolios] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [randomPortfolios, setRandomPortfolios] = useState([]);
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -19,46 +19,34 @@ const MemberPortfoliosGrid = () => {
           id: doc.id,
           ...doc.data()
         }));
-
-        portfolioData.sort((a, b) => {
-          const nameA = a.name.toLowerCase();
-          const nameB = b.name.toLowerCase();
-          if (nameA < nameB) {
-            return -1;
-          }
-          if (nameA > nameB) {
-            return 1;
-          }
-          return 0;
-        });
-
+        
         setPortfolios(portfolioData);
       } catch (error) {
         console.error('Error fetching portfolios: ', error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchPortfolios();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (portfolios.length > 0) {
+      const randomIndexes = new Set();
+
+      while (randomIndexes.size < 3) {
+        randomIndexes.add(Math.floor(Math.random() * portfolios.length));
+      }
+
+      setRandomPortfolios([...randomIndexes].map(index => portfolios[index]));
+    }
+  }, [portfolios]);
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-600 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-white text-center mb-8">
-          Member Portfolios
-        </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {portfolios.map((portfolio) => (
+    <div className="bg-white rounded-lg shadow-md p-6">
+          <div className="container mx-auto py-12">
+      <h2 className="text-2xl font-bold mb-4 text-center">Featured Portfolios</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {randomPortfolios.map((portfolio) => (
             <Link
               to={`/portfolios/${portfolio.portfolioLink}`}
               key={portfolio.id}
@@ -82,11 +70,20 @@ const MemberPortfoliosGrid = () => {
                 </div>
               </div>
             </Link>
-          ))}
-        </div>
+        ))}
       </div>
+      
+      <div className="p-4 text-center">
+                <a
+                  href="/portfolios"
+                  className="inline-block bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition-colors"
+                >
+                  View All Portfolios
+                </a>
+              </div>
+    </div>
     </div>
   );
 };
 
-export default MemberPortfoliosGrid;
+export default RandomPortfolios;

@@ -1,7 +1,7 @@
 import HeroSection from './components/home/Herosection';
-import Navbar from './components/Navbar';
+import Navbar from './components/navigation/Navbar';
 import EventSection from './components/home/Eventsection';
-import Footer from './components/Footer';
+import Footer from './components/navigation/Footer';
 import '@fortawesome/fontawesome-free/css/all.css';
 import About from './components/home/About';
 import FotoOfTheWeek from './components/home/FotoOfTheWeek';
@@ -9,6 +9,7 @@ import WhatOurMembersSay from './components/home/WhatOurMembersSay';
 import WhatWeDo from './components/home/WhatWeDo';
 import Stats from './components/home/Stats';
 import ContinuousScrollZoom from './components/home/ContinuousScrollZoom';
+import RandomPortfolios from './components/portfolio/RandomPortfolios';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Navbar />
       <HeroSection />
       <EventSection />
+      <RandomPortfolios />
       <About />
       <WhatOurMembersSay />
       <FotoOfTheWeek />

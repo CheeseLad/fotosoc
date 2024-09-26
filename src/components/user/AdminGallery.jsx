@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom'; 
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase'; 
-import Gallery from '../Gallery'; 
+import Gallery from '../gallery/Gallery'; 
 
 const MemberGallery = () => {
   const { portfolioLink } = useParams(); 

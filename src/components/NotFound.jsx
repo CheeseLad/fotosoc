@@ -12,7 +12,7 @@ const NotFound = () => {
           link and try again.
         </p>
         <div className="flex justify-center items-center mt-8">
-          <a href="/gallery/foto-of-the-week-winners">
+          <a href="/">
             <button className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">
               Return Home
             </button>

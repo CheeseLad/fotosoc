@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal";
+import logo_border from "../../images/logo/logo_border.png";
 import { redirect } from "react-router-dom";
 
 function EventSection() {
@@ -7,7 +8,7 @@ function EventSection() {
 
   useEffect(() => {
     fetch(
-      "https://clubsandsocs.jakefarrell.ie/dcuclubsandsocs.ie/society/connected-dcu/events"
+      "https://clubsandsocs.jakefarrell.ie/dcuclubsandsocs.ie/society/fotosoc/events"
     )
       .then((response) => response.json())
       .then((data) => setData(data));
@@ -37,7 +38,7 @@ function EventSection() {
                   <h2 className="text-xl font-bold mb-2">{event.name}</h2>
                   <div className="my-4">
                   <img
-                    src={event.image}
+                    src={event.image || logo_border}
                     alt={`${event.name} event`}
                     className="w-full h-96 object-cover rounded-lg transition-transform duration-300 transform hover:scale-105"
                   />

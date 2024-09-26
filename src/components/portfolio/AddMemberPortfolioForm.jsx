@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { db, storage } from "../firebase";
+import { db, storage } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedinIn, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import { faPlus, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faLinkedinIn, faInstagram, faFacebookF, faTwitter, faGithub, faYoutube, faTiktok, faSnapchatGhost } from "@fortawesome/free-brands-svg-icons";
+import { faPlus, faEnvelope, faTrash, faGlobe, faLink } from "@fortawesome/free-solid-svg-icons";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   collection,
@@ -12,11 +12,42 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 
+import Select from 'react-select';
+
 const socialIcons = {
   instagram: faInstagram,
   linkedin: faLinkedinIn,
   email: faEnvelope,
+  facebook: faFacebookF,
+  twitter: faTwitter,
+  github: faGithub,
+  youtube: faYoutube,
+  tiktok: faTiktok,
+  snapchat: faSnapchatGhost,
+  website: faGlobe,
+  link: faLink,
 };
+
+const socialOptions = Object.keys(socialIcons).map((key) => ({
+  value: key,
+  label: (
+    <div className="flex items-center justify-center">
+      <FontAwesomeIcon icon={socialIcons[key]} className="text-black" />
+    </div>
+  ),
+}));
+
+
+const slugify = (text) => {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/[^\w\-]+/g, '')
+    .replace(/\-\-+/g, '-');
+};
+
 
 const AddMemberPortfolioForm = () => {
   const [memberInfo, setMemberInfo] = useState({
@@ -77,6 +108,11 @@ const AddMemberPortfolioForm = () => {
     });
   };
 
+  const removeGallery = (index) => {
+    const newGalleries = memberInfo.galleries.filter((_, i) => i !== index);
+    setMemberInfo({ ...memberInfo, galleries: newGalleries });
+  };
+
   const uploadImages = async (gallery, galleryIndex) => {
     const imageUrls = [];
     const uploadPromises = gallery.images.map(async (image) => {
@@ -105,7 +141,9 @@ const AddMemberPortfolioForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const linkExists = await checkLinkExists(memberInfo.portfolioLink);
+    const slugifiedLink = slugify(memberInfo.portfolioLink);
+
+    const linkExists = await checkLinkExists(slugifiedLink);
 
     if (linkExists) {
       alert(
@@ -134,7 +172,7 @@ const AddMemberPortfolioForm = () => {
         bio: memberInfo.bio,
         socialButtons: memberInfo.socialButtons,
         galleries: galleriesWithUrls,
-        portfolioLink: memberInfo.portfolioLink,
+        portfolioLink: slugifiedLink,
         profileImage: memberInfo.profileImage || "",
         createdAt: serverTimestamp(),
       });
@@ -180,7 +218,7 @@ const AddMemberPortfolioForm = () => {
       </h2>
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg mx-auto p-4 bg-white shadow-md rounded"
+        className="max-w-2xl mx-auto p-6 bg-white shadow-md rounded"
       >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -191,6 +229,7 @@ const AddMemberPortfolioForm = () => {
             name="portfolioLink"
             value={memberInfo.portfolioLink}
             onChange={handleChange}
+            placeholder="jake-farrell"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -204,6 +243,7 @@ const AddMemberPortfolioForm = () => {
             name="name"
             value={memberInfo.name}
             onChange={handleChange}
+            placeholder="Jake Farrell"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -216,6 +256,7 @@ const AddMemberPortfolioForm = () => {
             name="bio"
             value={memberInfo.bio}
             onChange={handleChange}
+            placeholder="I'm a photographer based in Dublin."
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             required
           />
@@ -233,39 +274,39 @@ const AddMemberPortfolioForm = () => {
           />
         </div>
         {memberInfo.socialButtons.map((button, index) => (
-          <div key={index} className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">{`Social ${index + 1
-              }:`}</label>
-            <div className="flex items-center">
-              <select
-                name="platform"
-                value={button.platform}
-                onChange={(e) => handleSocialButtonChange(index, e)}
-                className="shadow appearance-none border rounded w-1/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              >
-                {Object.keys(socialIcons).map((key) => (
-                  <option key={key} value={key}>
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="text"
-                name="url"
-                value={button.url}
-                onChange={(e) => handleSocialButtonChange(index, e)}
-                className="shadow appearance-none border rounded w-3/4 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
-                placeholder="URL"
-              />
-              <div className="ml-2 text-2xl">
-                <FontAwesomeIcon icon={socialIcons[button.platform]} />
-              </div>
-            </div>
-          </div>
-        ))}
+  <div key={index} className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">{`Social Link ${index + 1}:`}</label>
+    <div className="flex items-center">
+      {/* Use react-select for the dropdown */}
+      <div className="w-1/4">
+        <Select
+          options={socialOptions}
+          value={socialOptions.find(option => option.value === button.platform)}
+          onChange={(selectedOption) => handleSocialButtonChange(index, { target: { name: 'platform', value: selectedOption.value } })}
+        />
+      </div>
+
+      {/* Input for the URL */}
+      <input
+        type="text"
+        name="url"
+        value={button.url}
+        onChange={(e) => handleSocialButtonChange(index, e)}
+        className="shadow appearance-none border rounded w-3/4 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ml-2"
+        placeholder="Link"
+      />
+
+      {/* Render the icon next to the input field */}
+      <div className="ml-2 text-2xl">
+        <FontAwesomeIcon icon={socialIcons[button.platform]} />
+      </div>
+    </div>
+  </div>
+))}
+
         {memberInfo.galleries.map((gallery, index) => (
           <div key={index} className="mb-4">
-            <h3 className="text-lg font-bold mb-2">Gallery {index + 1}</h3>
+            <h3 className="text-lg font-bold mb-2 text-gray-700 ">Gallery {index + 1}</h3>
             <div className="mb-2">
               <label className="block text-gray-700 text-sm font-bold mb-2">
                 Title:
@@ -275,6 +316,7 @@ const AddMemberPortfolioForm = () => {
                 name="title"
                 value={gallery.title}
                 onChange={(e) => handleGalleryChange(index, e)}
+                placeholder="Fotosoc Mixer Event"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
               />
@@ -291,6 +333,13 @@ const AddMemberPortfolioForm = () => {
                 required
               />
             </div>
+            <button
+              type="button"
+              onClick={() => removeGallery(index)}
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded focus:outline-none focus:shadow-outline"
+            >
+              <FontAwesomeIcon icon={faTrash} /> Remove Gallery
+            </button>
           </div>
         ))}
         <button

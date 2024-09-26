@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import logo from '../images/logo/logo.png';
-import JoinButton from './Joinbutton';
+import logo from '../../images/logo/logo.png';
+import JoinButton from './../Joinbutton';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,13 +18,11 @@ function Navbar() {
   return (
     <div>
       <nav className="bg-gray-800 p-4 flex justify-between items-center relative">
-        {/* Logo and brand name */}
         <div className="flex items-center">
           <a href="/"><img src={logo} width="100px" height="100px" alt="Logo" className="w-12 h-auto" /></a>
           <a href="/"><span className="text-white text-lg font-semibold ml-2">DCU Fotosoc</span></a>
         </div>
         
-        {/* Mobile menu button */}
         <div className="block md:hidden">
           <button
             onClick={toggleMenu}
@@ -47,18 +45,16 @@ function Navbar() {
           </button>
         </div>
         
-        {/* Desktop navigation */}
         <div className="hidden md:flex space-x-12">
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
-          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
+          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
           <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
           <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           
-          {/* Improved Account dropdown */}
           <div className="relative">
             <button
               onClick={toggleAccountMenu}
@@ -69,31 +65,29 @@ function Navbar() {
             </button>
             {accountMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create Gallery</a>
+                {/* <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create Gallery</a> */}
                 <a href="/create-portfolio" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create Portfolio</a>
                 <a href="/register" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Register</a>
                 <a href="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
-                <a href="/reset-password" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a>
+                {/* <a href="/reset-password" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a> */}
               </div>
             )}
           </div>
           <JoinButton />
         </div>
       </nav>
-      
-      {/* Mobile menu */}
+
       <div className={`md:hidden ${menuOpen ? 'block' : 'hidden'}`}>
         <div className="bg-gray-800 flex flex-col items-left pl-5 space-y-4 py-4 relative">
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
-          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
+          <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
           <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
           <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           
-          {/* Improved mobile Account dropdown */}
           <div className="relative mt-4">
             <button
               onClick={toggleAccountMenu}

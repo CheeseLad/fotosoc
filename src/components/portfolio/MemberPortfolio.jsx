@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../firebase';
+import { db } from '../../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import Gallery from './Gallery';
-import logo from '../images/logo/logo.png';
+import Gallery from '../gallery/Gallery';
+import logo from '../../images/logo/logo.png';
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
