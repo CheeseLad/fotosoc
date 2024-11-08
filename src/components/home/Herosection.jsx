@@ -33,7 +33,7 @@ function HeroSection() {
             <div>
               <JoinButton />
               <a href='/gallery' ><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">View Gallery</button></a>
-              <a href='/links' ><button className="bg-orange-400 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-500/50 hvr-grow">View Linktree</button></a>
+              <a href='/links' ><button className="bg-orange-400 text-white px-4 py-2 mr-4 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-500/50 hvr-grow">View Linktree</button></a>
             </div>
           </div>
         </div>

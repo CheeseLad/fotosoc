@@ -49,7 +49,7 @@ const Stats = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
       <h2 className="text-2xl font-bold text-center mb-6">Fotostats</h2>
-      <div className="flex flex-row justify-center items-center space-x-4">
+      <div className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-x-4 sm:space-y-0">
         <StatBox icon={Camera} label="Photos Taken" endValue={5000} />
         <StatBox icon={Users} label="Active Members" endValue={1000} />
         <StatBox icon={Image} label="Gallery Uploads" endValue={10000} />
