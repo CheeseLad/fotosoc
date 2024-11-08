@@ -5,7 +5,6 @@ import Footer from './components/navigation/Footer';
 import '@fortawesome/fontawesome-free/css/all.css';
 import About from './components/home/About';
 import FotoOfTheWeek from './components/home/FotoOfTheWeek';
-import WhatOurMembersSay from './components/home/WhatOurMembersSay';
 import WhatWeDo from './components/home/WhatWeDo';
 import Stats from './components/home/Stats';
 import ContinuousScrollZoom from './components/home/ContinuousScrollZoom';
@@ -17,9 +16,8 @@ function App() {
       <Navbar />
       <HeroSection />
       <EventSection />
-      <RandomPortfolios />
       <About />
-      <WhatOurMembersSay />
+      <RandomPortfolios />
       <FotoOfTheWeek />
       <WhatWeDo />
       <Stats />

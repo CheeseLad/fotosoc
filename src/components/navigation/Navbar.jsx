@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import logo from '../../images/logo/logo.png';
 import JoinButton from './../Joinbutton';
 
 function Navbar() {
@@ -19,7 +18,7 @@ function Navbar() {
     <div>
       <nav className="bg-gray-800 p-4 flex justify-between items-center relative">
         <div className="flex items-center">
-          <a href="/"><img src={logo} width="100px" height="100px" alt="Logo" className="w-12 h-auto" /></a>
+          <a href="/"><img src="/fotosoc_logo.png" width="100px" height="100px" alt="Logo" className="w-12 h-auto" /></a>
           <a href="/"><span className="text-white text-lg font-semibold ml-2">DCU Fotosoc</span></a>
         </div>
         
@@ -49,10 +48,11 @@ function Navbar() {
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
-          <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
-          <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
+          {/*<a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>*/}
+          {/*<a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>*/}
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
+          <a href="/links" className="text-white text-2xl hover:text-gray-300">Links</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           
           <div className="relative">
@@ -83,9 +83,10 @@ function Navbar() {
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
           <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
-          <a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>
+          {/*<a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>*/}
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
+          <a href="/links" className="text-white text-2xl hover:text-gray-300">Links</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
           
           <div className="relative mt-4">

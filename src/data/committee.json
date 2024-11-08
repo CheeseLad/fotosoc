@@ -1,110 +1,128 @@
 [
   {
     "number": 1,
-    "name": "Cian Hanlon",
+    "name": "Jack Conlon",
     "position": "Chairperson",
-    "image" : "cian_hanlon.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
     "email": "chair@dcufotosoc.ie"
   },
   {
     "number": 2,
-    "name": "Jack Conlon",
+    "name": "Robert Danca",
     "position": "Vice Chairperson",
-    "image" : "jack_conlon.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
     "email": "vicechair@dcufotosoc.ie"
   },
   {
     "number": 3,
-    "name": "Joy Ruane",
+    "name": "Pele Ashley",
     "position": "Secretary",
-    "image" : "joy_ruane.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
     "email": "secretary@dcufotosoc.ie"
   },
   {
     "number": 4,
-    "name": "Keelin Mc Evoy",
+    "name": "Gavin Reilly",
     "position": "Treasurer",
-    "image" : "keelin_mc_evoy.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "treasurer@dcufotosoc.ie"
   },
   {
     "number": 5,
-    "name": "Aine Purcell",
+    "name": "Naoise Duffy",
     "position": "Public Relations Officer",
-    "image" : "aine_purcell.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "pro@dcufotosoc.ie"
   }, 
   {
     "number": 6,
-    "name": "Harry Gerrard Caffrey",
-    "position": "Assistant Events",
-    "image" : "harry_gerrard_caffrey.png",
+    "name": "Anna Brammer",
+    "position": "Brand Design Officer",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
-  },
+    "email": "bdo@dcufotosoc.ie"
+  }, 
   {
     "number": 7,
-    "name": "Laura Maguire",
-    "position": "Brand Design Officer",
-    "image" : "laura_maguire.png",
+    "name": "Christopher Darby",
+    "position": "Curations Officer",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "curations@dcufotosoc.ie"
   },
   {
     "number": 8,
     "name": "Liam O Keeffe",
-    "position": "Curation Officer",
-    "image" : "liam_o_keeffe.png",
+    "position": "Equipment Officer",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "equipment@dcufotosoc.ie"
   },
   {
     "number": 9,
-    "name": "Thomas Carrigan",
-    "position": "Equipment Officer",
-    "image" : "thomas_carrigan.png",
+    "name": "Deborah Bakre",
+    "position": "Events Officer",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "events@dcufotosoc.ie"
   },
   {
     "number": 10,
-    "name": "Doireann Finn",
+    "name": "Harry Greenwood",
     "position": "Events Officer",
-    "image" : "doireann_finn.png",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "events@dcufotosoc.ie"
   },
   {
     "number": 11,
-    "name": "Brandon Kearney",
-    "position": "Ordinary Committee Member",
-    "image" : "brandon_kearney.png",
+    "name": "Ciara Elton",
+    "position": "First Year Rep",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "fyr@dcufotosoc.ie"
   },
   {
     "number": 12,
-    "name": "Jake Farrell",
-    "position": "Webmaster",
-    "image" : "jake_farrell.png",
+    "name": "Aisling Keenan",
+    "position": "Ordinary Committee Member",
+    "image" : "/fotosoc_logo.png",
     "social1": "",
     "social2": "",
-    "email": ""
+    "email": "ocm@dcufotosoc.ie"
+  },
+  {
+    "number": 13,
+    "name": "Milos Girard",
+    "position": "Ordinary Committee Member",
+    "image" : "/fotosoc_logo.png",
+    "social1": "",
+    "social2": "",
+    "email": "ocm@dcufotosoc.ie"
+  },
+  {
+    "number": 14,
+    "name": "Jake Farrell",
+    "position": "Webmaster",
+    "image" : "/committee/jake_farrell.png",
+    "social1": "",
+    "social2": "",
+    "email": "webmaster@dcufotosoc.ie"
   }
 ]

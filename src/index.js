@@ -69,7 +69,7 @@ root.render(
             </div>
           }
         />
-        <Route
+        {/*<Route
           path="/store"
           element={
             <div>
@@ -88,7 +88,7 @@ root.render(
               <Footer />
             </div>
           }
-        />
+        /> 
         <Route
           path="/success"
           element={
@@ -98,7 +98,7 @@ root.render(
               <Footer />
             </div>
           }
-        />
+        />//*/}
         <Route
           path="/portfolios/:portfolioLink"
           element={

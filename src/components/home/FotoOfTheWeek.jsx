@@ -1,5 +1,4 @@
 import React from 'react';
-import fotooftheweek from '../../images/fotooftheweek/hero_3.png';
 
 const FotoOfTheWeek = () => {
   return (
@@ -11,7 +10,7 @@ const FotoOfTheWeek = () => {
       <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col md:flex-row items-center md:items-start max-w-4xl w-full">
         <div className="w-full md:w-1/2">
           <img 
-            src={fotooftheweek}
+            src="/hero/hero_3.png"
             alt="Foto of the Week" 
             className="rounded-lg w-full h-auto shadow-md transition-transform duration-300 transform hover:scale-105" 
           />

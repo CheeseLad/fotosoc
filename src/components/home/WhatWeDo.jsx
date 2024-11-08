@@ -1,23 +1,20 @@
 import React from 'react'
-import fotocrawl from '../../images/whatwedo/fotocrawl.png'
-import workshop from '../../images/whatwedo/workshop.png'
-import fototrip from '../../images/whatwedo/fototrip.png'
 
 const whatWeDo = [
   { id: 1,
-    name: "Fotocrawl",
+    name: "Fun Events",
     position: "The moment you’ve all been waiting for: Semester 2 Photocrawl! Meet up at the Student Union, 6 PM on the 7th.",
-    image: fotocrawl,
+    image: "/whatwedo/fotocrawl.png",
   },
   { id: 2,
-    name: "Workshops",
+    name: "Yearly Photobook Issue",
     position: "Up your photography game this Thursday for our workshop on capturing your photography style through the lens.",
-    image: workshop,
+    image: "/whatwedo/connection.png",
   },
   { id: 3,
-    name: "Fototrip",
+    name: "Photography Discounts",
     position: "Welcome everyone to the announcement of our yearly FotoSoc Trip (A Tradition started last year…) Spots are very limited so it is first come first served.",
-    image: fototrip,
+    image: "/whatwedo/johngunn.png",
   }
 ]
 
@@ -25,7 +22,7 @@ const WhatWeDo = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-white text-black">
     <div className="container mx-auto py-12">
-    <h2 className="text-3xl font-bold text-center mb-8">What We Do</h2>
+    <h2 className="text-3xl font-bold text-center mb-8">Why Join DCU Fotosoc?</h2>
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-white">
       {whatWeDo.map(member => (

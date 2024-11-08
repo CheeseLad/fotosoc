@@ -1,5 +1,24 @@
 [
   {
+    "year": "2024/25",
+    "members": [
+      { "role": "Chairperson", "name": "Jack Conlon" },
+      { "role": "Vice Chairperson", "name": "Robert Danca" },
+      { "role": "Secretary", "name": "Pele Ashley" },
+      { "role": "Treasurer", "name": "Gavin Reilly" },
+      { "role": "Public Relations Officer", "name": "Naoise Duffy" },
+      { "role": "Brand Design Officer", "name": "Anna Brammer" },
+      { "role": "Curation Officer", "name": "Christopher Darby" },
+      { "role": "Equipment Officer", "name": "Liam O Keeffe" },
+      { "role": "Events Officer", "name": "Deborah Bakre" },
+      { "role": "Events Officer", "name": "Harry Greenwood" },
+      { "role": "First Year Rep", "name": "Ciara Elton" },
+      { "role": "Ordinary Committee Member", "name": "Aisling Keenan" },
+      { "role": "Ordinary Committee Member", "name": "Milos Girard" },
+      { "role": "Webmaster", "name": "Jake Farrell" }
+    ]
+  },
+  {
     "year": "2023/24",
     "members": [
       { "role": "Chairperson", "name": "Cian Hanlon" },

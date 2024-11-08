@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import Gallery from '../gallery/Gallery';
-import logo from '../../images/logo/logo.png';
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -57,7 +56,7 @@ const MemberPortfolio = () => {
           <div className="flex flex-col items-center bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg p-6 shadow-md">
             <div className="flex items-center justify-center mb-4">
               <img
-                src={portfolio.profileImage || logo}
+                src={portfolio.profileImage || "/fotosoc_logo.png"}
                 alt={portfolio.name}
                 className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105"
               />

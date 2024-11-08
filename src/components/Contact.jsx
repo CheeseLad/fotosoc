@@ -8,14 +8,14 @@ const Contact = () => {
         Fill in the form or send us an email at
         <a
           className="hover:underline ml-1"
-          href="mailto:webmasterdcufotosoc@gmail.com"
+          href="mailto:committee@dcufotosoc.ie"
         >
-          webmasterdcufotosoc@gmail.com
+          committee@dcufotosoc.ie
         </a>
       </p>
       <div className="bg-white rounded-lg shadow-2xl p-8 mt-4 mx-4 md:mx-12 lg:mx-20 md:min-w-[500px] sm:min-w-[400px]">
         <form
-          action="https://formspree.io/f/"
+          action="https://formspree.io/f/mvgoavrb"
           method="POST"
           className="text-black space-y-6"
         >

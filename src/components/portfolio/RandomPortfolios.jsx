@@ -4,7 +4,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { db } from '../../firebase';
-import logo from '../../images/logo/logo.png';
 
 const RandomPortfolios = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -64,7 +63,7 @@ const RandomPortfolios = () => {
                 <div className="relative w-1/3">
                   <img
                     className="h-20 w-20 object-cover rounded-full"
-                    src={portfolio.profileImage || logo}
+                    src={portfolio.profileImage || "/fotosoc_logo.png"}
                     alt={portfolio.name}
                   />
                 </div>
