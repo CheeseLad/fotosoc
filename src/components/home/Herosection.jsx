@@ -1,10 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import hero_1 from '../../images/hero/hero_1.png';
-import hero_2 from '../../images/hero/hero_2.png';
-import hero_3 from '../../images/hero/hero_3.png';
-import hero_4 from '../../images/hero/hero_4.png';
-import hero_5 from '../../images/hero/hero_5.png';
-import hero_6 from '../../images/hero/hero_6.png';
 import JoinButton from '../Joinbutton';
 
 function shuffleArray(array) {
@@ -19,7 +13,12 @@ function HeroSection() {
   const [shuffledImages, setShuffledImages] = useState([]);
 
   useEffect(() => {
-    const images = [hero_1, hero_2, hero_3, hero_4, hero_5, hero_6];
+    const images = ["/hero/hero_1.png", 
+                    "/hero/hero_2.png",
+                    "/hero/hero_3.png",
+                    "/hero/hero_4.png",
+                    "/hero/hero_5.png",
+                    "/hero/hero_6.png"];                    
     setShuffledImages(shuffleArray(images));
   }, []);
 

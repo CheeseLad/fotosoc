@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-import connection_iii from '../images/store/connection-iii.png';
-import connection_iv from '../images/store/connection-iv.png';
-import hoodies from '../images/store/hoodies.png';
-import tote_bag from '../images/store/tote-bag.png';
 import getStripe from '../scripts/getStripe';
 
 const stripePriceID = process.env.REACT_APP_STRIPE_PRICE_ID || window._env_.REACT_APP_STRIPE_PRICE_ID;
@@ -14,7 +10,7 @@ const items = [
     description: "A Fotosoc hoodie to keep you warm and stylish!",
     sizes: ["XS", "S", "M", "L", "XL"],
     price: "€25.00",
-    image: hoodies
+    image: "/store/hoodies.png"
   },
   {
     id: 2,
@@ -22,7 +18,7 @@ const items = [
     description: "A Fotosoc tote bag to carry your camera gear!",
     sizes: null,
     price: "€10.00",
-    image: tote_bag
+    image: "/store/tote-bag.png"
   },
   {
     id: 3,
@@ -30,7 +26,7 @@ const items = [
     description: "Check out our latest zine, Connection III: Reflection!",
     sizes: null,
     price: "€10.00",
-    image: connection_iii
+    image: "store/connection-iii.png"
   },
   {
     id: 4,
@@ -38,7 +34,7 @@ const items = [
     description: "Check out our latest zine, Connection IV: Balance!",
     sizes: null,
     price: "€10.00",
-    image: connection_iv
+    image: "store/connection-iv.png"
   }
 ];
 
