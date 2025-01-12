@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Camera, Users, Image, Award } from 'lucide-react';
+import { Camera, Users, Image, Award, ChartColumnIncreasing } from 'lucide-react';
+import { db } from '../../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 const StatBox = ({ icon: Icon, label, endValue }) => {
   const [count, setCount] = useState(0);
@@ -37,7 +39,7 @@ const StatBox = ({ icon: Icon, label, endValue }) => {
   }, [endValue, label]);
 
   return (
-    <div id={`stat-box-${label}`} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center w-60 h-60">
+    <div id={`stat-box-${label}`} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
       <Icon className="text-blue-600 mb-2" size={64} />
       <h3 className="text-3xl font-bold mb-1 text-blue-900">{count}</h3>
       <p className="text-xl text-blue-600 text-center">{label}</p>
@@ -46,14 +48,59 @@ const StatBox = ({ icon: Icon, label, endValue }) => {
 };
 
 const Stats = () => {
+  const [imageCount, setImageCount] = useState(0);
+
+  useEffect(() => {
+    const fetchImageCount = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'galleries'));
+        const galleryData = querySnapshot.docs.map(doc => doc.data());
+
+        const totalImages = galleryData.reduce((total, gallery) => {
+          const galleryImages = gallery.galleries?.[0]?.images || [];
+          return total + galleryImages.length;
+        }, 0);
+
+        setImageCount(totalImages);
+      } catch (error) {
+        console.error('Error fetching galleries: ', error);
+      }
+    };
+
+    fetchImageCount();
+  }, []);
+
+  const [portfolioCount, setPortfolioCount] = useState(0);
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const portfoliosRef = collection(db, "memberPortfolios");
+        const querySnapshot = await getDocs(portfoliosRef);
+        const portfolioData = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        setPortfolioCount(portfolioData.length);
+
+      } catch (error) {
+        console.error("Error fetching portfolios: ", error);
+      }
+    };
+
+    fetchPortfolios();
+  }, []);
+
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
       <h2 className="text-2xl font-bold text-center mb-6">Fotostats</h2>
-      <div className="flex flex-col sm:flex-row justify-center items-center space-y-6 sm:space-x-4 sm:space-y-0">
-        <StatBox icon={Camera} label="Photos Taken" endValue={5000} />
-        <StatBox icon={Users} label="Active Members" endValue={1000} />
-        <StatBox icon={Image} label="Gallery Uploads" endValue={10000} />
-        <StatBox icon={Award} label="Contest Winners" endValue={50} />
+      {/* Responsive Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <StatBox icon={ChartColumnIncreasing} label="Years Running" endValue={22} />
+        <StatBox icon={Users} label="Active Members" endValue={141} />
+        <StatBox icon={Image} label="Fotos Uploaded" endValue={imageCount} />
+        <StatBox icon={Award} label="Member Portfolios" endValue={portfolioCount} />
       </div>
     </div>
   );

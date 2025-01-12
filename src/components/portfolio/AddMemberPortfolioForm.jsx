@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 
 import Select from 'react-select';
+import { getAuth } from "firebase/auth";
 
 const socialIcons = {
   instagram: faInstagram,
@@ -174,6 +175,7 @@ const AddMemberPortfolioForm = () => {
         galleries: galleriesWithUrls,
         portfolioLink: slugifiedLink,
         profileImage: memberInfo.profileImage || "",
+        userId: getAuth().currentUser.uid,
         createdAt: serverTimestamp(),
       });
 
@@ -191,6 +193,7 @@ const AddMemberPortfolioForm = () => {
         galleries: [{ title: "", images: [] }],
         portfolioLink: "",
         profileImage: "",
+        userId: "",
       });
 
       for (let i = 0; i < memberInfo.socialButtons.length; i++) {
@@ -257,7 +260,7 @@ const AddMemberPortfolioForm = () => {
             value={memberInfo.bio}
             onChange={handleChange}
             placeholder="I'm a photographer based in Dublin."
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[100px]"
             required
           />
         </div>
@@ -345,7 +348,7 @@ const AddMemberPortfolioForm = () => {
         <button
           type="button"
           onClick={addGallery}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 mr-2"
         >
           <FontAwesomeIcon icon={faPlus} /> Add Gallery
         </button>

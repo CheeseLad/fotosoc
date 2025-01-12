@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Gallery = ({ galleries }) => {
+const Gallery = ({ galleries, returnValue }) => {
   return (
     <div className="flex flex-col justify-center items-center text-white py-8">
 
@@ -45,14 +45,26 @@ const Gallery = ({ galleries }) => {
             </div>
           </div>
         ))}
-         <div className="flex flex-col justify-center items-center">
-            <a
-              href="/gallery"
-              className="inline-block bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition-colors"
-            >
-              Return to Gallery Homepage
-            </a>
-          </div>
+        {returnValue === "portfolios" ? (
+  <div className="flex flex-col justify-center items-center">
+    <a
+      href={`/${returnValue}`}
+      className="inline-block bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition-colors"
+    >
+      Return to All Portfolios
+    </a>
+  </div>
+) : (
+  <div className="flex flex-col justify-center items-center">
+  <a
+    href="/gallery"
+    className="inline-block bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition-colors"
+  >
+    Return to Gallery Homepage
+  </a>
+</div>
+)}
+
       </div>
     </div>
   );

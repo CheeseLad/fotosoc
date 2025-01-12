@@ -5,8 +5,8 @@ function Footer() {
     <footer className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex flex-col items-center justify-center sm:flex-row sm:justify-between">
         <div className="mb-4 sm:mb-0">
-          <p className="text-gray-400 text-center sm:text-left mx-2">
-            DCU Fotosoc &copy; 2003-{new Date().getFullYear()}. Designed and maintained by <a 
+          <p className="text-gray-400 text-center sm:text-left mx-8">
+            DCU Fotosoc &copy; 2003 - {new Date().getFullYear()}. Designed and maintained by <a 
               href="https://www.jakefarrell.ie/" 
               aria-label="Jake Farrell's Personal Website" 
               target="_blank" 

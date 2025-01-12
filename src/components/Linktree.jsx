@@ -35,7 +35,7 @@ const links = [
 const Linktree = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 min-h-screen w-full">
-      <h2 className="text-3xl font-bold text-center mb-8">DCU Fotosoc Linktree</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">Quick Links</h2>
       <div className="bg-white rounded-lg shadow-xl p-6 mx-4">
         {links.map((link, index) => (
           <a

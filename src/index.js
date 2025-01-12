@@ -25,6 +25,7 @@ import AdminGalleryForm from "./components/user/AdminGalleryForm";
 import MemberGallery from "./components/user/AdminGallery";
 import GalleryHomepage from "./components/gallery/GalleryHomepage";
 import MemberPortfoliosGrid from "./components/portfolio/MemberPortfolioGrid";
+import EditMemberPortfolioForm from "./components/portfolio/EditMemberPortfolioForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -125,6 +126,16 @@ root.render(
             <div>
               <Navbar />
               <MemberGallery />
+              <Footer />
+            </div>
+          }
+        />
+                <Route
+          path="/edit-portfolio/:portfolioLink"
+          element={
+            <div>
+              <Navbar />
+              <EditMemberPortfolioForm />
               <Footer />
             </div>
           }

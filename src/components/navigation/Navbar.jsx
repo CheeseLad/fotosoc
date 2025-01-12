@@ -1,10 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 import JoinButton from './../Joinbutton';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const [user, setUser] = useState(null); // Track logged-in user
+
+  const auth = getAuth();
+
+  useEffect(() => {
+    // Monitor authentication state
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // Set user state if logged in
+    });
+
+    // Cleanup subscription on component unmount
+    return () => unsubscribe();
+  }, [auth]);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -12,6 +26,16 @@ function Navbar() {
 
   const toggleAccountMenu = () => {
     setAccountMenuOpen(!accountMenuOpen);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth); // Sign the user out
+      alert("Logged out successfully");
+      setAccountMenuOpen(false);
+    } catch (error) {
+      console.error("Error logging out: ", error);
+    }
   };
 
   return (
@@ -48,13 +72,11 @@ function Navbar() {
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
-          {/*<a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>*/}
-          {/*<a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>*/}
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
           <a href="/links" className="text-white text-2xl hover:text-gray-300">Links</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
-          
+
           <div className="relative">
             <button
               onClick={toggleAccountMenu}
@@ -65,11 +87,28 @@ function Navbar() {
             </button>
             {accountMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                {/* <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create Gallery</a> */}
-                <a href="/create-portfolio" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Create Portfolio</a>
-                <a href="/register" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Register</a>
-                <a href="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</a>
-                {/* <a href="/reset-password" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Reset Password</a> */}
+                {user ? (
+                  <>
+                    <a href="/create-portfolio" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      Create Portfolio
+                    </a>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <a href="/register" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      Register
+                    </a>
+                    <a href="/login" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      Login
+                    </a>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -82,13 +121,11 @@ function Navbar() {
           <a href="/" className="text-white text-2xl hover:text-gray-300">Home</a>
           <a href="/portfolios" className="text-white text-2xl hover:text-gray-300">Portfolios</a>
           <a href="/workshops" className="text-white text-2xl hover:text-gray-300">Workshops</a>
-          <a href="/store" className="text-white text-2xl hover:text-gray-300">Store</a>
-          {/*<a href="/loans" className="text-white text-2xl hover:text-gray-300">Loans</a>*/}
           <a href="/gallery" className="text-white text-2xl hover:text-gray-300">Gallery</a>
           <a href="/committee" className="text-white text-2xl hover:text-gray-300">Committee</a>
           <a href="/links" className="text-white text-2xl hover:text-gray-300">Links</a>
           <a href="/contact" className="text-white text-2xl hover:text-gray-300">Contact</a>
-          
+
           <div className="relative mt-4">
             <button
               onClick={toggleAccountMenu}
@@ -99,11 +136,28 @@ function Navbar() {
             </button>
             {accountMenuOpen && (
               <div className="mt-2 w-48 bg-gray-700 rounded-md shadow-lg py-1">
-                <a href="/create-gallery" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">Create Gallery</a>
-                <a href="/create-portfolio" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">Create Portfolio</a>
-                <a href="/register" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">Register</a>
-                <a href="/login" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">Login</a>
-                <a href="/reset-password" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">Reset Password</a>
+                {user ? (
+                  <>
+                    <a href="/create-portfolio" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                      Create Portfolio
+                    </a>
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <a href="/register" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                      Register
+                    </a>
+                    <a href="/login" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                      Login
+                    </a>
+                  </>
+                )}
               </div>
             )}
           </div>

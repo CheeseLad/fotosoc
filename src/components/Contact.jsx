@@ -30,7 +30,7 @@ const Contact = () => {
               id="contact-name"
               type="text"
               name="contact-name"
-              placeholder="Foto Person"
+              placeholder="Jake Farrell"
               required
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -46,7 +46,7 @@ const Contact = () => {
               id="contact-email"
               type="email"
               name="email"
-              placeholder="foto_person@gmail.com"
+              placeholder="webmaster@dcufotosoc.ie"
               required
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -63,7 +63,7 @@ const Contact = () => {
               name="message"
               placeholder="Type your message here..."
               rows="8"
-              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[200px]"
             ></textarea>
           </div>
           <div className="flex justify-end">
