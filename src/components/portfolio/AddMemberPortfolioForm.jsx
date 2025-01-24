@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { db, storage } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLinkedinIn, faInstagram, faFacebookF, faTwitter, faGithub, faYoutube, faTiktok, faSnapchatGhost } from "@fortawesome/free-brands-svg-icons";
+import { faLinkedinIn, faInstagram, faFacebook, faTwitter, faGithub, faYoutube, faTiktok, faSnapchatGhost } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faEnvelope, faTrash, faGlobe, faLink } from "@fortawesome/free-solid-svg-icons";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
@@ -19,7 +19,7 @@ const socialIcons = {
   instagram: faInstagram,
   linkedin: faLinkedinIn,
   email: faEnvelope,
-  facebook: faFacebookF,
+  facebook: faFacebook,
   twitter: faTwitter,
   github: faGithub,
   youtube: faYoutube,
@@ -180,7 +180,7 @@ const AddMemberPortfolioForm = () => {
       });
 
       alert(
-        `Member portfolio added successfully! Share your link: /portfolios/${memberInfo.portfolioLink}`
+        `Member portfolio added successfully! Share your link: https://www.dcufotosoc.ie/portfolios/${memberInfo.portfolioLink}`
       );
       setMemberInfo({
         name: "",

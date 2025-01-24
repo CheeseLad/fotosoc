@@ -4,7 +4,8 @@
     "name": "Jack Conlon",
     "position": "Chairperson",
     "image" : "/fotosoc_logo.png",
-    "social1": "",
+    "social1": "https://www.instagram.com/jackconlon_2002",
+    "social1_type": "fab fa-instagram",
     "social2": "",
     "email": "chair@dcufotosoc.ie"
   },
@@ -13,8 +14,10 @@
     "name": "Robert Danca",
     "position": "Vice Chairperson",
     "image" : "/fotosoc_logo.png",
-    "social1": "",
-    "social2": "",
+    "social1": "https://www.instagram.com/robertdanca26",
+    "social1_type": "fab fa-instagram",
+    "social2": "https://www.instagram.com/bob.archive",
+    "social2_type": "fab fa-instagram",
     "email": "vicechair@dcufotosoc.ie"
   },
   {
@@ -31,7 +34,8 @@
     "name": "Gavin Reilly",
     "position": "Treasurer",
     "image" : "/fotosoc_logo.png",
-    "social1": "",
+    "social1": "https://www.instagram.com/gavin2910",
+    "social1_type": "fab fa-instagram",
     "social2": "",
     "email": "treasurer@dcufotosoc.ie"
   },
@@ -40,7 +44,8 @@
     "name": "Naoise Duffy",
     "position": "Public Relations Officer",
     "image" : "/fotosoc_logo.png",
-    "social1": "",
+    "social1": "https://www.instagram.com/naoise.d11",
+    "social1_type": "fab fa-instagram",
     "social2": "",
     "email": "pro@dcufotosoc.ie"
   }, 
@@ -49,7 +54,8 @@
     "name": "Anna Brammer",
     "position": "Brand Design Officer",
     "image" : "/fotosoc_logo.png",
-    "social1": "",
+    "social1": "https://www.instagram.com/annamitdoppeln",
+    "social1_type": "fab fa-instagram",
     "social2": "",
     "email": "bdo@dcufotosoc.ie"
   }, 
@@ -120,9 +126,11 @@
     "number": 14,
     "name": "Jake Farrell",
     "position": "Webmaster",
-    "image" : "/committee/jake_farrell.png",
-    "social1": "",
-    "social2": "",
+    "image" : "/committee/jake_farrell.jpg",
+    "social1": "https://www.jakefarrell.ie/",
+    "social1_type": "fa-solid fa-link",
+    "social2": "https://www.linkedin.com/in/jake-farrell-cs/",
+    "social2_type": "fab fa-linkedin",
     "email": "webmaster@dcufotosoc.ie"
   }
 ]

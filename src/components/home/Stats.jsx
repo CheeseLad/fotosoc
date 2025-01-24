@@ -1,7 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { Camera, Users, Image, Award, ChartColumnIncreasing } from 'lucide-react';
-import { db } from '../../firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import React, { useState, useEffect } from "react";
+import {
+  Camera,
+  Users,
+  Image,
+  Award,
+  ChartColumnIncreasing,
+} from "lucide-react";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const StatBox = ({ icon: Icon, label, endValue }) => {
   const [count, setCount] = useState(0);
@@ -39,10 +45,15 @@ const StatBox = ({ icon: Icon, label, endValue }) => {
   }, [endValue, label]);
 
   return (
-    <div id={`stat-box-${label}`} className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center">
-      <Icon className="text-blue-600 mb-2" size={64} />
-      <h3 className="text-3xl font-bold mb-1 text-blue-900">{count}</h3>
-      <p className="text-xl text-blue-600 text-center">{label}</p>
+    <div className="hover:transition duration-600 hvr-grow">
+      <div
+        id={`stat-box-${label}`}
+        className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center"
+      >
+        <Icon className="text-blue-600 mb-2" size={64} />
+        <h3 className="text-3xl font-bold mb-1 text-blue-900">{count}</h3>
+        <p className="text-xl text-blue-600 text-center">{label}</p>
+      </div>
     </div>
   );
 };
@@ -53,8 +64,8 @@ const Stats = () => {
   useEffect(() => {
     const fetchImageCount = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'galleries'));
-        const galleryData = querySnapshot.docs.map(doc => doc.data());
+        const querySnapshot = await getDocs(collection(db, "galleries"));
+        const galleryData = querySnapshot.docs.map((doc) => doc.data());
 
         const totalImages = galleryData.reduce((total, gallery) => {
           const galleryImages = gallery.galleries?.[0]?.images || [];
@@ -63,7 +74,7 @@ const Stats = () => {
 
         setImageCount(totalImages);
       } catch (error) {
-        console.error('Error fetching galleries: ', error);
+        console.error("Error fetching galleries: ", error);
       }
     };
 
@@ -83,7 +94,6 @@ const Stats = () => {
         }));
 
         setPortfolioCount(portfolioData.length);
-
       } catch (error) {
         console.error("Error fetching portfolios: ", error);
       }
@@ -97,10 +107,18 @@ const Stats = () => {
       <h2 className="text-2xl font-bold text-center mb-6">Fotostats</h2>
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatBox icon={ChartColumnIncreasing} label="Years Running" endValue={22} />
+        <StatBox
+          icon={ChartColumnIncreasing}
+          label="Years Running"
+          endValue={22}
+        />
         <StatBox icon={Users} label="Active Members" endValue={141} />
         <StatBox icon={Image} label="Fotos Uploaded" endValue={imageCount} />
-        <StatBox icon={Award} label="Member Portfolios" endValue={portfolioCount} />
+        <StatBox
+          icon={Award}
+          label="Member Portfolios"
+          endValue={portfolioCount}
+        />
       </div>
     </div>
   );

@@ -1,13 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db } from '../../firebase';
-import { getAuth } from 'firebase/auth'; // Import Firebase Auth
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLinkedinIn, faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import Gallery from '../gallery/Gallery';
-import { useNavigate } from 'react-router-dom'; // For navigation
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
+import { getAuth } from "firebase/auth"; // Import Firebase Auth
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faLinkedinIn,
+  faInstagram,
+  faFacebook,
+  faTwitter,
+  faGithub,
+  faYoutube,
+  faTiktok,
+  faSnapchatGhost,
+} from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faLink, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import Gallery from "../gallery/Gallery";
+import { useNavigate } from "react-router-dom"; // For navigation
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -20,8 +29,11 @@ const MemberPortfolio = () => {
   useEffect(() => {
     const fetchPortfolio = async () => {
       try {
-        const portfoliosRef = collection(db, 'memberPortfolios');
-        const q = query(portfoliosRef, where('portfolioLink', '==', portfolioLink));
+        const portfoliosRef = collection(db, "memberPortfolios");
+        const q = query(
+          portfoliosRef,
+          where("portfolioLink", "==", portfolioLink)
+        );
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
@@ -34,10 +46,10 @@ const MemberPortfolio = () => {
             setIsOwner(true);
           }
         } else {
-          console.log('No such document!');
+          console.log("No such document!");
         }
       } catch (error) {
-        console.error('Error fetching portfolio: ', error);
+        console.error("Error fetching portfolio: ", error);
       } finally {
         setLoading(false);
       }
@@ -56,7 +68,9 @@ const MemberPortfolio = () => {
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
-      <h2 className="text-3xl font-bold text-center mb-8">Member Portfolio: {portfolio.name}</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">
+        Member Portfolio: {portfolio.name}
+      </h2>
 
       <div className="max-w-5xl w-full bg-white rounded-lg shadow-2xl p-6 m-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
@@ -75,7 +89,11 @@ const MemberPortfolio = () => {
                 {portfolio.socialButtons.map((button, index) => (
                   <a
                     key={index}
-                    href={button.url}
+                    href={
+                      button.platform === "email"
+                        ? `mailto:${button.url}`
+                        : button.url
+                    }
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mx-4 hvr-bob"
@@ -93,24 +111,20 @@ const MemberPortfolio = () => {
           <div className="flex items-center">
             <div className="text-lg text-black p-4">
               <p>{portfolio.bio}</p>
-              
             </div>
           </div>
-   
         </div>
         <div className="flex flex-col justify-center items-center">
           {isOwner && (
-        <button
-          onClick={() => navigate(`/edit-portfolio/${portfolioLink}`)} // Navigate to the edit page
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-        >
-          Edit Portfolio
-        </button>
-      )}
+            <button
+              onClick={() => navigate(`/edit-portfolio/${portfolioLink}`)} // Navigate to the edit page
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Edit Portfolio
+            </button>
+          )}
+        </div>
       </div>
-      </div>
-
-
 
       <Gallery galleries={portfolio.galleries} returnValue="portfolios" />
     </div>
@@ -121,6 +135,14 @@ const socialIcons = {
   instagram: faInstagram,
   linkedin: faLinkedinIn,
   email: faEnvelope,
+  facebook: faFacebook,
+  twitter: faTwitter,
+  github: faGithub,
+  youtube: faYoutube,
+  tiktok: faTiktok,
+  snapchat: faSnapchatGhost,
+  website: faGlobe,
+  link: faLink,
 };
 
 export default MemberPortfolio;

@@ -88,7 +88,7 @@ const ContinuousScrollZoom = () => {
       <div className="relative z-30 text-center bg-white bg-opacity-80 p-6 rounded-lg shadow-lg max-w-sm sm:max-w-md lg:max-w-lg">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">Join DCU Fotosoc</h2>
         <p className="text-lg sm:text-xl lg:text-2xl mb-6">
-          Become a member on DCU Clubs & Socs today!
+          What are you waiting for? Become a member on DCU Clubs & Socs today!
         </p>
         <JoinButton />
       </div>

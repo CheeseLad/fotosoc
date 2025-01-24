@@ -2,18 +2,18 @@ import React from 'react'
 
 const whatWeDo = [
   { id: 1,
-    name: "Fun Events",
-    position: "The moment you’ve all been waiting for: Semester 2 Photocrawl! Meet up at the Student Union, 6 PM on the 7th.",
+    name: "Fun & Educational Events",
+    position: "We host workshops that are aimed at all levels of photographers, from beginners to advanced. We also host a yearly Fotocrawl around Dublin City Centre.",
     image: "/whatwedo/fotocrawl.png",
   },
   { id: 2,
     name: "Yearly Photobook Issue",
-    position: "Up your photography game this Thursday for our workshop on capturing your photography style through the lens.",
+    position: "Each year we release a photobook that showcases the best photos taken by our members. This is a great way to get your work published and seen by others. This year's theme is 'Wild'.",
     image: "/whatwedo/connection.png",
   },
   { id: 3,
     name: "Photography Discounts",
-    position: "Welcome everyone to the announcement of our yearly FotoSoc Trip (A Tradition started last year…) Spots are very limited so it is first come first served.",
+    position: "We have partnered up with John Gunn Camera Shop in Dublin to provide all DCU Fotosoc members with a 10% discount on development, scanning and printing services.",
     image: "/whatwedo/johngunn.png",
   }
 ]

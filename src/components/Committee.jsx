@@ -22,10 +22,10 @@ function Committee() {
           </div>
           <div className="flex justify-center mb-4">
             <a href={member.social1} target="_blank" rel="noopener noreferrer" className="mx-4 hvr-bob">
-              <i className="fab fa-instagram text-4xl"></i>
+              <i className={`${member.social1_type} text-4xl`}></i>
             </a>
             <a href={member.social2} target="_blank" rel="noopener noreferrer" className="mx-4 hvr-bob">
-              <i className="fab fa-linkedin text-4xl"></i>
+              <i className={`${member.social2_type} text-4xl`}></i>
             </a>
             <a href={`mailto:${member.email}`} className="mx-4 hvr-bob">
             <i className="fa fa-envelope text-4xl"></i>
