@@ -7,6 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { onAuthStateChanged } from "firebase/auth";
+import imageCompression from "browser-image-compression";
 
 const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID || window._env_.REACT_APP_ADMIN_USER_ID; 
 
@@ -57,16 +58,36 @@ const AddGalleryPageForm = () => {
 
   const uploadImages = async (gallery, galleryIndex) => {
     const imageUrls = [];
+    
     const uploadPromises = gallery.images.map(async (image) => {
-      const storagePath = `galleries/${gallery.link}/gallery_${
-        galleryIndex + 1
-      }/${Date.now()}_${image.name}`;
-      const storageRef = ref(storage, storagePath);
-      await uploadBytes(storageRef, image);
-      const url = await getDownloadURL(storageRef);
-      imageUrls.push(url);
+      try {
+        // Compression options
+        const options = {
+          maxSizeMB: 1, // Maximum size in MB
+          maxWidthOrHeight: 1024, // Resize dimensions
+          useWebWorker: true, // Use web worker for better performance
+        };
+  
+        // Compress the image
+        const compressedImage = await imageCompression(image, options);
+  
+        // Generate a storage path
+        const storagePath = `galleries/${gallery.link}/gallery_${
+          galleryIndex + 1
+        }/${Date.now()}_${compressedImage.name}`;
+        const storageRef = ref(storage, storagePath);
+  
+        // Upload the compressed image
+        await uploadBytes(storageRef, compressedImage);
+  
+        // Get the download URL
+        const url = await getDownloadURL(storageRef);
+        imageUrls.push(url);
+      } catch (error) {
+        console.error("Error compressing or uploading image: ", error);
+      }
     });
-
+  
     await Promise.all(uploadPromises);
     return imageUrls;
   };
