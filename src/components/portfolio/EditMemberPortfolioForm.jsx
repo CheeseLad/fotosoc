@@ -49,6 +49,7 @@ const EditMemberPortfolioForm = () => {
   const { portfolioLink } = useParams(); // Get the portfolio link from the URL
   const auth = getAuth();
   const navigate = useNavigate();
+  const [portfolioId, setPortfolioId] = useState("");
 
   useEffect(() => {
     const fetchPortfolioData = async () => {
@@ -77,6 +78,8 @@ const EditMemberPortfolioForm = () => {
               navigate("/");
               return;
             }
+
+            setPortfolioId(doc.id);
   
             setMemberInfo({
               name: data.name,
@@ -212,12 +215,13 @@ const EditMemberPortfolioForm = () => {
         })
       );
 
-      if (memberInfo.profileImage) {
+      if (memberInfo.profileImage && typeof memberInfo.profileImage !== "string") {
         const profileImageUrl = await uploadProfileImage(memberInfo.profileImage);
         memberInfo.profileImage = profileImageUrl;
       }
+      
 
-      const docRef = doc(db, "memberPortfolios", portfolioLink);
+      const docRef = doc(db, "memberPortfolios", portfolioId);
 
       await updateDoc(docRef, {
         name: memberInfo.name,
@@ -284,17 +288,42 @@ const EditMemberPortfolioForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
-            Profile Image:
-          </label>
-          <input
-            type="file"
-            onChange={(e) =>
-              setMemberInfo({ ...memberInfo, profileImage: e.target.files[0] })
-            }
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
+  <label className="block text-gray-700 text-sm font-bold mb-2">
+    Profile Image:
+  </label>
+  {memberInfo.profileImage && (
+    <div className="mb-2 relative">
+      <img
+        src={
+          typeof memberInfo.profileImage === "string"
+            ? memberInfo.profileImage
+            : URL.createObjectURL(memberInfo.profileImage)
+        }
+        alt="Profile"
+        className="w-32 h-32 object-cover rounded border border-gray-300"
+      />
+      <button
+        type="button"
+        onClick={() =>
+          setMemberInfo({ ...memberInfo, profileImage: "" })
+        }
+        className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full p-1"
+      >
+        <FontAwesomeIcon icon={faTrash} />
+      </button>
+    </div>
+  )}
+  {!memberInfo.profileImage && (
+    <input
+      type="file"
+      onChange={(e) =>
+        setMemberInfo({ ...memberInfo, profileImage: e.target.files[0] })
+      }
+      className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    />
+  )}
+</div>
+
         {memberInfo.socialButtons.map((button, index) => (
   <div key={index} className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">{`Social Link ${index + 1}:`}</label>

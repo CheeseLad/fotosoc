@@ -4,11 +4,17 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import { onAuthStateChanged } from "firebase/auth";
 
 const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID || window._env_.REACT_APP_ADMIN_USER_ID; 
 
+
 const AddGalleryPageForm = () => {
+
+  const navigate = useNavigate();
+
   const [galleryInfo, setGalleryInfo] = useState({
     title: "",
     link: "",
@@ -69,6 +75,12 @@ const AddGalleryPageForm = () => {
     e.preventDefault();
 
     
+    if (!auth.currentUser) {
+      alert("You must be logged in to submit this form.");
+      navigate("/login");
+      return;
+    }
+
     if (auth.currentUser.uid !== ALLOWED_USER_ID) {
       alert("You are not authorized to submit this form.");
       return;
@@ -100,8 +112,22 @@ const AddGalleryPageForm = () => {
     }
   };
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("You need to log in to access this page.");
+        navigate("/login");
+      } else if (user.uid !== ALLOWED_USER_ID) {
+        alert("You are not authorized to access this page.");
+        navigate("/");
+      }
+    });
+  
+    return () => unsubscribe();
+  }, [navigate]);
+
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 min-h-screen">
       <h2 className="text-4xl font-extrabold text-center mb-8">
         Create Gallery
       </h2>
@@ -171,7 +197,7 @@ const AddGalleryPageForm = () => {
         <button
           type="button"
           onClick={addGallery}
-          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 mr-2"
         >
           <FontAwesomeIcon icon={faPlus} /> Add Gallery
         </button>

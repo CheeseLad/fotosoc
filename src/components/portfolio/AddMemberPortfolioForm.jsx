@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { db, storage } from "../../firebase";
+import React, { useEffect, useState } from "react";
+import { db, storage, auth } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedinIn, faInstagram, faFacebook, faTwitter, faGithub, faYoutube, faTiktok, faSnapchatGhost } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faEnvelope, faTrash, faGlobe, faLink } from "@fortawesome/free-solid-svg-icons";
@@ -14,6 +14,9 @@ import {
 
 import Select from 'react-select';
 import { getAuth } from "firebase/auth";
+
+import { useNavigate } from "react-router";
+import { onAuthStateChanged } from "firebase/auth";
 
 const socialIcons = {
   instagram: faInstagram,
@@ -51,6 +54,7 @@ const slugify = (text) => {
 
 
 const AddMemberPortfolioForm = () => {
+  const navigate = useNavigate();
   const [memberInfo, setMemberInfo] = useState({
     name: "",
     bio: "",
@@ -213,6 +217,18 @@ const AddMemberPortfolioForm = () => {
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        alert("You need to log in to access this page.");
+        navigate("/login");
+      }
+    });
+  
+    return () => unsubscribe();
+  }, [navigate]);
+
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">

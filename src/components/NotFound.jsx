@@ -2,7 +2,7 @@ import React from "react";
 
 const NotFound = () => {
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white min-h-screen">
       <div className="bg-white rounded-lg shadow-xl p-6 my-32 mx-10 md:min-w-[500px] sm:min-w-[400px]">
         <h3 className="text-xl font-bold mb-2 text-black text-center">
           404 Page Not Found
