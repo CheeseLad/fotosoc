@@ -2,12 +2,12 @@ import React from 'react'
 
 const links = [
   {
-    "link_name": "Website",
+    "link_name": "Check out our new Website!",
     "link_url": "https://www.dcufotosoc.ie"
   },
   {
-    "link_name": "Join our WhatsApp Group",
-    "link_url": "https://chat.whatsapp.com/KcWm0mU78nyHKMibl3Vlko"
+    "link_name": "Connection V Submissions!",
+    "link_url": "https://docs.google.com/forms/d/e/1FAIpQLSe2o0WBruUOY5xadXjzjCUE0gy-h1cm-yDB2snhkSZd4qzkfQ/viewform?vc=0&c=0&w=1&flr=0"
   },
 
   {
@@ -15,20 +15,12 @@ const links = [
     "link_url": "https://dcuclubsandsocs.ie/society/fotosoc"
   },
   {
-    "link_name": "Foto of the Week Submission Form",
-    "link_url": "https://docs.google.com/forms/d/e/1FAIpQLSemQ563zyeKue16muFehxpITFUCX6XZcgQFQzkaTQApTgmNEQ/viewform?vc=0&c=0&w=1&flr=0"
-  },
-  {
-    "link_name": "Photographers Wanted Form",
-    "link_url": "https://docs.google.com/forms/d/e/1FAIpQLSfgguU4JUqSAvCNsGFq3_OXByyG1a5gkxm75uH7FfQ4Y7A9pg/viewform"
-  },
-  {
     "link_name": "Instagram",
     "link_url": "https://www.instagram.com/dcufotosoc"
   },
   {
     "link_name": "TikTok",
-    "link_url": "https://vm.tiktok.com/ZSChkFYm/"
+    "link_url": "https://www.tiktok.com/@dcufotosoc"
   }
 ]
 

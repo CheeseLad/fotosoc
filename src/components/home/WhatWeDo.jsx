@@ -3,7 +3,7 @@ import React from 'react'
 const whatWeDo = [
   { id: 1,
     name: "Fun & Educational Events",
-    position: "We host workshops that are aimed at all levels of photographers, from beginners to advanced. We also host a yearly Fotocrawl around Dublin City Centre.",
+    position: "We host workshops that are aimed at all levels of photographers, whether you're just getting started or you're a seasoned pro. We also host regular Fotocrawls around the city and other areas.",
     image: "/whatwedo/fotocrawl.png",
   },
   { id: 2,
