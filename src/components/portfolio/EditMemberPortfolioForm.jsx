@@ -8,6 +8,7 @@ import { collection, getDoc, doc, updateDoc, serverTimestamp, where, getDocs, qu
 import Select from 'react-select';
 import { getAuth } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
+import imageCompression from "browser-image-compression";
 
 const socialIcons = {
   instagram: faInstagram,
@@ -166,6 +167,21 @@ const EditMemberPortfolioForm = () => {
       setMemberInfo({ ...memberInfo, galleries: newGalleries });
     };
   
+    const compressImage = async (file) => {
+      const options = {
+        maxSizeMB: 1, // Set the maximum file size in MB
+        maxWidthOrHeight: 1024, // Resize the larger dimension to this value while maintaining aspect ratio
+        useWebWorker: true, // Use web worker for better performance
+      };
+    
+      try {
+        return await imageCompression(file, options);
+      } catch (error) {
+        console.error("Error compressing image:", error);
+        throw error;
+      }
+    };
+    
     const uploadImages = async (gallery, galleryIndex) => {
       const imageUrls = [];
       const uploadPromises = gallery.images.map(async (image) => {
@@ -174,11 +190,15 @@ const EditMemberPortfolioForm = () => {
           return image;
         }
     
+        // Compress the image before uploading
+        const compressedImage = await compressImage(image);
+    
         const userId = memberInfo.portfolioLink;
         const storagePath = `member-portfolios/${userId}/gallery_${galleryIndex + 1
-          }/${Date.now()}_${image.name}`;
+          }/${Date.now()}_${compressedImage.name}`;
         const storageRef = ref(storage, storagePath);
-        await uploadBytes(storageRef, image);
+    
+        await uploadBytes(storageRef, compressedImage);
         const url = await getDownloadURL(storageRef);
         return url;
       });
@@ -187,13 +207,15 @@ const EditMemberPortfolioForm = () => {
       return uploadedImages;
     };
     
-  
     const uploadProfileImage = async (image) => {
+      // Compress the image before uploading
+      const compressedImage = await compressImage(image);
+    
       const userId = memberInfo.portfolioLink;
-      const storagePath = `member-portfolios/${userId}/profile_${Date.now()}_${image.name
-        }`;
+      const storagePath = `member-portfolios/${userId}/profile_${Date.now()}_${compressedImage.name}`;
       const storageRef = ref(storage, storagePath);
-      await uploadBytes(storageRef, image);
+    
+      await uploadBytes(storageRef, compressedImage);
       return getDownloadURL(storageRef);
     };
 

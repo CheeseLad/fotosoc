@@ -17,6 +17,7 @@ import {
 import { faEnvelope, faLink, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Gallery from "../gallery/Gallery";
 import { useNavigate } from "react-router-dom"; // For navigation
+import { doc, deleteDoc } from "firebase/firestore";
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -57,6 +58,31 @@ const MemberPortfolio = () => {
 
     fetchPortfolio();
   }, [portfolioLink, auth]);
+
+  const handleDelete = async () => {
+    if (window.confirm("Are you sure you want to delete this portfolio?")) {
+      try {
+        const portfoliosRef = collection(db, "memberPortfolios");
+        const q = query(
+          portfoliosRef,
+          where("portfolioLink", "==", portfolioLink)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const docId = querySnapshot.docs[0].id; // Get the document ID
+          await deleteDoc(doc(db, "memberPortfolios", docId)); // Delete the document
+          alert("Portfolio deleted successfully.");
+          navigate("/"); // Redirect to the homepage or another page
+        } else {
+          alert("Portfolio not found.");
+        }
+      } catch (error) {
+        console.error("Error deleting portfolio: ", error);
+        alert("Failed to delete portfolio.");
+      }
+    }
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -115,15 +141,23 @@ const MemberPortfolio = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center">
-          {isOwner && (
+        {isOwner && (
+          <>
             <button
               onClick={() => navigate(`/edit-portfolio/${portfolioLink}`)} // Navigate to the edit page
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
             >
               Edit Portfolio
             </button>
-          )}
-        </div>
+            <button
+              onClick={handleDelete} // Trigger delete function
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Delete Portfolio
+            </button>
+          </>
+        )}
+      </div>
       </div>
 
       <Gallery galleries={portfolio.galleries} returnValue="portfolios" />

@@ -17,6 +17,7 @@ import { getAuth } from "firebase/auth";
 
 import { useNavigate } from "react-router";
 import { onAuthStateChanged } from "firebase/auth";
+import imageCompression from 'browser-image-compression';
 
 const socialIcons = {
   instagram: faInstagram,
@@ -122,24 +123,30 @@ const AddMemberPortfolioForm = () => {
     const imageUrls = [];
     const uploadPromises = gallery.images.map(async (image) => {
       const userId = memberInfo.portfolioLink;
-      const storagePath = `member-portfolios/${userId}/gallery_${galleryIndex + 1
-        }/${Date.now()}_${image.name}`;
+      const storagePath = `member-portfolios/${userId}/gallery_${galleryIndex + 1}/${Date.now()}_${image.name}`;
       const storageRef = ref(storage, storagePath);
-      await uploadBytes(storageRef, image);
+  
+      // Compress the image before uploading
+      const compressedImage = await compressImage(image);
+  
+      await uploadBytes(storageRef, compressedImage);
       const url = await getDownloadURL(storageRef);
       imageUrls.push(url);
     });
-
+  
     await Promise.all(uploadPromises);
     return imageUrls;
   };
-
+  
   const uploadProfileImage = async (image) => {
     const userId = memberInfo.portfolioLink;
-    const storagePath = `member-portfolios/${userId}/profile_${Date.now()}_${image.name
-      }`;
+    const storagePath = `member-portfolios/${userId}/profile_${Date.now()}_${image.name}`;
     const storageRef = ref(storage, storagePath);
-    await uploadBytes(storageRef, image);
+  
+    // Compress the profile image before uploading
+    const compressedImage = await compressImage(image);
+  
+    await uploadBytes(storageRef, compressedImage);
     return getDownloadURL(storageRef);
   };
 
@@ -217,6 +224,24 @@ const AddMemberPortfolioForm = () => {
     const docSnap = await getDoc(docRef);
     return docSnap.exists();
   };
+
+  const compressImage = async (file) => {
+    const options = {
+      maxSizeMB: 1, // Set the maximum file size (in MB)
+      maxWidthOrHeight: 1024, // The larger dimension (width or height) will be resized to this while maintaining the aspect ratio
+      useWebWorker: true, // Use a web worker for faster compression
+      preserveExif: true, // Preserve EXIF metadata if required
+    };
+  
+    try {
+      const compressedFile = await imageCompression(file, options);
+      return compressedFile;
+    } catch (error) {
+      console.error('Error compressing image:', error);
+      throw error;
+    }
+  };
+  
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
