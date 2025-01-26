@@ -4,10 +4,12 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 
 const MemberPortfoliosGrid = () => {
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -83,6 +85,15 @@ const MemberPortfoliosGrid = () => {
             </Link>
           ))}
         </div>
+        <div className="flex justify-center items-center mt-8">
+        <button
+              onClick={() => navigate("/create-portfolio")} // Navigate to the edit page
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+            >
+              Create Your Own!
+            </button>
+
+      </div>
       </div>
     </div>
   );

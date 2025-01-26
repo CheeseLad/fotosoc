@@ -9,9 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 import Navbar from "./components/navigation/Navbar";
 import Footer from "./components/navigation/Footer";
 import Committee from "./components/Committee";
-import Store from "./components/Store";
 import PreviousCommittees from "./components/PreviousCommittees";
-import Loans from "./components/Loans";
 import NotFound from "./components/NotFound";
 import MemberPortfolio from "./components/portfolio/MemberPortfolio";
 import Contact from "./components/Contact";
@@ -165,7 +163,7 @@ root.render(
           element={
             <div>
               <Navbar />
-              <Linktree />
+              <Linktree sheetUrl="https://docs.google.com/spreadsheets/d/1wg9BP2UXPw2eCz8QURDj2BO2Pyle2zg4Tcj-hX7MM9U/edit" />
               <Footer />
             </div>
           }
