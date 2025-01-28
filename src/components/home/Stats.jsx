@@ -67,12 +67,34 @@ const Stats = () => {
         const querySnapshot = await getDocs(collection(db, "galleries"));
         const galleryData = querySnapshot.docs.map((doc) => doc.data());
 
+        const portfolioQuerySnapshot = await getDocs(
+          collection(db, "memberPortfolios")
+        );
+        const portfolioData = portfolioQuerySnapshot.docs.map((doc) =>
+          doc.data()
+        );
+
         const totalImages = galleryData.reduce((total, gallery) => {
           const galleryImages = gallery.galleries?.[0]?.images || [];
           return total + galleryImages.length;
         }, 0);
 
-        setImageCount(totalImages);
+        const totalPortfolioImages = portfolioData.reduce(
+          (total, portfolio) => {
+            const portfolioImagesCount = (portfolio.galleries || []).reduce(
+              (galleryTotal, gallery) => {
+                const galleryImages = gallery.images || [];
+                return galleryTotal + galleryImages.length;
+              },
+              0
+            );
+
+            return total + portfolioImagesCount;
+          },
+          0
+        );
+
+        setImageCount(totalImages + totalPortfolioImages);
       } catch (error) {
         console.error("Error fetching galleries: ", error);
       }

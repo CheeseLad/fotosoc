@@ -30,8 +30,13 @@ const RandomPortfolios = () => {
 
   useEffect(() => {
     if (portfolios.length > 0) {
-      const shuffledPortfolios = [...portfolios].sort(() => 0.5 - Math.random());
-      const selectedPortfolios = shuffledPortfolios.slice(0, Math.min(3, portfolios.length));
+      const shuffledPortfolios = [...portfolios].sort(
+        () => 0.5 - Math.random()
+      );
+      const selectedPortfolios = shuffledPortfolios.slice(
+        0,
+        Math.min(3, portfolios.length)
+      );
       setRandomPortfolios(selectedPortfolios);
     }
   }, [portfolios]);
@@ -62,7 +67,12 @@ const RandomPortfolios = () => {
                   </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <FontAwesomeIcon icon={faCamera} className="mr-2" />
-                    <span>{portfolio.galleries?.length || 0} Galleries</span>
+                    <span>
+                      {portfolio.galleries?.length || 0}{" "}
+                      {portfolio.galleries?.length === 1
+                        ? "Gallery"
+                        : "Galleries"}
+                    </span>
                   </div>
                 </div>
                 <div className="relative">

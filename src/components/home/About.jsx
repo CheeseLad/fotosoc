@@ -15,78 +15,80 @@ const About = () => {
   <h3 className="text-xl font-bold mb-4 text-black text-center pb-4">
     Check Out Our Socials!
   </h3>
-  <ul className="flex flex-wrap justify-center space-x-6 items-center space-y-4 sm:space-y-0">
-    <li>
-      <a
-        href="https://chat.whatsapp.com/KcWm0mU78nyHKMibl3Vlko"
-        aria-label="DCU Fotosoc WhatsApp"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-whatsapp text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://www.tiktok.com/@dcufotosoc"
-        aria-label="DCU Fotosoc TikTok"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-tiktok text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://instagram.com/dcufotosoc"
-        aria-label="DCU Fotosoc Instagram"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-instagram text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="mailto:committee@dcufotosoc.ie"
-        aria-label="DCU Fotosoc Email"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fa fa-envelope text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://www.youtube.com/@dcufotosoc3388"
-        aria-label="DCU Fotosoc YouTube"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-youtube text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://facebook.com/DCUPhotographySociety"
-        aria-label="DCU Fotosoc Facebook"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-facebook text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-    <li>
-      <a
-        href="https://www.linkedin.com/company/dcufotosoc"
-        aria-label="DCU Fotosoc LinkedIn"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <i className="fab fa-linkedin text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-      </a>
-    </li>
-  </ul>
+  <ul className="flex flex-wrap justify-center gap-6 items-center">
+  <li className="p-2">
+    <a
+      href="https://chat.whatsapp.com/KcWm0mU78nyHKMibl3Vlko"
+      aria-label="DCU Fotosoc WhatsApp"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-whatsapp text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+  <li className="p-2">
+    <a
+      href="https://www.tiktok.com/@dcufotosoc"
+      aria-label="DCU Fotosoc TikTok"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-tiktok text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+  <li className="p-2">
+    <a
+      href="https://instagram.com/dcufotosoc"
+      aria-label="DCU Fotosoc Instagram"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-instagram text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+  <li className="p-2">
+    <a
+      href="mailto:committee@dcufotosoc.ie"
+      aria-label="DCU Fotosoc Email"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fa fa-envelope text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+  <li className="p-2">
+    <a
+      href="https://www.youtube.com/@dcufotosoc3388"
+      aria-label="DCU Fotosoc YouTube"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-youtube text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+  <li className="p-2">
+    <a
+      href="https://facebook.com/DCUPhotographySociety"
+      aria-label="DCU Fotosoc Facebook"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-facebook text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+
+  <li className="p-2">
+    <a
+      href="https://www.linkedin.com/company/dcufotosoc"
+      aria-label="DCU Fotosoc LinkedIn"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i className="fab fa-linkedin text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+    </a>
+  </li>
+</ul>
+
 </div>
 
     </div>

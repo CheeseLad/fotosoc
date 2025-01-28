@@ -42,7 +42,7 @@ function EventSection() {
       day: 'numeric',
       hour: '2-digit',
       minute: '2-digit',
-      hour12: false
+      hour12: true
     });
   };
 
@@ -82,50 +82,50 @@ function EventSection() {
   return (
     <div className="container mx-auto py-12 bg-white">
       <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {events.map((event, index) => (
           <div 
-            className="bg-white p-6 rounded-lg shadow-lg flex flex-col" 
+            className="bg-gradient-to-r from-blue-400 to-blue-500 p-6 rounded-lg shadow-lg flex flex-col" 
             key={index}
           >
-            <div className="flex-1">
-              <h2 className="text-xl font-bold mb-2">{event.name}</h2>
+            <div className="flex-1 bg-white rounded-lg p-4">
+              <h2 className="text-2xl font-bold mb-2 text-center">{event.name}</h2>
               <div className="my-4">
                 <img
                   src={event.image || "/fotosoc_logo.png"}
                   alt={`${event.name} event`}
-                  className="w-full h-96 object-cover rounded-lg transition-transform duration-300 transform hover:scale-105"
+                  className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-blue-500 rounded-lg"
                 />
               </div>
               <p className="text-gray-600 text-sm mb-2">
-                Start: {formatDateTime(event.start)}
+              <b>Starts:</b> {formatDateTime(event.start)}
               </p>
               <p className="text-gray-600 text-sm mb-2">
-                End: {formatDateTime(event.end)}
+              <b>Ends:</b> {formatDateTime(event.end)}
               </p>
               <p className="text-gray-600 text-sm mb-2">
-                Location: {event.location}
+                <b>Location:</b> {event.location}
               </p>
               {event.cost > 0 && (
                 <p className="text-gray-600 text-sm mb-2">
-                  Cost: €{event.cost.toFixed(2)}
+                <b>Cost:</b> €{event.cost.toFixed(2)}
                 </p>
               )}
               {event.capacity && (
                 <p className="text-gray-600 text-sm mb-2">
-                  Capacity: {event.capacity} people
+                <b>Capacity:</b> {event.capacity} people
                 </p>
               )}
               <p className="text-gray-600 text-sm mb-2">
-                Type: {event.type}
+                <b>Type:</b> {event.type}
               </p>
             </div>
             <div className="flex justify-between mt-4 gap-4">
               <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors flex-1"
+                className="bg-orange-400 text-white px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-600/50 hvr-grow flex-1"
                 onClick={() => openModal(event.name, event.description)}
               >
-                Event Description
+                View Description
               </button>
               <a 
                 href="https://dcuclubsandsocs.ie/society/fotosoc#events" 
@@ -133,7 +133,7 @@ function EventSection() {
                 rel="noopener noreferrer"
                 className="flex-1"
               >
-                <button className="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                <button className="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-600/50 hvr-grow">
                   View Event
                 </button>
               </a>
