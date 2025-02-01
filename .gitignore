@@ -29,3 +29,7 @@ yarn-debug.log*
 yarn-error.log*
 build.zip
 backend/uploads
+
+*.ini
+*.7z
+/public/gallery

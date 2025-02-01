@@ -22,4 +22,4 @@
 - View the slides from previous Fotosoc workshops
 - Meet the committee page with committee history and contact information
 
-## Check it out here: [dcufotosoc.jakefarrell.ie](https://dcufotosoc.jakefarrell.ie)
+## Check it out here: [dcufotosoc.ie](https://dcufotosoc.ie)

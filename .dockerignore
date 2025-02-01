@@ -31,3 +31,6 @@ npm-cache/
 
 # Yarn cache
 yarn-cache/
+
+# Other
+old/

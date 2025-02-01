@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import "./css/hover.css";
 import "./css/hover.css.map";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Navbar from "./components/navigation/Navbar";
 import Footer from "./components/navigation/Footer";
@@ -24,6 +23,14 @@ import MemberGallery from "./components/user/AdminGallery";
 import GalleryHomepage from "./components/gallery/GalleryHomepage";
 import MemberPortfoliosGrid from "./components/portfolio/MemberPortfolioGrid";
 import EditMemberPortfolioForm from "./components/portfolio/EditMemberPortfolioForm";
+import HeroSection from "./components/home/HeroSection";
+import EventSection from "./components/home/EventSection";
+import About from "./components/home/About";
+import RandomPortfolios from "./components/portfolio/RandomPortfolios";
+import FotoOfTheWeek from "./components/home/FotoOfTheWeek";
+import WhatWeDo from "./components/home/WhatWeDo";
+import Stats from "./components/home/Stats";
+import ContinuousScrollZoom from "./components/home/ContinuousScrollZoom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -34,8 +41,17 @@ root.render(
           path="/"
           element={
             <div>
-              <App />
-            </div>
+            <Navbar />
+            <HeroSection />
+            <EventSection />
+            <About />
+            <RandomPortfolios />
+            <FotoOfTheWeek />
+            <WhatWeDo />
+            <Stats />
+            <ContinuousScrollZoom />
+            <Footer />
+          </div>
           }
         />
         <Route

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import { onAuthStateChanged } from "firebase/auth";
 import imageCompression from "browser-image-compression";
 
-const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID || window._env_.REACT_APP_ADMIN_USER_ID; 
+const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID; 
 
 
 const AddGalleryPageForm = () => {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import getStripe from '../scripts/getStripe';
 
-const stripePriceID = process.env.REACT_APP_STRIPE_PRICE_ID || window._env_.REACT_APP_STRIPE_PRICE_ID;
+const stripePriceID = process.env.REACT_APP_STRIPE_PRICE_ID;
 
 const items = [
   {
