@@ -1,0 +1,7 @@
+flask
+flask_sqlalchemy
+flask_mail
+google-api-python-client
+flask-restx
+flask-cors
+python-dotenv

@@ -9,7 +9,6 @@
 # testing
 /coverage
 old
-*.py
 
 # production
 /build
@@ -33,3 +32,9 @@ backend/uploads
 *.ini
 *.7z
 /public/gallery
+
+# Backend
+
+__pycache__
+instance
+credentials.json

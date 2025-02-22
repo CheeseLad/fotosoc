@@ -31,6 +31,7 @@ import FotoOfTheWeek from "./components/home/FotoOfTheWeek";
 import WhatWeDo from "./components/home/WhatWeDo";
 import Stats from "./components/home/Stats";
 import ContinuousScrollZoom from "./components/home/ContinuousScrollZoom";
+import LoanBookingForm from "./components/loans/LoanBookingForm";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -84,36 +85,16 @@ root.render(
             </div>
           }
         />
-        {/*<Route
-          path="/store"
-          element={
-            <div>
-              <Navbar />
-              <Store />
-              <Footer />
-            </div>
-          }
-        />
         <Route
           path="/loans"
           element={
             <div>
               <Navbar />
-              <Loans />
+              <LoanBookingForm />
               <Footer />
             </div>
           }
         /> 
-        <Route
-          path="/success"
-          element={
-            <div>
-              <Navbar />
-              <h1>Success</h1>
-              <Footer />
-            </div>
-          }
-        />//*/}
         <Route
           path="/portfolios/:portfolioLink"
           element={
