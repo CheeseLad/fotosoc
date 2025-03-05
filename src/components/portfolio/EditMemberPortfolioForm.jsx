@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLinkedinIn, faInstagram, faFacebook, faTwitter, faGithub, faYoutube, faTiktok, faSnapchatGhost } from "@fortawesome/free-brands-svg-icons";
 import { faPlus, faEnvelope, faTrash, faGlobe, faLink } from "@fortawesome/free-solid-svg-icons";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { collection, getDoc, doc, updateDoc, serverTimestamp, where, getDocs, query } from "firebase/firestore";
+import { collection, doc, updateDoc, serverTimestamp, where, getDocs, query } from "firebase/firestore";
 import Select from 'react-select';
 import { getAuth } from "firebase/auth";
 import { useParams, useNavigate } from "react-router-dom";
@@ -47,7 +47,7 @@ const EditMemberPortfolioForm = () => {
     profileImage: "",
   });
 
-  const { portfolioLink } = useParams(); // Get the portfolio link from the URL
+  const { portfolioLink } = useParams();
   const auth = getAuth();
   const navigate = useNavigate();
   const [portfolioId, setPortfolioId] = useState("");
@@ -63,7 +63,6 @@ const EditMemberPortfolioForm = () => {
       }
   
       try {
-        // Query Firestore where portfolioLink matches
         const q = query(
           collection(db, "memberPortfolios"),
           where("portfolioLink", "==", portfolioLink)
