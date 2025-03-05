@@ -45,7 +45,7 @@ const MemberGallery = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
+    <div className="flex grow justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
       <Gallery galleries={gallery.galleries} />
     </div>
   );

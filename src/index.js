@@ -118,7 +118,7 @@ root.render(
         <Route
           path="/gallery/:portfolioLink"
           element={
-            <div>
+            <div className="min-h-screen flex flex-col">
               <Navbar />
               <MemberGallery />
               <Footer />
