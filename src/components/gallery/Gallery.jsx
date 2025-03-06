@@ -41,7 +41,7 @@ const Gallery = ({ galleries, returnValue }) => {
         }));
         alert('Caption saved successfully!');
       } catch (error) {
-        console.error('Error saving caption:', error);
+        alert(`Error saving caption: ${error}`);
       }
     }
   };
