@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 
 export default function LoanBookingForm() {
   const [equipmentList, setEquipmentList] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [email, setEmail] = useState("");
-  const [startDateTime, setStartDateTime] = useState(new Date());
-  const [endDateTime, setEndDateTime] = useState(new Date());
+  const [startDateTime, setStartDateTime] = useState(
+    new Date().toISOString().slice(0, 16)
+  );
+  const [endDateTime, setEndDateTime] = useState(
+    new Date().toISOString().slice(0, 16)
+  );
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -27,8 +29,8 @@ export default function LoanBookingForm() {
       user_email: email,
       equipment: selectedEquipment,
       quantity: quantity,
-      start_datetime: startDateTime.toISOString().slice(0, 16).replace("T", " "),
-      end_datetime: endDateTime.toISOString().slice(0, 16).replace("T", " ")
+      start_datetime: startDateTime.replace("T", " "),
+      end_datetime: endDateTime.replace("T", " "),
     };
 
     try {
@@ -90,25 +92,26 @@ export default function LoanBookingForm() {
           </select>
         </div>
 
-        {/* Date & Time Pickers */}
+        {/* Start Date & Time */}
         <div>
           <label className="block text-sm font-semibold">Start Date & Time:</label>
-          <DatePicker
-            selected={startDateTime}
-            onChange={(date) => setStartDateTime(date)}
-            showTimeSelect
-            dateFormat="yyyy-MM-dd HH:mm"
+          <input
+            type="datetime-local"
+            value={startDateTime}
+            onChange={(e) => setStartDateTime(e.target.value)}
+            required
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>
 
+        {/* End Date & Time */}
         <div>
           <label className="block text-sm font-semibold">End Date & Time:</label>
-          <DatePicker
-            selected={endDateTime}
-            onChange={(date) => setEndDateTime(date)}
-            showTimeSelect
-            dateFormat="yyyy-MM-dd HH:mm"
+          <input
+            type="datetime-local"
+            value={endDateTime}
+            onChange={(e) => setEndDateTime(e.target.value)}
+            required
             className="w-full px-3 py-2 border rounded-lg"
           />
         </div>

@@ -1,4 +1,7 @@
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faYoutube, faTiktok, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Footer() {
   return (
@@ -23,7 +26,7 @@ function Footer() {
             rel="noopener noreferrer" 
             className="text-white hover:text-gray-400 mx-2 text-2xl"
           >
-            <i className="fab fa-whatsapp"></i>
+              <FontAwesomeIcon icon={faWhatsapp} />
           </a>
           <a 
             href="https://www.tiktok.com/@dcufotosoc" 
@@ -32,7 +35,7 @@ function Footer() {
             rel="noopener noreferrer" 
             className="text-white hover:text-gray-400 mx-2 text-2xl"
           >
-            <i className="fab fa-tiktok"></i>
+            <FontAwesomeIcon icon={faTiktok} />
           </a>
           <a 
             href="https://www.instagram.com/dcufotosoc" 
@@ -41,7 +44,7 @@ function Footer() {
             rel="noopener noreferrer" 
             className="text-white hover:text-gray-400 mx-2 text-2xl"
           >
-            <i className="fab fa-instagram"></i>
+            <FontAwesomeIcon icon={faInstagram} />
           </a>
           <a 
             href="mailto:committee@dcufotosoc.ie" 
@@ -50,7 +53,7 @@ function Footer() {
             rel="noopener noreferrer" 
             className="text-white hover:text-gray-400 mx-2 text-2xl"
           >
-            <i className="fa fa-envelope"></i>
+            <FontAwesomeIcon icon={faEnvelope} />
           </a>
           <a 
             href="https://www.youtube.com/@dcufotosoc3388" 
@@ -59,7 +62,7 @@ function Footer() {
             rel="noopener noreferrer" 
             className="text-white hover:text-gray-400 mx-2 text-2xl"
           >
-            <i className="fab fa-youtube"></i>
+            <FontAwesomeIcon icon={faYoutube} />
           </a>
         </div>
       </div>

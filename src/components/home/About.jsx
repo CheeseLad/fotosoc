@@ -1,5 +1,8 @@
 import React from "react";
 import YouTubePlayer from "../YouTubePlayer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook, faYoutube, faTiktok, faWhatsapp, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 const About = () => {
   return (
@@ -23,7 +26,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-whatsapp text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faWhatsapp} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
   <li className="p-2">
@@ -33,7 +36,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-tiktok text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faTiktok} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
   <li className="p-2">
@@ -43,7 +46,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-instagram text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faInstagram} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
   <li className="p-2">
@@ -53,7 +56,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fa fa-envelope text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faEnvelope} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
   <li className="p-2">
@@ -63,7 +66,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-youtube text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faYoutube} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
   <li className="p-2">
@@ -73,7 +76,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-facebook text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faFacebook} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
 
@@ -84,7 +87,7 @@ const About = () => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i className="fab fa-linkedin text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
+      <FontAwesomeIcon icon={faLinkedin} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
 </ul>
