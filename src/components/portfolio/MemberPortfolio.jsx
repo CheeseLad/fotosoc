@@ -136,7 +136,7 @@ const MemberPortfolio = () => {
 
           <div className="flex items-center">
             <div className="text-lg text-black p-4">
-              <p>{portfolio.bio}</p>
+              <p>{portfolio.bio || "No bio found."} </p>
             </div>
           </div>
         </div>

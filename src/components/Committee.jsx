@@ -1,6 +1,20 @@
 import committeeData from '../data/committee.json';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook, faYoutube, faTiktok, faWhatsapp, faLinkedin, faBluesky } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope, faLink } from "@fortawesome/free-solid-svg-icons";
 
 function Committee() {
+
+  const iconMap = {
+    faInstagram,
+    faFacebook,
+    faYoutube,
+    faTiktok,
+    faWhatsapp,
+    faLinkedin,
+    faLink,
+    faBluesky,
+  };  
   
   return (
   <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white">
@@ -22,13 +36,13 @@ function Committee() {
           </div>
           <div className="flex justify-center mb-4">
             <a href={member.social1} target="_blank" rel="noopener noreferrer" className="mx-4 hvr-bob">
-              <i className={`${member.social1_type} text-4xl`}></i>
+              <FontAwesomeIcon icon={iconMap[member.social1_type]} className="text-4xl" />
             </a>
             <a href={member.social2} target="_blank" rel="noopener noreferrer" className="mx-4 hvr-bob">
-              <i className={`${member.social2_type} text-4xl`}></i>
+            <FontAwesomeIcon icon={iconMap[member.social2_type]} className="text-4xl" />
             </a>
             <a href={`mailto:${member.email}`} className="mx-4 hvr-bob">
-            <i className="fa fa-envelope text-4xl"></i>
+              <FontAwesomeIcon icon={faEnvelope} className="text-4xl" />
             </a>
           </div>
         </div>

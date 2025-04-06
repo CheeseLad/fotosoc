@@ -140,6 +140,31 @@ const EditMemberPortfolioForm = () => {
       });
       setMemberInfo({ ...memberInfo, galleries: newGalleries });
     };
+
+    const moveImageLeft = (galleryIndex, imageIndex) => {
+      if (imageIndex === 0) return; // Already at the start
+      const newGalleries = [...memberInfo.galleries];
+      const images = [...newGalleries[galleryIndex].images];
+    
+      [images[imageIndex - 1], images[imageIndex]] = [images[imageIndex], images[imageIndex - 1]];
+      newGalleries[galleryIndex].images = images;
+    
+      setMemberInfo({ ...memberInfo, galleries: newGalleries });
+    };
+    
+    const moveImageRight = (galleryIndex, imageIndex) => {
+      const images = memberInfo.galleries[galleryIndex].images;
+      if (imageIndex === images.length - 1) return; // Already at the end
+    
+      const newGalleries = [...memberInfo.galleries];
+      const updatedImages = [...newGalleries[galleryIndex].images];
+    
+      [updatedImages[imageIndex + 1], updatedImages[imageIndex]] = [updatedImages[imageIndex], updatedImages[imageIndex + 1]];
+      newGalleries[galleryIndex].images = updatedImages;
+    
+      setMemberInfo({ ...memberInfo, galleries: newGalleries });
+    };
+    
     
     
     const removeImage = (galleryIndex, imageIndex) => {
@@ -305,7 +330,6 @@ const EditMemberPortfolioForm = () => {
             onChange={handleChange}
             placeholder="I'm a photographer based in Dublin."
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[100px]"
-            required
           />
         </div>
         <div className="mb-4">
@@ -400,20 +424,38 @@ const EditMemberPortfolioForm = () => {
         <h4 className="text-gray-700 font-bold">Existing Images:</h4>
         <div className="flex flex-wrap gap-2">
           {gallery.images.map((image, imageIndex) => (
-            <div key={imageIndex} className="relative">
-              <img
-                src={typeof image === "string" ? image : URL.createObjectURL(image)}
-                alt={`Gallery ${index + 1} Image ${imageIndex + 1}`}
-                className="w-24 h-24 object-cover rounded border border-gray-300"
-              />
-              <button
-                type="button"
-                onClick={() => removeImage(index, imageIndex)}
-                className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full p-1"
-              >
-                <FontAwesomeIcon icon={faTrash} />
-              </button>
-            </div>
+           <div key={imageIndex} className="relative flex flex-col items-center">
+           <img
+             src={typeof image === "string" ? image : URL.createObjectURL(image)}
+             alt={`Gallery ${index + 1} Image ${imageIndex + 1}`}
+             className="w-24 h-24 object-cover rounded border border-gray-300 mb-1"
+           />
+         
+           <div className="flex gap-1">
+             <button
+               type="button"
+               onClick={() => moveImageLeft(index, imageIndex)}
+               className="bg-gray-200 text-black text-xs px-2 rounded hover:bg-gray-300"
+             >
+               ←
+             </button>
+             <button
+               type="button"
+               onClick={() => moveImageRight(index, imageIndex)}
+               className="bg-gray-200 text-black text-xs px-2 rounded hover:bg-gray-300"
+             >
+               →
+             </button>
+             <button
+               type="button"
+               onClick={() => removeImage(index, imageIndex)}
+               className="bg-red-500 text-white text-xs px-2 rounded"
+             >
+               <FontAwesomeIcon icon={faTrash} />
+             </button>
+           </div>
+         </div>
+         
           ))}
         </div>
       </div>

@@ -5,7 +5,7 @@
     "position": "Chairperson",
     "image" : "/fotosoc_logo.png",
     "social1": "https://www.instagram.com/jackconlon_2002",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "",
     "email": "chair@dcufotosoc.ie"
   },
@@ -15,9 +15,9 @@
     "position": "Vice Chairperson",
     "image" : "/committee/robert_danca.png",
     "social1": "https://www.instagram.com/robertdanca26",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "https://www.instagram.com/bob.archive",
-    "social2_type": "fab fa-instagram",
+    "social2_type": "faInstagram",
     "email": "vicechair@dcufotosoc.ie"
   },
   {
@@ -26,9 +26,9 @@
     "position": "Secretary",
     "image" : "/committee/pele_ashley.jpeg",
     "social1": "https://bsky.app/profile/violentgreen.net",
-    "social1_type": "fab fa-bluesky",
+    "social1_type": "faBluesky",
     "social2": "https://myspace.com/pelekalikimaka",
-    "social2_type": "fa fa-link",
+    "social2_type": "faLink",
     "email": "secretary@dcufotosoc.ie"
   },
   {
@@ -37,7 +37,7 @@
     "position": "Treasurer",
     "image" : "/committee/gavin_reilly.png",
     "social1": "https://www.instagram.com/gavin2910",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "",
     "email": "treasurer@dcufotosoc.ie"
   },
@@ -47,7 +47,7 @@
     "position": "Public Relations Officer",
     "image" : "/committee/naoise_duffy.jpeg",
     "social1": "https://www.instagram.com/naoise.d11",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "",
     "email": "pro@dcufotosoc.ie"
   }, 
@@ -57,7 +57,7 @@
     "position": "Brand Design Officer",
     "image" : "/fotosoc_logo.png",
     "social1": "https://www.instagram.com/annamitdoppeln",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "",
     "email": "bdo@dcufotosoc.ie"
   }, 
@@ -103,9 +103,9 @@
     "position": "First Year Rep",
     "image" : "/committee/ciara_elton.jpg",
     "social1": "https://www.instagram.com/ciara.elton_media",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "https://www.instagram.com/pinkshadowgirl1",
-    "social2_type": "fab fa-instagram",
+    "social2_type": "faInstagram",
     "email": "fyr@dcufotosoc.ie"
   },
   {
@@ -114,9 +114,9 @@
     "position": "Ordinary Committee Member",
     "image" : "/committee/aisling_keenan.jpg",
     "social1": "https://www.instagram.com/aislingkeenan_",
-    "social1_type": "fab fa-instagram",
+    "social1_type": "faInstagram",
     "social2": "https://www.linkedin.com/in/aisling-keenan-673298251",
-    "social2_type": "fab fa-linkedin",
+    "social2_type": "faLinkedin",
     "email": "ocm@dcufotosoc.ie"
   },
   {
@@ -134,9 +134,9 @@
     "position": "Webmaster",
     "image" : "/committee/jake_farrell.jpg",
     "social1": "https://www.jakefarrell.ie/",
-    "social1_type": "fa-solid fa-link",
+    "social1_type": "faLink",
     "social2": "https://www.linkedin.com/in/jake-farrell-cs/",
-    "social2_type": "fab fa-linkedin",
+    "social2_type": "faLinkedin",
     "email": "webmaster@dcufotosoc.ie"
   }
 ]

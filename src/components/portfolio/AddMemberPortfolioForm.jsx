@@ -302,7 +302,6 @@ const AddMemberPortfolioForm = () => {
             onChange={handleChange}
             placeholder="I'm a photographer based in Dublin."
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline min-h-[100px]"
-            required
           />
         </div>
         <div className="mb-4">
