@@ -1,5 +1,21 @@
 [
   {
+    "year": "2025/26",
+    "members": [
+      { "role": "Chairperson", "name": "Milos Girard" },
+      { "role": "Vice Chairperson", "name": "Matt Surkov" },
+      { "role": "Secretary", "name": "Conor Purcell" },
+      { "role": "Treasurer", "name": "Dearbháila Lynch" },
+      { "role": "Public Relations Officer", "name": "Harry Greenwood" },
+      { "role": "Brand Design Officer", "name": "Ciara Elton" },
+      { "role": "Curation Officer", "name": "Enya O’Reilly Huerta" },
+      { "role": "Equipment Officer", "name": "Magdalena Kudlewska" },
+      { "role": "Events Officer", "name": "Nicole Kenna" },
+      { "role": "Events Officer", "name": "Maria Sapovalova" },
+      { "role": "Webmaster", "name": "Jake Farrell" }
+    ]
+  },
+  {
     "year": "2024/25",
     "members": [
       { "role": "Chairperson", "name": "Jack Conlon" },

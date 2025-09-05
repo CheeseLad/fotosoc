@@ -5,6 +5,7 @@ import { db } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import committeeNamesData from '../../data/committee_names.json';
 
 const MemberPortfoliosGrid = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -71,7 +72,7 @@ const MemberPortfoliosGrid = () => {
                     {portfolio.name}
                   </h3>
                   <p className="text-sm text-gray-600 mb-2">
-                    {portfolio.position || "Member"}
+                    {committeeNamesData.includes(portfolio.name) ? "Committee" : "Member"}
                   </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <FontAwesomeIcon icon={faCamera} className="mr-2" />

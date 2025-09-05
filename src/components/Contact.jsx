@@ -3,8 +3,8 @@ import React from "react";
 const Contact = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
-      <h2 className="text-4xl font-extrabold text-center mb-8">Contact Us</h2>
-      <p className="text-lg px-6 sm:px-12 md:px-20 text-center mb-8">
+      <h2 className="text-3xl font-bold text-center mb-8">Contact Us</h2>
+      <p className="text-lg px-10 text-center">
         Fill in the form or send us an email at
         <a
           className="hover:underline ml-1"
@@ -13,7 +13,7 @@ const Contact = () => {
           committee@dcufotosoc.ie
         </a>
       </p>
-      <div className="bg-white rounded-lg shadow-2xl p-8 mt-4 mx-4 md:mx-12 lg:mx-20 md:min-w-[500px] sm:min-w-[400px]">
+      <div className="mb-10 bg-white rounded-lg shadow-2xl p-8 mt-4 mx-4 md:mx-12 lg:mx-20 md:min-w-[500px] sm:min-w-[400px]">
         <form
           action="https://formspree.io/f/mvgoavrb"
           method="POST"

@@ -18,6 +18,7 @@ import { faEnvelope, faLink, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Gallery from "../gallery/Gallery";
 import { useNavigate } from "react-router-dom"; // For navigation
 import { doc, deleteDoc } from "firebase/firestore";
+import committeeNamesData from '../../data/committee_names.json';
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -110,7 +111,7 @@ const MemberPortfolio = () => {
             </div>
             <div className="text-center">
               <h3 className="text-3xl font-semibold">{portfolio.name}</h3>
-              <p className="text-xl italic">{portfolio.position || "Member"}</p>
+              <p className="text-xl italic">{committeeNamesData.includes(portfolio.name) ? "Committee" : "Member"}</p>
               <div className="flex justify-center mt-4">
                 {portfolio.socialButtons.map((button, index) => (
                   <a
