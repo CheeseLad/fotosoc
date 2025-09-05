@@ -46,8 +46,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            REACT_APP_STRIPE_PUBLISHABLE_KEY=${{ secrets.REACT_APP_STRIPE_PUBLISHABLE_KEY }}
-            REACT_APP_STRIPE_PRICE_ID=${{ secrets.REACT_APP_STRIPE_PRICE_ID }}
             REACT_APP_ADMIN_USER_ID=${{ secrets.REACT_APP_ADMIN_USER_ID }}
             REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY }}
             REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
