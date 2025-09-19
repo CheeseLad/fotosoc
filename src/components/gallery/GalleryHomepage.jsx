@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import PageHeading from '../PageHeading';
 
 const GalleryHomepage = () => {
   const [galleries, setGalleries] = useState([]);
@@ -26,8 +27,8 @@ const GalleryHomepage = () => {
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 min-h-screen">
-      <div className="w-full px-4 md:px-8">
-        <h3 className="text-3xl font-bold text-center mb-8">Fotosoc Gallery</h3>
+      <div className="w-full px-4 md:px-8 text-white">
+        <PageHeading heading="Fotosoc Gallery" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {galleries.map((gallery, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden">

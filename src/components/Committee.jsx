@@ -2,6 +2,7 @@ import committeeData from '../data/committee.json';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook, faYoutube, faTiktok, faWhatsapp, faLinkedin, faBluesky } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLink } from "@fortawesome/free-solid-svg-icons";
+import PageHeading from './PageHeading';
 
 function Committee() {
 
@@ -18,8 +19,8 @@ function Committee() {
   
   return (
   <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white">
-    <div className="container mx-auto py-12">
-    <h2 className="text-3xl font-bold text-center mb-8">Meet the Committee</h2>
+    <div className="container mx-auto py-12 text-white">
+    <PageHeading heading="Meet the Committee" />
     <div className="text-center">
       <a href='/previous-committees'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">View Previous Committees</button></a>
     </div>

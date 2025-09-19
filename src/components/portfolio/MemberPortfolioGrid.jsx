@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import committeeNamesData from '../../data/committee_names.json';
+import PageHeading from '../PageHeading';
 
 const MemberPortfoliosGrid = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -55,10 +56,8 @@ const MemberPortfoliosGrid = () => {
 
   return (
     <div className="bg-gradient-to-r from-blue-900 to-blue-600 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-white text-center mb-8">
-          Member Portfolios
-        </h2>
+      <div className="max-w-7xl mx-auto text-white">
+        <PageHeading heading="Member Portfolios" />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {portfolios.map((portfolio) => (
             <Link

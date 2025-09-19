@@ -4,6 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth"; // Import Firebase Auth
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PageHeading from '../PageHeading';
 import {
   faLinkedinIn,
   faInstagram,
@@ -95,9 +96,7 @@ const MemberPortfolio = () => {
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
-      <h2 className="text-3xl font-bold text-center mb-8">
-        Member Portfolio: {portfolio.name}
-      </h2>
+      <PageHeading heading={`Member Portfolio: ${portfolio.name}`} />
 
       <div className="max-w-5xl w-full bg-white rounded-lg shadow-2xl p-6 m-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">

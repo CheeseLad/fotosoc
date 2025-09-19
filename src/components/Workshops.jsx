@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PageHeading from "./PageHeading";
 
 const Workshops = () => {
   const presentations = [
@@ -34,11 +35,12 @@ const Workshops = () => {
 
   return (
     <div className="bg-gradient-to-r from-blue-900 to-blue-600 text-white min-h-screen ">
-      <div className="container mx-auto px-4 py-8">
-        <h2 className="text-3xl font-bold text-center mt-8 mb-4">Workshops</h2>
-        <p className="text-lg text-center mb-8">
-          Click on a workshop presentation to view it in full screen.
-        </p>
+      <div className="container mx-auto px-4 py-8 text-white">
+        <PageHeading 
+          heading="Workshops" 
+          subheading="Click on a workshop presentation to view it in full screen."
+          className="mt-8"
+        />
 
         {!selectedPresentation && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

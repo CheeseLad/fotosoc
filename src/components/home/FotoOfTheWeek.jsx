@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
+import PageHeading from '../PageHeading';
 
 const FotoOfTheWeek = () => {
   const [fotoData, setFotoData] = useState(null);
@@ -40,24 +41,20 @@ const FotoOfTheWeek = () => {
   if (!fotoData) {
     return (
       <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
-        <h2 className="text-3xl font-bold text-center mb-4">
-          Foto of the Week
-        </h2>
-        <p className="text-lg mb-8 px-2 text-center">
-          Loading Foto of the Week...
-        </p>
+        <PageHeading 
+          heading="Foto of the Week" 
+          subheading="Loading Foto of the Week..."
+        />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
-      <h2 className="text-3xl font-bold text-center mb-4">Foto of the Week</h2>
-      <p className="text-lg mb-8 px-2 text-center">
-        Discover the best photograph taken by our talented members every week!
-        Check out this week's featured photo and learn more about the
-        photographer.
-      </p>
+      <PageHeading 
+        heading="Foto of the Week" 
+        subheading="Discover the best photograph taken by our talented members every week! Check out this week's featured photo and learn more about the photographer."
+      />
       <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col md:flex-row items-center md:items-start max-w-4xl w-full">
         <div className="w-full md:w-1/2">
           <img

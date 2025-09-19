@@ -1,4 +1,5 @@
 import React from 'react'
+import PageHeading from '../PageHeading'
 
 const whatWeDo = [
   { id: 1,
@@ -22,7 +23,7 @@ const WhatWeDo = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-white text-black">
     <div className="container mx-auto py-12">
-    <h2 className="text-3xl font-bold text-center mb-8">Why Join DCU Fotosoc?</h2>
+    <PageHeading heading="Why Join DCU Fotosoc?" />
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-white">
       {whatWeDo.map(member => (

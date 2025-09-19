@@ -1,16 +1,17 @@
 import React from "react";
 import YouTubePlayer from "../YouTubePlayer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faFacebook, faYoutube, faTiktok, faWhatsapp, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faYoutube, faTiktok, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import PageHeading from "../PageHeading";
 
 const About = () => {
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
-      <h2 className="text-3xl font-bold text-center mb-4">About Fotosoc</h2>
-      <p className="text-lg mb-4">
-        Watch this video to learn all about DCU's Photography Society
-      </p>
+      <PageHeading 
+        heading="About Fotosoc" 
+        subheading="Watch this video to learn all about DCU's Photography Society"
+      />
       <div className="video-container rounded-xl overflow-hidden shadow-2xl mb-8">
         <YouTubePlayer />
       </div>

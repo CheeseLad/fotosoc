@@ -5,6 +5,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { db } from "../../firebase";
 import committeeNamesData from '../../data/committee_names.json';
+import PageHeading from '../PageHeading';
 
 const RandomPortfolios = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -45,12 +46,10 @@ const RandomPortfolios = () => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="container mx-auto pt-6">
-        <h2 className="text-2xl font-bold mb-4 text-center">
-          Featured Portfolios
-        </h2>
-        <p className="text-center text-lg mb-8">
-          Check out some of our member's photography portfolios!
-        </p>
+        <PageHeading 
+          heading="Featured Portfolios" 
+          subheading="Check out some of our members' photography portfolios!"
+        />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 bg-gradient-to-r from-blue-400 to-blue-500 p-6 rounded-lg">
           {randomPortfolios.map((portfolio) => (
             <Link
