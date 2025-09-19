@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PageHeading from '../PageHeading';
 
 export default function LoanBookingForm() {
   const [equipmentList, setEquipmentList] = useState([]);
@@ -50,8 +51,13 @@ export default function LoanBookingForm() {
   };
 
   return (
+    <div className="px-8 flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 py-8 min-h-screen">
+      <PageHeading 
+        heading="Loan Equipment" 
+        subheading="Fill in the form to loan equipment from us!"
+        className="text-white"
+      />
     <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg mt-10">
-      <h2 className="text-xl font-bold mb-4">Book Equipment</h2>
 
       {message && (
         <div className="mb-4 text-center text-sm p-2 rounded bg-gray-100 text-gray-700">
@@ -70,7 +76,7 @@ export default function LoanBookingForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded-lg"
-            placeholder="Enter your email"
+            placeholder="Enter your student email (@mail.dcu.ie or @dcu.ie)"
           />
         </div>
 
@@ -117,10 +123,11 @@ export default function LoanBookingForm() {
         </div>
 
         {/* Submit Button */}
-        <button type="submit" className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg">
-          {loading ? "Booking..." : "Submit Booking"}
+        <button type="submit" className="bg-green-500 text-white w-full px-4 py-2 mt-4 mr-4 rounded-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-600/50">
+          {loading ? "Submitting..." : "Submit Loan Request"}
         </button>
       </form>
+    </div>
     </div>
   );
 }
