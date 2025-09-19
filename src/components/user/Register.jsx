@@ -10,8 +10,19 @@ const Register = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const validateEmailDomain = (email) => {
+    return email.endsWith('@mail.dcu.ie') || email.endsWith('@dcu.ie');
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
+    
+    // Validate email domain before attempting registration
+    if (!validateEmailDomain(email)) {
+      setError("Only @mail.dcu.ie or @dcu.ie email addresses are allowed for registration.");
+      return;
+    }
+    
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       alert("Registration successful!");
@@ -34,10 +45,11 @@ const Register = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@example.com"
+              placeholder="your.name@mail.dcu.ie"
               required
               className="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            <p className="text-sm text-gray-600 mt-1">Only @mail.dcu.ie or @dcu.ie email addresses are accepted</p>
           </div>
           <div>
             <label htmlFor="register-password" className="block mb-2 text-lg font-medium">Password</label>
