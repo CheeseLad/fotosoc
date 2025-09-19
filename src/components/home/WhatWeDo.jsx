@@ -8,7 +8,7 @@ const whatWeDo = [
   },
   { id: 2,
     name: "Yearly Photobook Issue",
-    position: "Each year we release a photobook that showcases the best photos taken by our members. This is a great way to get your work published and seen by others. This year's theme is 'Wild'.",
+    position: "Each year we release a photobook that showcases the best photos taken by our members. This is a great way to get your work published and seen by others. Last year's theme was 'Wild'.",
     image: "/whatwedo/connection.png",
   },
   { id: 3,

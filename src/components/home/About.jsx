@@ -69,7 +69,7 @@ const About = () => {
       <FontAwesomeIcon icon={faYoutube} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
   </li>
-  <li className="p-2">
+  {/*<li className="p-2">
     <a
       href="https://facebook.com/DCUPhotographySociety"
       aria-label="DCU Fotosoc Facebook"
@@ -89,7 +89,7 @@ const About = () => {
     >
       <FontAwesomeIcon icon={faLinkedin} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
     </a>
-  </li>
+  </li>*/}
 </ul>
 
 </div>

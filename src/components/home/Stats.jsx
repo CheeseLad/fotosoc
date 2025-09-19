@@ -131,9 +131,9 @@ const Stats = () => {
         <StatBox
           icon={ChartColumnIncreasing}
           label="Years Running"
-          endValue={22}
+          endValue={23}
         />
-        <StatBox icon={Users} label="Active Members" endValue={141} />
+        <StatBox icon={Users} label="Active Members" endValue={73} />
         <StatBox icon={Image} label="Fotos Uploaded" endValue={imageCount} />
         <StatBox
           icon={Award}
