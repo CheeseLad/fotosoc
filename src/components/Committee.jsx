@@ -28,7 +28,7 @@ function Committee() {
       {committeeData.map(member => (
         <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
           <div className="flex items-center justify-center mb-4">
-            <img src={[member.image] || "/fotosoc_logo.png"} alt={member.name} className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105" />
+            <img src={[member.image] || "/fotosoc_logo_circle.png"} alt={member.name} className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105" />
           </div>
           <div className="text-center mb-3">
             <h3 className="text-3xl font-semibold">{member.name}</h3>

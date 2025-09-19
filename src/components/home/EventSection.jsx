@@ -92,7 +92,7 @@ function EventSection() {
               <h2 className="text-2xl font-bold mb-2 text-center">{event.name}</h2>
               <div className="my-4">
                 <img
-                  src={event.image || "/fotosoc_logo.png"}
+                  src={event.image || "/fotosoc_logo_square.png"}
                   alt={`${event.name} event`}
                   className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-blue-500 rounded-lg"
                 />

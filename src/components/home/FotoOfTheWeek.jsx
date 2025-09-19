@@ -61,7 +61,7 @@ const FotoOfTheWeek = () => {
       <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col md:flex-row items-center md:items-start max-w-4xl w-full">
         <div className="w-full md:w-1/2">
           <img
-            src={fotoData.photo_link || "/fotosoc_logo.png"}
+            src={fotoData.photo_link || "/fotosoc_logo_square.png"}
             alt="Foto of the Week"
             className="rounded-lg w-full h-auto shadow-md transition-transform duration-300 transform hover:scale-105"
           />

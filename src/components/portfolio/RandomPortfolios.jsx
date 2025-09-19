@@ -79,7 +79,7 @@ const RandomPortfolios = () => {
                 <div className="relative">
                   <img
                     className="h-20 w-20 lg:h-40 lg:w-40 sm:h-20 sm:w-20 object-cover rounded-full mx-auto"
-                    src={portfolio.profileImage || "/fotosoc_logo.png"}
+                    src={portfolio.profileImage || "/fotosoc_logo_circle.png"}
                     alt={portfolio.name}
                   />
                 </div>

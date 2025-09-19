@@ -87,7 +87,7 @@ const MemberPortfoliosGrid = () => {
                 <div className="relative w-1/3">
                   <img
                     className="h-20 w-20 object-cover rounded-full"
-                    src={portfolio.profileImage || "/fotosoc_logo.png"}
+                    src={portfolio.profileImage || "/fotosoc_logo_circle.png"}
                     alt={portfolio.name}
                   />
                 </div>
