@@ -32,9 +32,10 @@ const Linktree = ({ sheetUrl }) => {
   }, [sheetUrl]);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 min-h-screen w-full">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 min-h-screen w-full">
       <PageHeading heading="Quick Links" />
-      <div className="bg-white rounded-lg shadow-xl p-6 mx-4">
+      <div className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f]
+ m-3">
         {links.length > 0 ? (
           links.map((link, index) => (
             <a
@@ -45,11 +46,10 @@ const Linktree = ({ sheetUrl }) => {
               rel="noopener noreferrer"
             >
               <button
-                className="w-full bg-purple-500 text-white px-6 py-4 rounded-lg 
-                           hover:bg-purple-600 active:bg-purple-700 
+                className="w-full bg-[#3774aa] text-white px-6 py-4 rounded-lg 
+                           hover:bg-[#2e5f8f]
                            transition-colors 
-                           text-lg font-medium
-                           focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                           text-lg font-medium"
               >
                 {link.link_name}
               </button>

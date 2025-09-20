@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../Button";
 
 function shuffleArray(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -24,11 +25,10 @@ function HeroSection() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-600 text-white py-24">
+    <div className="bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-24">
       <div className="container mx-auto flex items-center justify-center">
         <div className="flex-1 mr-8 ml-3">
-          <div className="mb-8">
-            <h1 className="text-4xl font-bold mb-4">
+          <h1 className="text-4xl font-bold mb-4">
               DCU Fotosoc - DCU's Photography Society
             </h1>
             <p className="text-lg mb-4">
@@ -43,33 +43,29 @@ function HeroSection() {
               nights out, student exhibitions, competitions and more!
             </p>
             <div>
-              <a
+              <Button
                 href="https://dcuclubsandsocs.ie/society/fotosoc"
+                text="Join Now"
+                color="green"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="no-underline"
-              >
-                <button className="bg-green-500 text-white px-4 py-2 mt-4 mr-4 rounded-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-600/50 hvr-grow">
-                  Join Now
-                </button>
-              </a>
-              <a href="/gallery">
-                <button className="bg-purple-500 text-white px-4 py-2 mt-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">
-                  View Gallery
-                </button>
-              </a>
-              <a href="/links">
-                <button className="bg-orange-400 text-white px-4 py-2 mt-4 mr-4 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-500/50 hvr-grow">
-                  View Linktree
-                </button>
-              </a>
-              <a href="/portfolios">
-                <button className="bg-red-400 text-white px-4 py-2 mt-4 mr-4 rounded-lg hover:bg-red-500 transition-colors shadow-lg shadow-red-500/50 hvr-grow">
-                  View Portfolios
-                </button>
-              </a>
+              />
+              <Button
+                href="/gallery"
+                text="View Gallery"
+                color="purple"
+              />
+              <Button
+                href="/links"
+                text="View Linktree"
+                color="orange"
+              />
+              <Button
+                href="/portfolios"
+                text="View Portfolios"
+                color="red"
+              />
             </div>
-          </div>
         </div>
         <div className="flex-1">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mr-3">

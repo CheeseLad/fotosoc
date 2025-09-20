@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram } from "@fortawesome/free-brands-svg-icons";
-import PageHeading from '../PageHeading';
+import PageHeading from "../PageHeading";
+import Button from "../Button";
 
 const FotoOfTheWeek = () => {
   const [fotoData, setFotoData] = useState(null);
@@ -40,9 +41,9 @@ const FotoOfTheWeek = () => {
 
   if (!fotoData) {
     return (
-      <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
-        <PageHeading 
-          heading="Foto of the Week" 
+      <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 px-4">
+        <PageHeading
+          heading="Foto of the Week"
           subheading="Loading Foto of the Week..."
         />
       </div>
@@ -50,9 +51,9 @@ const FotoOfTheWeek = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
-      <PageHeading 
-        heading="Foto of the Week" 
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 px-4">
+      <PageHeading
+        heading="Foto of the Week"
         subheading="Discover the best photograph taken by our talented members every week! Check out this week's featured photo and learn more about the photographer."
       />
       <div className="bg-white rounded-lg shadow-xl p-6 flex flex-col md:flex-row items-center md:items-start max-w-4xl w-full">
@@ -85,14 +86,13 @@ const FotoOfTheWeek = () => {
               {fotoData.instagram_username}
             </a>
           )}
-          <a
+          <Button
             href="/gallery/foto-of-the-week"
+            text="View Previous Winners"
+            color="purple"
+            className="mb-4"
             target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-purple-500 text-white py-2 px-4 rounded-lg shadow-md hover:bg-purple-600 transition duration-300 hvr-grow"
-          >
-            View Previous Winners
-          </a>
+          />
         </div>
       </div>
     </div>

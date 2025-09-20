@@ -22,7 +22,7 @@ const WhatOurMembersSay = () => {
   return (
     <div className="max-w-xl mx-auto p-4 text-center">
       <h2 className="text-2xl font-bold mb-4">What Our Members Say</h2>
-      <div className="bg-gradient-to-r from-blue-400 to-blue-500 shadow-lg rounded-lg p-6">
+      <div className="bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] shadow-lg rounded-lg p-6">
         <p className="text-lg italic">"{testimonials[currentIndex].message}"</p>
         <p className="mt-4 font-semibold">{testimonials[currentIndex].name}</p>
         <p className="text-sm text-gray-800">{testimonials[currentIndex].course}</p>

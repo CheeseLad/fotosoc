@@ -85,7 +85,7 @@ function EventSection() {
       <div className="px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
         {events.map((event, index) => (
           <div 
-            className="bg-gradient-to-r from-blue-400 to-blue-500 p-6 rounded-lg shadow-lg flex flex-col" 
+            className="bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] p-6 rounded-lg shadow-lg flex flex-col" 
             key={index}
           >
             <div className="flex-1 bg-white rounded-lg p-4">

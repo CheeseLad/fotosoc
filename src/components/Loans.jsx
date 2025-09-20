@@ -3,7 +3,7 @@ import PageHeading from './PageHeading';
 
 const Loans = () => {
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white min-h-screen">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white min-h-screen">
       <PageHeading 
         heading="Loans" 
         subheading="Borrow equipment from the photography society. Fill out the form below to request a loan."

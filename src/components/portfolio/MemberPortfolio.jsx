@@ -95,12 +95,12 @@ const MemberPortfolio = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8">
       <PageHeading heading={`Member Portfolio: ${portfolio.name}`} />
 
       <div className="max-w-5xl w-full bg-white rounded-lg shadow-2xl p-6 m-3">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          <div className="flex flex-col items-center bg-gradient-to-r from-blue-400 to-blue-500 rounded-lg p-6 shadow-md">
+          <div className="flex flex-col items-center bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] rounded-lg p-6 shadow-md">
             <div className="flex items-center justify-center mb-4">
               <img
                 src={portfolio.profileImage || "/fotosoc_logo_circle.png"}

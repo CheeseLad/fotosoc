@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faYoutube, faTiktok, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faYoutube, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 function Footer() {
@@ -19,15 +19,6 @@ function Footer() {
           </p>
         </div>
         <div className="flex items-center justify-center sm:justify-end">
-          <a 
-            href="https://chat.whatsapp.com/KcWm0mU78nyHKMibl3Vlko" 
-            aria-label="DCU Fotosoc WhatsApp" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-white hover:text-gray-400 mx-2 text-2xl"
-          >
-              <FontAwesomeIcon icon={faWhatsapp} />
-          </a>
           <a 
             href="https://www.tiktok.com/@dcufotosoc" 
             aria-label="DCU Fotosoc TikTok" 

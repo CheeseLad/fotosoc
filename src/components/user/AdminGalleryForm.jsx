@@ -148,7 +148,7 @@ const AddGalleryPageForm = () => {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 min-h-screen">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 min-h-screen">
       <h2 className="text-4xl font-extrabold text-center mb-8">
         Create Gallery
       </h2>

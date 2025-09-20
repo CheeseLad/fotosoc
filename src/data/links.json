@@ -1,13 +1,8 @@
 [
   {
     "link_name": "Check out our new Website!",
-    "link_url": "https://www.dcufotosoc.ie"
+    "link_url": "https://dcufotosoc.ie"
   },
-  {
-    "link_name": "Connection V Submissions!",
-    "link_url": "https://docs.google.com/forms/d/e/1FAIpQLSe2o0WBruUOY5xadXjzjCUE0gy-h1cm-yDB2snhkSZd4qzkfQ/viewform?vc=0&c=0&w=1&flr=0"
-  },
-
   {
     "link_name": "Sign up here! - DCU Clubs & Socs",
     "link_url": "https://dcuclubsandsocs.ie/society/fotosoc"
@@ -19,5 +14,9 @@
   {
     "link_name": "TikTok",
     "link_url": "https://www.tiktok.com/@dcufotosoc"
+  },
+  {
+    "link_name": "Create your Photography Portfolio!",
+    "link_url": "https://dcufotosoc.ie/create-portfolio"
   }
 ]

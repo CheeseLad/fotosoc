@@ -1,13 +1,13 @@
 import React from "react";
 import YouTubePlayer from "../YouTubePlayer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faYoutube, faTiktok, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faYoutube, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import PageHeading from "../PageHeading";
 
 const About = () => {
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 px-4">
       <PageHeading 
         heading="About Fotosoc" 
         subheading="Watch this video to learn all about DCU's Photography Society"
@@ -20,16 +20,6 @@ const About = () => {
     Check Out Our Socials!
   </h3>
   <ul className="flex flex-wrap justify-center gap-6 items-center">
-  <li className="p-2">
-    <a
-      href="https://chat.whatsapp.com/KcWm0mU78nyHKMibl3Vlko"
-      aria-label="DCU Fotosoc WhatsApp"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <FontAwesomeIcon icon={faWhatsapp} className="text-gray-800 hover:text-gray-600 text-5xl hvr-bob" />
-    </a>
-  </li>
   <li className="p-2">
     <a
       href="https://www.tiktok.com/@dcufotosoc"

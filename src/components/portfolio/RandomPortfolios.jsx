@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { db } from "../../firebase";
 import committeeNamesData from '../../data/committee_names.json';
 import PageHeading from '../PageHeading';
+import Button from "../Button";
 
 const RandomPortfolios = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -50,7 +51,7 @@ const RandomPortfolios = () => {
           heading="Featured Portfolios" 
           subheading="Check out some of our members' photography portfolios!"
         />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 bg-gradient-to-r from-blue-400 to-blue-500 p-6 rounded-lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] p-6 rounded-lg">
           {randomPortfolios.map((portfolio) => (
             <Link
               to={`/portfolios/${portfolio.portfolioLink}`}
@@ -87,13 +88,12 @@ const RandomPortfolios = () => {
           ))}
         </div>
 
-        <div className="p-8 text-center">
-          <a
-            href="/portfolios"
-            className="inline-block bg-purple-500 text-white px-4 py-2 rounded-full hover:bg-purple-600 transition-colors hvr-grow"
-          >
-            View All Portfolios
-          </a>
+        <div className="p-4 text-center">
+          <Button
+                href="/portfolios"
+                text="View All Portfolios"
+                color="purple"
+              />
         </div>
       </div>
     </div>

@@ -51,7 +51,7 @@ export default function LoanBookingForm() {
   };
 
   return (
-    <div className="px-8 flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 py-8 min-h-screen">
+    <div className="px-8 flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] py-8 min-h-screen">
       <PageHeading 
         heading="Loan Equipment" 
         subheading="Fill in the form to loan equipment from us!"

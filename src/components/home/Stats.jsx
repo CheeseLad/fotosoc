@@ -49,9 +49,9 @@ const StatBox = ({ icon: Icon, label, endValue }) => {
         id={`stat-box-${label}`}
         className="bg-white rounded-lg shadow-md p-4 flex flex-col items-center justify-center"
       >
-        <Icon className="text-blue-600 mb-2" size={64} />
-        <h3 className="text-3xl font-bold mb-1 text-blue-900">{count}</h3>
-        <p className="text-xl text-blue-600 text-center">{label}</p>
+        <Icon className="text-[#3774aa] mb-2" size={64} />
+        <h3 className="text-3xl font-bold mb-1 text-[#235359]">{count}</h3>
+        <p className="text-xl text-[#3774aa] text-center">{label}</p>
       </div>
     </div>
   );
@@ -124,7 +124,7 @@ const Stats = () => {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white py-8 px-4">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 px-4">
       <h2 className="text-2xl font-bold text-center mb-6">Fotostats</h2>
       {/* Responsive Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

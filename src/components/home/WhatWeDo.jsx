@@ -27,7 +27,7 @@ const WhatWeDo = () => {
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-white">
       {whatWeDo.map(member => (
-        <div key={member.id} className="rounded-lg shadow-2xl p-6 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
+        <div key={member.id} className="rounded-lg shadow-2xl p-6 bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] m-3">
           <div className="flex items-center justify-center mb-4">
             <img src={member.image} alt={member.name} className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105" />
           </div>

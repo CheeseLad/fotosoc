@@ -7,6 +7,7 @@ import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import committeeNamesData from '../../data/committee_names.json';
 import PageHeading from '../PageHeading';
+import Button from "../Button";
 
 const MemberPortfoliosGrid = () => {
   const [portfolios, setPortfolios] = useState([]);
@@ -55,7 +56,7 @@ const MemberPortfoliosGrid = () => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-600 min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-r from-[#1E464B] to-[#2A6268] min-h-screen py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto text-white">
         <PageHeading heading="Member Portfolios" />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -95,12 +96,11 @@ const MemberPortfoliosGrid = () => {
           ))}
         </div>
         <div className="flex justify-center items-center mt-8">
-          <button
-            onClick={() => navigate("/create-portfolio")} // Navigate to the edit page
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Create Your Own!
-          </button>
+          <Button
+                href="/create-portfolio"
+                text="Create Your Own!"
+                color="green"
+              />
         </div>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInstagram, faFacebook, faYoutube, faTiktok, faWhatsapp, faLinkedin, faBluesky } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLink } from "@fortawesome/free-solid-svg-icons";
 import PageHeading from './PageHeading';
+import Button from './Button';
 
 function Committee() {
 
@@ -18,16 +19,23 @@ function Committee() {
   };  
   
   return (
-  <div className="flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 to-blue-600 text-white">
+  <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white">
     <div className="container mx-auto py-12 text-white">
     <PageHeading heading="Meet the Committee" />
-    <div className="text-center">
-      <a href='/previous-committees'><button className="bg-purple-500 text-white px-4 py-2 my-4 mr-4 rounded-lg hover:bg-purple-600 transition-colors shadow-lg shadow-purple-600/50 hvr-grow">View Previous Committees</button></a>
+    <div className="pb-4 text-center">
+    <Button
+                href="/previous-committees"
+                text="View Previous Committees"
+                color="purple"
+              />
+    
     </div>
+
     <div className="flex justify-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       {committeeData.map(member => (
-        <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-blue-400 to-blue-500 m-3">
+        <div key={member.id} className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f]
+ m-3">
           <div className="flex items-center justify-center mb-4">
             <img src={[member.image] || "/fotosoc_logo_circle.png"} alt={member.name} className="w-64 h-64 rounded-full shadow-md transition-transform duration-300 transform hover:scale-105" />
           </div>

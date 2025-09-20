@@ -34,7 +34,7 @@ const Workshops = () => {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 to-blue-600 text-white min-h-screen ">
+    <div className="bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white min-h-screen ">
       <div className="container mx-auto px-4 py-8 text-white">
         <PageHeading 
           heading="Workshops" 
