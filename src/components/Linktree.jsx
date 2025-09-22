@@ -34,7 +34,7 @@ const Linktree = ({ sheetUrl }) => {
   return (
     <div className="flex flex-col justify-center items-center bg-gradient-to-r from-[#1E464B] to-[#2A6268] text-white py-8 min-h-screen w-full">
       <PageHeading heading="Quick Links" />
-      <div className="rounded-lg shadow-2xl p-4 bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f]
+      <div className="rounded-lg shadow-2xl p-4 bg-white
  m-3">
         {links.length > 0 ? (
           links.map((link, index) => (

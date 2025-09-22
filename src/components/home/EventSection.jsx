@@ -94,7 +94,7 @@ function EventSection() {
                 <img
                   src={event.image || "/fotosoc_logo_square.png"}
                   alt={`${event.name} event`}
-                  className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-blue-500 rounded-lg"
+                  className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-[#4a7f7f] rounded-lg"
                 />
               </div>
               <p className="text-gray-600 text-sm mb-2">
