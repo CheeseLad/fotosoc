@@ -6,14 +6,26 @@ export default function LoanBookingForm() {
   const [selectedEquipment, setSelectedEquipment] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [email, setEmail] = useState("");
-  const [startDateTime, setStartDateTime] = useState(
-    new Date().toISOString().slice(0, 16)
-  );
-  const [endDateTime, setEndDateTime] = useState(
-    new Date().toISOString().slice(0, 16)
-  );
+  // Helper to get local datetime string for input[type="datetime-local"]
+  const getLocalDateTimeString = () => {
+    const now = new Date();
+    const offset = now.getTimezoneOffset();
+    const local = new Date(now.getTime() - offset * 60000);
+    return local.toISOString().slice(0, 16);
+  };
+
+  const [startDateTime, setStartDateTime] = useState(getLocalDateTimeString());
+  const getEndDateTimeString = () => {
+    const start = new Date();
+    start.setHours(start.getHours() + 1);
+    const offset = start.getTimezoneOffset();
+    const local = new Date(start.getTime() - offset * 60000);
+    return local.toISOString().slice(0, 16);
+  };
+  const [endDateTime, setEndDateTime] = useState(getEndDateTimeString());
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
     fetch("http://127.0.0.1:5000/api/equipment")
@@ -22,8 +34,20 @@ export default function LoanBookingForm() {
       .catch((err) => console.error("Error fetching equipment:", err));
   }, []);
 
+  const validateEmail = (email) => {
+    return (
+      email.endsWith("@mail.dcu.ie") ||
+      email.endsWith("@dcu.ie")
+    );
+  };
+
   const handleBooking = async (e) => {
     e.preventDefault();
+    setEmailError("");
+    if (!validateEmail(email)) {
+      setEmailError("Email must end with @mail.dcu.ie or @dcu.ie");
+      return;
+    }
     setLoading(true);
 
     const bookingData = {
@@ -78,24 +102,40 @@ export default function LoanBookingForm() {
             className="w-full px-3 py-2 border rounded-lg"
             placeholder="Enter your student email (@mail.dcu.ie or @dcu.ie)"
           />
+          {emailError && (
+            <div className="text-red-500 text-xs mt-1">{emailError}</div>
+          )}
         </div>
 
         {/* Equipment Dropdown */}
         <div>
-          <label className="block text-sm font-semibold">Equipment:</label>
+          <label className="block text-sm font-semibold mb-2">Equipment:</label>
           <select
             value={selectedEquipment}
             onChange={(e) => setSelectedEquipment(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded-lg"
           >
-            <option value="">Select Equipment</option>
+            <option value="">No Equipment Selected</option>
             {equipmentList.map((eq) => (
               <option key={eq.id} value={eq.name}>
                 {eq.name} (Available: {eq.quantity})
               </option>
             ))}
           </select>
+        </div>
+
+        {/* Quantity Input */}
+        <div>
+          <label className="block text-sm font-semibold">Quantity:</label>
+          <input
+            type="number"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+            required
+            className="w-full px-3 py-2 border rounded-lg"
+            min="1"
+          />
         </div>
 
         {/* Start Date & Time */}

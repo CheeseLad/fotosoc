@@ -6,6 +6,8 @@ from flask_restx import Api, Resource, fields
 from datetime import datetime
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
+
+
 import os
 import time
 from email.mime.multipart import MIMEMultipart
@@ -22,27 +24,74 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app)
 
-UPLOAD_FOLDER = 'uploads'
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 # ---------------- Flask Configuration ----------------
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///equipment.db'  # Use your database path
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # Flask-Mail configuration (Environment Variables)
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.purelymail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'loans@dcufotosoc.ie')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'equipment@dcufotosoc.ie')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'loans@dcufotosoc.ie')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'equipment@dcufotosoc.ie')
 app.config['MAIL_REPLY_TO'] = os.environ.get('MAIL_REPLY_TO', 'equipment@dcufotosoc.ie')
 
 # Google Calendar Configuration (Environment Variables)
 SERVICE_ACCOUNT_FILE = os.environ.get('SERVICE_ACCOUNT_FILE', './credentials.json')
 SCOPES = ["https://www.googleapis.com/auth/calendar"]
 CALENDAR_ID = os.environ.get('CALENDAR_ID')
+
+# Google Sheets API setup
+SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+
+def update_current_quantity_in_sheet(equipment_name, new_quantity):
+    creds = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SHEETS_SCOPES
+    )
+    sheets_service = build('sheets', 'v4', credentials=creds)
+    sheet = sheets_service.spreadsheets()
+    # Read all equipment to find the row
+    result = sheet.values().get(spreadsheetId=SHEET_ID, range=SHEET_RANGE).execute()
+    values = result.get('values', [])
+    if not values:
+        return False
+    headers = values[0]
+    name_idx = headers.index('EQUIPMENT_NAME') if 'EQUIPMENT_NAME' in headers else None
+    curr_idx = headers.index('CURRENT_QUANTITY') if 'CURRENT_QUANTITY' in headers else None
+    if name_idx is None or curr_idx is None:
+        return False
+    for i, row in enumerate(values[1:], start=2):  # start=2 for 1-based row in sheet
+        if len(row) > name_idx and row[name_idx] == equipment_name:
+            # Prepare the range for CURRENT_QUANTITY cell
+            cell_range = f"Sheet1!{chr(65+curr_idx)}{i}"
+            sheet.values().update(
+                spreadsheetId=SHEET_ID,
+                range=cell_range,
+                valueInputOption="RAW",
+                body={"values": [[str(new_quantity)]]}
+            ).execute()
+            return True
+    return False
+SHEET_ID = os.environ.get('SHEET_ID')  # Set this in your .env or environment
+SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:C100')  # Adjust as needed
+
+def get_equipment_from_sheet():
+    creds = service_account.Credentials.from_service_account_file(
+        SERVICE_ACCOUNT_FILE, scopes=SHEETS_SCOPES
+    )
+    sheets_service = build('sheets', 'v4', credentials=creds)
+    sheet = sheets_service.spreadsheets()
+    result = sheet.values().get(spreadsheetId=SHEET_ID, range=SHEET_RANGE).execute()
+    values = result.get('values', [])
+    # Expect header row: EQUIPMENT_NAME, MAX_QUANTITY
+    equipment_list = []
+    if values:
+        headers = values[0]
+        for row in values[1:]:
+            item = dict(zip(headers, row))
+            equipment_list.append(item)
+    return equipment_list
 
 # Authenticate Google Calendar API
 credentials = service_account.Credentials.from_service_account_file(
@@ -82,7 +131,8 @@ class Booking(db.Model):
 equipment_model = api.model('Equipment', {
     'id': fields.Integer(description='Equipment ID'),
     'name': fields.String(required=True, description='Name of the equipment'),
-    'quantity': fields.Integer(required=True, description='Number of available items')
+    'quantity': fields.Integer(required=True, description='Number of available items'),
+    'image_link': fields.String(description='Link to equipment image'),
 })
 
 equipment_update_model = api.model('EquipmentUpdate', {
@@ -206,73 +256,40 @@ def send_booking_email(user_email, equipment_name, quantity, start_datetime, end
 class EquipmentList(Resource):
     @api.marshal_list_with(equipment_model)
     def get(self):
-        """List all equipment"""
-        equipment = Equipment.query.all()
-        return [
-            {
-                "id": eq.id,
-                "name": eq.name,
-                "quantity": eq.quantity,
-                "image_url": f"http://127.0.0.1:5000/uploads/{eq.image}"
-            }
-            for eq in equipment
-        ]
-
-    def post(self):
-        """Add new equipment with an optional image"""
-        name = request.form.get("name")
-        quantity = request.form.get("quantity", 0, type=int)
-        image = request.files.get("image")
-
-        if not name:
-            return {"error": "Equipment name is required"}, 400
-
-        # Save uploaded file or use default placeholder
-        if image:
-            filename = secure_filename(image.filename)
-            image.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-        else:
-            filename = "placeholder.jpg"
-
-        new_equipment = Equipment(name=name, quantity=quantity, image=filename)
-        db.session.add(new_equipment)
-        db.session.commit()
-        return {"message": "Equipment added", "id": new_equipment.id}, 201
-
-@ns.route("/uploads/<filename>")
-class Uploads(Resource):
-    def get(self, filename):
-        """Serve uploaded images"""
-        return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
-
+        """List all equipment, MAX_QUANTITY from Google Sheet, CURRENT_QUANTITY from DB"""
+        sheet_equipment = get_equipment_from_sheet()
+        db_equipment = {eq.name: eq for eq in Equipment.query.all()}
+        equipment_list = []
+        for idx, item in enumerate(sheet_equipment):
+            name = item.get('EQUIPMENT_NAME')
+            max_qty = int(item.get('MAX_QUANTITY', 0))
+            current_qty = int(item.get('CURRENT_QUANTITY', 0))
+            image_link = item.get('IMAGE_LINK', '')
+            equipment_list.append({
+                "id": idx + 1,
+                "name": name,
+                "quantity": current_qty,
+                "max_quantity": max_qty,
+                "image_link": image_link
+            })
+        return equipment_list
 
 @ns.route('/equipment/<int:equipment_id>')
 class EquipmentItem(Resource):
     @api.expect(equipment_update_model)
     def patch(self, equipment_id):
-        """Update an existing equipment item"""
+        """Update only CURRENT_QUANTITY for an equipment item"""
         equipment = Equipment.query.get(equipment_id)
         if not equipment:
             return {'error': 'Equipment not found'}, 404
 
         data = request.json
-        if 'name' in data:
-            equipment.name = data['name']
         if 'quantity' in data:
             equipment.quantity = data['quantity']
-
-        db.session.commit()
-        return {'message': 'Equipment updated successfully'}, 200
-
-    def delete(self, equipment_id):
-        """Remove equipment"""
-        equipment = Equipment.query.get(equipment_id)
-        if not equipment:
-            return {'error': 'Equipment not found'}, 404
-
-        db.session.delete(equipment)
-        db.session.commit()
-        return {'message': 'Equipment removed'}, 200
+            db.session.commit()
+            return {'message': 'Current quantity updated successfully'}, 200
+        else:
+            return {'error': 'No quantity provided'}, 400
 
 
 # ---------------- Booking Endpoint ----------------
@@ -285,7 +302,7 @@ class EquipmentBooking(Resource):
 
         user_email = data.get("user_email")
         equipment_name = data.get("equipment")
-        quantity = data.get("quantity", 1)
+        quantity = int(data.get("quantity", 1))
         start_datetime_str = data.get("start_datetime")
         end_datetime_str = data.get("end_datetime")
 
@@ -301,11 +318,24 @@ class EquipmentBooking(Resource):
         if end_datetime <= start_datetime:
             return {"error": "End date/time must be after start date/time"}, 400
 
-        equipment = Equipment.query.filter_by(name=equipment_name).first()
-        if not equipment or equipment.quantity < quantity:
+        # Get current quantity from Google Sheet
+        sheet_equipment = get_equipment_from_sheet()
+        eq_row = next((item for item in sheet_equipment if item.get('EQUIPMENT_NAME') == equipment_name), None)
+        if not eq_row:
+            return {"error": f"Equipment {equipment_name} not found in sheet"}, 400
+        try:
+            current_qty = int(eq_row.get('CURRENT_QUANTITY', eq_row.get('MAX_QUANTITY', 0)))
+        except Exception:
+            current_qty = 0
+        if current_qty < quantity:
             return {"error": f"Not enough {equipment_name} available"}, 400
 
-        equipment.quantity -= quantity
+        # Update CURRENT_QUANTITY in Google Sheet
+        new_qty = current_qty - quantity
+        update_success = update_current_quantity_in_sheet(equipment_name, new_qty)
+        if not update_success:
+            return {"error": "Failed to update quantity in sheet"}, 500
+
         new_booking = Booking(
             user_email=user_email,
             equipment_name=equipment_name,
