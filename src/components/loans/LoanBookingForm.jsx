@@ -4,11 +4,12 @@ import PageHeading from '../PageHeading';
 export default function LoanBookingForm() {
   const [equipmentList, setEquipmentList] = useState([]);
   const [selectedEquipment, setSelectedEquipment] = useState("");
-  const [quantity, setQuantity] = useState(1);
+  const [amount, setAmount] = useState(1);
   const [email, setEmail] = useState("");
   // Helper to get local datetime string for input[type="datetime-local"]
   const getLocalDateTimeString = () => {
     const now = new Date();
+    now.setHours(now.getHours() + 1);
     const offset = now.getTimezoneOffset();
     const local = new Date(now.getTime() - offset * 60000);
     return local.toISOString().slice(0, 16);
@@ -17,7 +18,7 @@ export default function LoanBookingForm() {
   const [startDateTime, setStartDateTime] = useState(getLocalDateTimeString());
   const getEndDateTimeString = () => {
     const start = new Date();
-    start.setHours(start.getHours() + 1);
+    start.setHours(start.getHours() + 2);
     const offset = start.getTimezoneOffset();
     const local = new Date(start.getTime() - offset * 60000);
     return local.toISOString().slice(0, 16);
@@ -53,7 +54,7 @@ export default function LoanBookingForm() {
     const bookingData = {
       user_email: email,
       equipment: selectedEquipment,
-      quantity: quantity,
+      amount: amount,
       start_datetime: startDateTime.replace("T", " "),
       end_datetime: endDateTime.replace("T", " "),
     };
@@ -119,19 +120,19 @@ export default function LoanBookingForm() {
             <option value="">No Equipment Selected</option>
             {equipmentList.map((eq) => (
               <option key={eq.id} value={eq.name}>
-                {eq.name} (Available: {eq.quantity})
+                {eq.name} (Available: {eq.amount})
               </option>
             ))}
           </select>
         </div>
 
-        {/* Quantity Input */}
+        {/* Amount Input */}
         <div>
-          <label className="block text-sm font-semibold">Quantity:</label>
+          <label className="block text-sm font-semibold">Amount:</label>
           <input
             type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
             required
             className="w-full px-3 py-2 border rounded-lg"
             min="1"

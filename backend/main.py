@@ -1,21 +1,18 @@
+import os
+import time
+import tempfile
+import json
 from flask import Flask, request, jsonify, send_from_directory
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_restx import Api, Resource, fields
 from datetime import datetime
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
-
-
-import os
-import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-import tempfile
-
 from dotenv import load_dotenv
 
 # Load environment variables from a .env file if present
@@ -25,8 +22,6 @@ app = Flask(__name__)
 CORS(app)
 
 # ---------------- Flask Configuration ----------------
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///equipment.db'  # Use your database path
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Flask-Mail configuration (Environment Variables)
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.purelymail.com')
@@ -44,6 +39,8 @@ CALENDAR_ID = os.environ.get('CALENDAR_ID')
 
 # Google Sheets API setup
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+SHEET_ID = os.environ.get('SHEET_ID')  # Set this in your .env or environment
+SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:C100')  # Adjust as needed
 
 def update_current_quantity_in_sheet(equipment_name, new_quantity):
     creds = service_account.Credentials.from_service_account_file(
@@ -58,12 +55,12 @@ def update_current_quantity_in_sheet(equipment_name, new_quantity):
         return False
     headers = values[0]
     name_idx = headers.index('EQUIPMENT_NAME') if 'EQUIPMENT_NAME' in headers else None
-    curr_idx = headers.index('CURRENT_QUANTITY') if 'CURRENT_QUANTITY' in headers else None
+    curr_idx = headers.index('CURRENT_AMOUNT') if 'CURRENT_AMOUNT' in headers else None
     if name_idx is None or curr_idx is None:
         return False
     for i, row in enumerate(values[1:], start=2):  # start=2 for 1-based row in sheet
         if len(row) > name_idx and row[name_idx] == equipment_name:
-            # Prepare the range for CURRENT_QUANTITY cell
+            # Prepare the range for CURRENT_AMOUNT cell
             cell_range = f"Sheet1!{chr(65+curr_idx)}{i}"
             sheet.values().update(
                 spreadsheetId=SHEET_ID,
@@ -73,8 +70,7 @@ def update_current_quantity_in_sheet(equipment_name, new_quantity):
             ).execute()
             return True
     return False
-SHEET_ID = os.environ.get('SHEET_ID')  # Set this in your .env or environment
-SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:C100')  # Adjust as needed
+
 
 def get_equipment_from_sheet():
     creds = service_account.Credentials.from_service_account_file(
@@ -84,7 +80,7 @@ def get_equipment_from_sheet():
     sheet = sheets_service.spreadsheets()
     result = sheet.values().get(spreadsheetId=SHEET_ID, range=SHEET_RANGE).execute()
     values = result.get('values', [])
-    # Expect header row: EQUIPMENT_NAME, MAX_QUANTITY
+    # Expect header row: EQUIPMENT_NAME, MAX_AMOUNT
     equipment_list = []
     if values:
         headers = values[0]
@@ -100,67 +96,54 @@ credentials = service_account.Credentials.from_service_account_file(
 service = build("calendar", "v3", credentials=credentials)
 
 
-db = SQLAlchemy(app)
 mail = Mail(app)
 
 # Swagger API setup
-api = Api(app, version='1.0', title='Equipment Booking API', description='API for booking and managing equipment')
+api = Api(app, version='1.0', title='DCU Fotosoc Equipment Booking API', description='API for booking and managing equipment for DCU Fotosoc')
 
-ns = api.namespace('api', description="Operations for booking and managing equipment")
+ns = api.namespace('api', description="Operations for booking and managing equipment for DCU Fotosoc")
 
-# ---------------- Equipment Model ----------------
-class Equipment(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(80), unique=True, nullable=False)
-    quantity = db.Column(db.Integer, default=0)
-    image = db.Column(db.String(255), nullable=True, default="placeholder.jpg")
-
-    def __repr__(self):
-        return f'<Equipment {self.name}: {self.quantity}>'
-      
-class Booking(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_email = db.Column(db.String(120), nullable=False)
-    equipment_name = db.Column(db.String(80), nullable=False)
-    quantity = db.Column(db.Integer, default=1)
-    start_datetime = db.Column(db.String(25), nullable=False)
-    end_datetime = db.Column(db.String(25), nullable=False)
+# ---------------- Data Models (No Database) ----------------
+# Using Google Sheets as the primary data source
 
 
 # ---------------- API Models for Swagger ----------------
 equipment_model = api.model('Equipment', {
     'id': fields.Integer(description='Equipment ID'),
     'name': fields.String(required=True, description='Name of the equipment'),
-    'quantity': fields.Integer(required=True, description='Number of available items'),
+    'description': fields.String(description='Description of the equipment'),
+    'amount': fields.Integer(required=True, description='Number of available items'),
     'image_link': fields.String(description='Link to equipment image'),
 })
 
 equipment_update_model = api.model('EquipmentUpdate', {
     'name': fields.String(description='New name for the equipment'),
-    'quantity': fields.Integer(description='New quantity')
+    'amount': fields.Integer(description='New amount')
 })
 
 booking_model = api.model("Booking", {
     "user_email": fields.String(required=True, description="User's email"),
+    "user_phone": fields.String(required=True, description="User's phone number"),
     "equipment": fields.String(required=True, description="Equipment name"),
-    "quantity": fields.Integer(required=True, description="Quantity requested"),
+    "amount": fields.Integer(required=True, description="Amount requested"),
     "start_datetime": fields.String(required=True, description="Start datetime (YYYY-MM-DD HH:MM)"),
     "end_datetime": fields.String(required=True, description="End datetime (YYYY-MM-DD HH:MM)")
 })
 
-import json
+
 
 def add_booking_to_calendar(booking):
     try:
-        start_datetime = datetime.strptime(booking.start_datetime, "%Y-%m-%dT%H:%M:%S%z").isoformat()
-        end_datetime = datetime.strptime(booking.end_datetime, "%Y-%m-%dT%H:%M:%S%z").isoformat()
+        # Parse the datetime strings from frontend format "YYYY-MM-DD HH:MM"
+        start_datetime = datetime.strptime(booking['start_datetime'], "%Y-%m-%d %H:%M").isoformat() + "Z"
+        end_datetime = datetime.strptime(booking['end_datetime'], "%Y-%m-%d %H:%M").isoformat() + "Z"
     except ValueError:
         print("🚨 ERROR: Incorrect datetime format! Must be 'YYYY-MM-DD HH:MM'")
         return None
 
     event = {
-        "summary": f"Booking: {booking.equipment_name}",
-        "description": f"User: {booking.user_email}\nQuantity: {booking.quantity}",
+        "summary": f"DCU Fotosoc Equipment Loan: {booking['equipment_name']}",
+        "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {booking['equipment_name']}\nQuantity: {booking['amount']}\nBorrower: {booking['user_email']}\n\nEquipment Officer: Magdalena Kudlewska\nDCU Fotosoc",
         "start": {
             "dateTime": start_datetime,
             "timeZone": "UTC"
@@ -169,34 +152,48 @@ def add_booking_to_calendar(booking):
             "dateTime": end_datetime,
             "timeZone": "UTC"
         },
+        "organizer": {
+            "displayName": "Magdalena Kudlewska",
+            "email": "equipment@dcufotosoc.ie"
+        },
+        "attendees": [
+            {
+                "email": booking['user_email'],
+                "displayName": booking['user_email'].split('@')[0].replace('.', ' ').title(),
+                "responseStatus": "accepted"
+            }
+        ],
+        "location": "DCU Fotosoc"
     }
 
-    print("📌 Google Calendar Event Request:", json.dumps(event, indent=4))
+    #print("📌 Google Calendar Event Request:", json.dumps(event, indent=4))
 
     try:
         event_response = service.events().insert(calendarId=CALENDAR_ID, body=event, sendUpdates="all").execute()
-        print("✅ Event created successfully:", event_response)
+        print("✅ Event created successfully:", event_response.get("id"))
         return event_response.get("id")
     except Exception as e:
         print(f"❌ Google Calendar API error: {e}")
         return None
 
 
-from flask_mail import Message
 import tempfile
 
 def generate_ics_file(booking):
     """Generate an ICS calendar file for the user's personal calendar."""
     ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//YourApp//Booking//EN
+PRODID:-//DCU Fotosoc//Equipment Loan//EN
 BEGIN:VEVENT
-UID:{booking.id}@yourapp.com
+UID:{booking['id']}@dcufotosoc.ie
 DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}
-DTSTART:{booking.start_datetime.replace('-', '').replace(':', '')}
-DTEND:{booking.end_datetime.replace('-', '').replace(':', '')}
-SUMMARY:Booking: {booking.equipment_name}
-DESCRIPTION: User: {booking.user_email}\\nQuantity: {booking.quantity}
+DTSTART:{booking['start_datetime'].replace('-', '').replace(':', '')}
+DTEND:{booking['end_datetime'].replace('-', '').replace(':', '')}
+SUMMARY:DCU Fotosoc Equipment Loan: {booking['equipment_name']}
+DESCRIPTION:Equipment Loan Request - APPROVED\\n\\nEquipment: {booking['equipment_name']}\\nQuantity: {booking['amount']}\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc
+LOCATION:DCU Fotosoc
+ORGANIZER;CN=Magdalena Kudlewska:mailto:equipment@dcufotosoc.ie
+ATTENDEE;CN={booking['user_email']}:mailto:{booking['user_email']}
 END:VEVENT
 END:VCALENDAR
 """
@@ -209,38 +206,59 @@ END:VCALENDAR
     return temp_file.name  # Return file path
 
 
-def send_booking_email(user_email, equipment_name, quantity, start_datetime, end_datetime, event_link, booking):
+def get_ordinal_suffix(day):
+    """Get ordinal suffix for day (1st, 2nd, 3rd, 4th, etc.)"""
+    if 10 <= day % 100 <= 20:
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+    return suffix
+
+def send_booking_email(user_email, equipment_name, amount, start_datetime, end_datetime, event_link, booking):
     """Send an email confirmation with an ICS file for adding to a personal calendar."""
     try:
+        # Extract and capitalize first name from email (format: first.last@mail.com)
+        first_name = user_email.split('@')[0].split('.')[0].capitalize()
+        
+        # Format datetime for human reading
+        start_dt = datetime.strptime(booking['start_datetime'], "%Y-%m-%d %H:%M")
+        end_dt = datetime.strptime(booking['end_datetime'], "%Y-%m-%d %H:%M")
+        
+        start_formatted = start_dt.strftime("%d{sup} %B %Y at %I:%M%p").replace("{sup}", get_ordinal_suffix(start_dt.day))
+        end_formatted = end_dt.strftime("%d{sup} %B %Y at %I:%M%p").replace("{sup}", get_ordinal_suffix(end_dt.day))
+
         msg = Message(
-            subject="Booking Confirmation - Equipment Rental",
-            sender=app.config["MAIL_DEFAULT_SENDER"],
+            subject="DCU Fotosoc Equipment Loan Request - APPROVED",
+            sender=("Magdalena Kudlewska", app.config["MAIL_DEFAULT_SENDER"]),
             reply_to=app.config["MAIL_REPLY_TO"],
             recipients=[user_email]
         )
 
         msg.body = f"""
-        Hello,
+Hey {first_name},
 
-        Your booking has been confirmed!
+Great news! Your DCU Fotosoc equipment loan request has been approved.
 
-        📌 Equipment: {equipment_name}
-        📅 Start: {start_datetime}
-        ⏳ End: {end_datetime}
-        🔢 Quantity: {quantity}
+📸 Equipment: {equipment_name}
+🔢 Amount: {amount}
+📅 Loan Period: From {start_formatted} until {end_formatted}
 
-        You can view your booking in your Google Calendar:
-        {event_link}
+You can view your loan details in your Google Calendar:
+{event_link}
 
-        Alternatively, import the attached ICS file into your calendar.
+Alternatively, import the attached ICS file into your calendar.
 
-        Thank you for using our service!
+If you have any questions or need to make changes, please reply to this email!
+
+Kind regards,
+Magdalena Kudlewska
+DCU Fotosoc Equipment Officer 25/26
         """
 
         # Attach ICS file
         ics_file_path = generate_ics_file(booking)
         with open(ics_file_path, "rb") as f:
-            msg.attach("booking.ics", "text/calendar", f.read())
+            msg.attach("DCU_Fotosoc_Equipment_Loan.ics", "text/calendar", f.read())
 
         # Send email
         mail.send(msg)
@@ -256,40 +274,38 @@ def send_booking_email(user_email, equipment_name, quantity, start_datetime, end
 class EquipmentList(Resource):
     @api.marshal_list_with(equipment_model)
     def get(self):
-        """List all equipment, MAX_QUANTITY from Google Sheet, CURRENT_QUANTITY from DB"""
+        """List all equipment from Google Sheet"""
         sheet_equipment = get_equipment_from_sheet()
-        db_equipment = {eq.name: eq for eq in Equipment.query.all()}
         equipment_list = []
         for idx, item in enumerate(sheet_equipment):
             name = item.get('EQUIPMENT_NAME')
-            max_qty = int(item.get('MAX_QUANTITY', 0))
-            current_qty = int(item.get('CURRENT_QUANTITY', 0))
+            max_qty = int(item.get('MAX_AMOUNT', 0))
+            current_qty = int(item.get('CURRENT_AMOUNT', 0))
             image_link = item.get('IMAGE_LINK', '')
             equipment_list.append({
                 "id": idx + 1,
                 "name": name,
-                "quantity": current_qty,
-                "max_quantity": max_qty,
+                "amount": current_qty,
+                "max_amount": max_qty,
                 "image_link": image_link
             })
         return equipment_list
 
-@ns.route('/equipment/<int:equipment_id>')
+@ns.route('/equipment/<string:equipment_name>')
 class EquipmentItem(Resource):
     @api.expect(equipment_update_model)
-    def patch(self, equipment_id):
-        """Update only CURRENT_QUANTITY for an equipment item"""
-        equipment = Equipment.query.get(equipment_id)
-        if not equipment:
-            return {'error': 'Equipment not found'}, 404
-
+    def patch(self, equipment_name):
+        """Update only CURRENT_AMOUNT for an equipment item in Google Sheets"""
         data = request.json
-        if 'quantity' in data:
-            equipment.quantity = data['quantity']
-            db.session.commit()
-            return {'message': 'Current quantity updated successfully'}, 200
+        if 'amount' in data:
+            new_quantity = data['amount']
+            update_success = update_current_quantity_in_sheet(equipment_name, new_quantity)
+            if update_success:
+                return {'message': 'Current amount updated successfully'}, 200
+            else:
+                return {'error': 'Equipment not found or update failed'}, 404
         else:
-            return {'error': 'No quantity provided'}, 400
+            return {'error': 'No amount provided'}, 400
 
 
 # ---------------- Booking Endpoint ----------------
@@ -302,7 +318,7 @@ class EquipmentBooking(Resource):
 
         user_email = data.get("user_email")
         equipment_name = data.get("equipment")
-        quantity = int(data.get("quantity", 1))
+        amount = int(data.get("amount", 1))
         start_datetime_str = data.get("start_datetime")
         end_datetime_str = data.get("end_datetime")
 
@@ -310,115 +326,98 @@ class EquipmentBooking(Resource):
             return {"error": "Missing required fields"}, 400
 
         try:
-            start_datetime = datetime.strptime(start_datetime_str, "%Y-%m-%d %H:%M").isoformat() + "Z"
-            end_datetime = datetime.strptime(end_datetime_str, "%Y-%m-%d %H:%M").isoformat() + "Z"
+            # Parse and validate datetime format from frontend
+            start_dt = datetime.strptime(start_datetime_str, "%Y-%m-%d %H:%M")
+            end_dt = datetime.strptime(end_datetime_str, "%Y-%m-%d %H:%M")
+            start_datetime = start_dt.isoformat() + "Z"
+            end_datetime = end_dt.isoformat() + "Z"
         except ValueError:
             return {"error": "Invalid date/time format. Use 'YYYY-MM-DD HH:MM'."}, 400
 
         if end_datetime <= start_datetime:
             return {"error": "End date/time must be after start date/time"}, 400
 
-        # Get current quantity from Google Sheet
+        # Get current amount from Google Sheet
         sheet_equipment = get_equipment_from_sheet()
         eq_row = next((item for item in sheet_equipment if item.get('EQUIPMENT_NAME') == equipment_name), None)
         if not eq_row:
             return {"error": f"Equipment {equipment_name} not found in sheet"}, 400
         try:
-            current_qty = int(eq_row.get('CURRENT_QUANTITY', eq_row.get('MAX_QUANTITY', 0)))
+            current_qty = int(eq_row.get('CURRENT_AMOUNT', eq_row.get('MAX_AMOUNT', 0)))
         except Exception:
             current_qty = 0
-        if current_qty < quantity:
+        if current_qty < amount:
             return {"error": f"Not enough {equipment_name} available"}, 400
 
-        # Update CURRENT_QUANTITY in Google Sheet
-        new_qty = current_qty - quantity
+        # Update CURRENT_AMOUNT in Google Sheet
+        new_qty = current_qty - amount
         update_success = update_current_quantity_in_sheet(equipment_name, new_qty)
         if not update_success:
-            return {"error": "Failed to update quantity in sheet"}, 500
+            return {"error": "Failed to update amount in sheet"}, 500
 
-        new_booking = Booking(
-            user_email=user_email,
-            equipment_name=equipment_name,
-            quantity=quantity,
-            start_datetime=start_datetime,
-            end_datetime=end_datetime
-        )
+        # Create booking object for calendar and email (no database storage)
+        booking_data = {
+            'user_email': user_email,
+            'user_phone': data.get('user_phone', ''),
+            'equipment_name': equipment_name,
+            'amount': amount,
+            'start_datetime': start_datetime_str,  # Use original format for calendar function
+            'end_datetime': end_datetime_str,      # Use original format for calendar function
+            'id': int(time.time())  # Generate a simple ID based on timestamp
+        }
 
-        db.session.add(new_booking)
-        db.session.commit()
+        try:
+            # Sync with Google Calendar
+            event_id = add_booking_to_calendar(booking_data)
+            if not event_id:
+                # Rollback amount if calendar creation fails
+                update_current_quantity_in_sheet(equipment_name, current_qty)
+                return {"error": "Failed to create calendar event"}, 500
 
-        # Sync with Google Calendar
-        event_id = add_booking_to_calendar(new_booking)
-        event_link = f"https://www.google.com/calendar/event?eid={event_id}" if event_id else "N/A"
+            event_link = f"https://www.google.com/calendar/event?eid={event_id}" if event_id else "N/A"
 
-        # Send email confirmation with ICS file
-        send_booking_email(user_email, equipment_name, quantity, start_datetime, end_datetime, event_link, new_booking)
+            # Send email confirmation with ICS file
+            send_booking_email(user_email, equipment_name, amount, start_datetime, end_datetime, event_link, booking_data)
 
-        return {"message": "Booking successful", "booking_id": new_booking.id, "event_id": event_id}, 200
+            return {"message": "Booking successful", "booking_id": booking_data['id'], "event_id": event_id}, 200
+
+        except Exception as e:
+            # Rollback amount if any error occurs during booking process
+            print(f"❌ Booking failed, rolling back amount: {e}")
+            update_current_quantity_in_sheet(equipment_name, current_qty)
+            return {"error": f"Booking failed: {str(e)}"}, 500
 
       
       
     def get(self):
-        """List all bookings"""
-        bookings = Booking.query.all()
-        return [
-            {
-                "id": booking.id,
-                "user_email": booking.user_email,
-                "equipment_name": booking.equipment_name,
-                "quantity": booking.quantity,
-                "start_datetime": booking.start_datetime,
-                "end_datetime": booking.end_datetime
-            }
-            for booking in bookings
-        ]
-
-
-@ns.route('/book/<int:booking_id>')
-class CancelBooking(Resource):
-    def delete(self, booking_id):
-        """Cancel a booking and restore equipment quantity"""
-        booking = Booking.query.get(booking_id)
-        if not booking:
-            return {'error': 'Booking not found'}, 404
-
-        equipment = Equipment.query.filter_by(name=booking.equipment_name).first()
-        if equipment:
-            equipment.quantity += booking.quantity
-
-        db.session.delete(booking)
-        db.session.commit()
-
-        return {'message': 'Booking canceled and equipment restored'}, 200
-      
-@ns.route("/sync_calendar")
-class SyncCalendar(Resource):
-    def post(self):
-        """Clear Google Calendar and sync all bookings"""
-        
-        # Step 1: Fetch all events from Google Calendar
+        """List all bookings from Google Calendar"""
         try:
             events = service.events().list(calendarId=CALENDAR_ID).execute()
+            bookings = []
             for event in events.get("items", []):
-                service.events().delete(calendarId=CALENDAR_ID, eventId=event["id"]).execute()
-                time.sleep(0.1)
-            print("✅ All previous events deleted from Google Calendar.")
+                if event.get("summary", "").startswith("Booking:"):
+                    # Extract booking info from calendar event
+                    summary = event.get("summary", "")
+                    description = event.get("description", "")
+                    equipment_name = summary.replace("Booking: ", "")
+                    
+                    # Parse description for user email and amount
+                    lines = description.split('\n')
+                    user_email = lines[0].replace("User: ", "") if lines else ""
+                    amount = int(lines[1].replace("Amount: ", "")) if len(lines) > 1 else 1
+                    
+                    bookings.append({
+                        "id": event.get("id", ""),
+                        "user_email": user_email,
+                        "equipment_name": equipment_name,
+                        "amount": amount,
+                        "start_datetime": event.get("start", {}).get("dateTime", ""),
+                        "end_datetime": event.get("end", {}).get("dateTime", "")
+                    })
+            return bookings
         except Exception as e:
-            print(f"❌ Error while clearing calendar: {e}")
-            return {"error": "Failed to clear calendar"}, 500
-
-        # Step 2: Sync database bookings to Google Calendar
-        bookings = Booking.query.all()
-        for booking in bookings:
-            add_booking_to_calendar(booking)
-
-        return {"message": "Calendar cleared and all bookings synced"}, 200
-
-
-
-# Initialize database
-with app.app_context():
-    db.create_all()
+            print(f"❌ Error fetching bookings from calendar: {e}")
+            return {"error": "Failed to fetch bookings"}, 500
 
 if __name__ == '__main__':
     app.run(debug=True)
