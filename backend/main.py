@@ -5,7 +5,6 @@ import json
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_mail import Mail, Message
-from flask_restx import Api, Resource, fields
 from datetime import datetime, timezone
 import pytz
 from googleapiclient.discovery import build
@@ -96,43 +95,7 @@ credentials = service_account.Credentials.from_service_account_file(
 )
 service = build("calendar", "v3", credentials=credentials)
 
-
 mail = Mail(app)
-
-# Swagger API setup
-api = Api(app, version='1.0', title='DCU Fotosoc Equipment Booking API', description='API for booking and managing equipment for DCU Fotosoc')
-
-ns = api.namespace('api', description="Operations for booking and managing equipment for DCU Fotosoc")
-
-# ---------------- Data Models (No Database) ----------------
-# Using Google Sheets as the primary data source
-
-
-# ---------------- API Models for Swagger ----------------
-equipment_model = api.model('Equipment', {
-    'id': fields.Integer(description='Equipment ID'),
-    'name': fields.String(required=True, description='Name of the equipment'),
-    'description': fields.String(description='Description of the equipment'),
-    'amount': fields.Integer(required=True, description='Number of available items'),
-    'image_link': fields.String(description='Link to equipment image'),
-})
-
-equipment_update_model = api.model('EquipmentUpdate', {
-    'name': fields.String(description='New name for the equipment'),
-    'amount': fields.Integer(description='New amount')
-})
-
-booking_model = api.model("Booking", {
-    "user_email": fields.String(required=True, description="User's email"),
-    "user_phone": fields.String(required=True, description="User's phone number"),
-    "equipment": fields.String(required=True, description="Equipment name"),
-    "amount": fields.Integer(required=True, description="Amount requested"),
-    "start_datetime": fields.String(required=True, description="Start datetime (YYYY-MM-DD HH:MM)"),
-    "end_datetime": fields.String(required=True, description="End datetime (YYYY-MM-DD HH:MM)"),
-    "timezone": fields.String(description="User's timezone (e.g., Europe/Dublin, America/New_York)")
-})
-
-
 
 def add_booking_to_calendar(booking):
     try:
@@ -303,10 +266,8 @@ https://dcufotosoc.ie/
 
 
 # ---------------- Equipment Endpoints ----------------
-@ns.route("/equipment")
-class EquipmentList(Resource):
-    @api.marshal_list_with(equipment_model)
-    def get(self):
+@app.route("/api/equipment", methods=["GET"])
+def get_equipment():
         """List all equipment from Google Sheet"""
         sheet_equipment = get_equipment_from_sheet()
         equipment_list = []
@@ -322,12 +283,10 @@ class EquipmentList(Resource):
                 "max_amount": max_qty,
                 "image_link": image_link
             })
-        return equipment_list
+        return jsonify(equipment_list)
 
-@ns.route('/equipment/<string:equipment_name>')
-class EquipmentItem(Resource):
-    @api.expect(equipment_update_model)
-    def patch(self, equipment_name):
+@app.route('/api/equipment/<string:equipment_name>', methods=["PATCH"])
+def update_equipment(equipment_name):
         """Update only CURRENT_AMOUNT for an equipment item in Google Sheets"""
         data = request.json
         if 'amount' in data:
@@ -342,10 +301,8 @@ class EquipmentItem(Resource):
 
 
 # ---------------- Booking Endpoint ----------------
-@ns.route("/book")
-class EquipmentBooking(Resource):
-    @api.expect(booking_model)
-    def post(self):
+@app.route("/api/book", methods=["POST"])
+def book_equipment():
         """Book equipment, sync with Google Calendar, and send email confirmation with ICS file."""
         data = request.json
 
@@ -423,7 +380,8 @@ class EquipmentBooking(Resource):
 
       
       
-    def get(self):
+@app.route("/api/book", methods=["GET"])
+def get_bookings():
         """List all bookings from Google Calendar"""
         try:
             events = service.events().list(calendarId=CALENDAR_ID).execute()
@@ -452,6 +410,10 @@ class EquipmentBooking(Resource):
         except Exception as e:
             print(f"❌ Error fetching bookings from calendar: {e}")
             return {"error": "Failed to fetch bookings"}, 500
+
+@app.route('/', methods=['GET'])
+def serve_index():
+    return "DCU Fotosoc Equipment Booking Backend is running."
 
 if __name__ == '__main__':
     app.run(debug=True)
