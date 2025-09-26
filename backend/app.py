@@ -40,7 +40,7 @@ CALENDAR_ID = os.environ.get('CALENDAR_ID')
 # Google Sheets API setup
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SHEET_ID = os.environ.get('SHEET_ID')  # Set this in your .env or environment
-SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:C100')  # Adjust as needed
+SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:D100')  # Adjust as needed
 
 def update_current_quantity_in_sheet(equipment_name, new_quantity):
     creds = service_account.Credentials.from_service_account_file(
