@@ -6,7 +6,8 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 from flask_mail import Mail, Message
 from flask_restx import Api, Resource, fields
-from datetime import datetime
+from datetime import datetime, timezone
+import pytz
 from googleapiclient.discovery import build
 from google.oauth2 import service_account
 from email.mime.multipart import MIMEMultipart
@@ -27,10 +28,10 @@ CORS(app)
 app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.purelymail.com')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True') == 'True'
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME', 'equipment@dcufotosoc.ie')
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER', 'equipment@dcufotosoc.ie')
-app.config['MAIL_REPLY_TO'] = os.environ.get('MAIL_REPLY_TO', 'equipment@dcufotosoc.ie')
+app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_DEFAULT_SENDER')
+app.config['MAIL_REPLY_TO'] = os.environ.get('MAIL_REPLY_TO')
 
 # Google Calendar Configuration (Environment Variables)
 SERVICE_ACCOUNT_FILE = os.environ.get('SERVICE_ACCOUNT_FILE', './credentials.json')
@@ -127,7 +128,8 @@ booking_model = api.model("Booking", {
     "equipment": fields.String(required=True, description="Equipment name"),
     "amount": fields.Integer(required=True, description="Amount requested"),
     "start_datetime": fields.String(required=True, description="Start datetime (YYYY-MM-DD HH:MM)"),
-    "end_datetime": fields.String(required=True, description="End datetime (YYYY-MM-DD HH:MM)")
+    "end_datetime": fields.String(required=True, description="End datetime (YYYY-MM-DD HH:MM)"),
+    "timezone": fields.String(description="User's timezone (e.g., Europe/Dublin, America/New_York)")
 })
 
 
@@ -135,43 +137,61 @@ booking_model = api.model("Booking", {
 def add_booking_to_calendar(booking):
     try:
         # Parse the datetime strings from frontend format "YYYY-MM-DD HH:MM"
-        start_datetime = datetime.strptime(booking['start_datetime'], "%Y-%m-%d %H:%M").isoformat() + "Z"
-        end_datetime = datetime.strptime(booking['end_datetime'], "%Y-%m-%d %H:%M").isoformat() + "Z"
-    except ValueError:
-        print("🚨 ERROR: Incorrect datetime format! Must be 'YYYY-MM-DD HH:MM'")
+        start_dt_naive = datetime.strptime(booking['start_datetime'], "%Y-%m-%d %H:%M")
+        end_dt_naive = datetime.strptime(booking['end_datetime'], "%Y-%m-%d %H:%M")
+        
+        # Get user's timezone (default to Dublin if not provided)
+        user_timezone = booking.get('timezone', 'Europe/Dublin')
+        user_tz = pytz.timezone(user_timezone)
+        
+        # Get Dublin timezone for the calendar event
+        dublin_tz = pytz.timezone('Europe/Dublin')
+        
+        # Localize the naive datetimes to user's timezone
+        start_dt_user = user_tz.localize(start_dt_naive)
+        end_dt_user = user_tz.localize(end_dt_naive)
+        
+        # Convert to Dublin timezone for the calendar event
+        start_dt_dublin = start_dt_user.astimezone(dublin_tz)
+        end_dt_dublin = end_dt_user.astimezone(dublin_tz)
+        
+        # Format for Google Calendar API
+        start_datetime = start_dt_dublin.isoformat()
+        end_datetime = end_dt_dublin.isoformat()
+        
+        print(f"🕐 Timezone conversion: {user_timezone} → Europe/Dublin")
+        print(f"🕐 Start: {start_dt_user} → {start_dt_dublin}")
+        print(f"🕐 End: {end_dt_user} → {end_dt_dublin}")
+        
+    except ValueError as e:
+        print(f"🚨 ERROR: Incorrect datetime format! Must be 'YYYY-MM-DD HH:MM'. Error: {e}")
+        return None
+    except Exception as e:
+        print(f"🚨 ERROR: Timezone conversion failed: {e}")
         return None
 
     event = {
         "summary": f"DCU Fotosoc Equipment Loan: {booking['equipment_name']}",
-        "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {booking['equipment_name']}\nQuantity: {booking['amount']}\nBorrower: {booking['user_email']}\n\nEquipment Officer: Magdalena Kudlewska\nDCU Fotosoc",
+        "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {booking['equipment_name']}\nQuantity: {booking['amount']}\nBorrower: {booking['user_email']}",
         "start": {
             "dateTime": start_datetime,
-            "timeZone": "UTC"
+            "timeZone": "Europe/Dublin"
         },
         "end": {
             "dateTime": end_datetime,
-            "timeZone": "UTC"
+            "timeZone": "Europe/Dublin"
         },
+        "location": "DCU Fotosoc",
         "organizer": {
             "displayName": "Magdalena Kudlewska",
-            "email": "equipment@dcufotosoc.ie"
-        },
-        "attendees": [
-            {
-                "email": booking['user_email'],
-                "displayName": booking['user_email'].split('@')[0].replace('.', ' ').title(),
-                "responseStatus": "accepted"
-            }
-        ],
-        "location": "DCU Fotosoc"
+            "email": app.config["MAIL_DEFAULT_SENDER"]
+        }
     }
 
-    #print("📌 Google Calendar Event Request:", json.dumps(event, indent=4))
-
     try:
-        event_response = service.events().insert(calendarId=CALENDAR_ID, body=event, sendUpdates="all").execute()
+        event_response = service.events().insert(calendarId=CALENDAR_ID, body=event).execute()
         print("✅ Event created successfully:", event_response.get("id"))
-        return event_response.get("id")
+        return event_response.get("id"), start_datetime, end_datetime
     except Exception as e:
         print(f"❌ Google Calendar API error: {e}")
         return None
@@ -179,16 +199,32 @@ def add_booking_to_calendar(booking):
 
 import tempfile
 
-def generate_ics_file(booking):
+def generate_ics_file(booking, start_datetime_dublin, end_datetime_dublin):
     """Generate an ICS calendar file for the user's personal calendar."""
+    # Convert Dublin datetime to UTC for ICS format
+    dublin_tz = pytz.timezone('Europe/Dublin')
+    utc_tz = pytz.UTC
+    
+    # Parse the Dublin datetime strings and convert to UTC
+    start_dt_dublin = datetime.fromisoformat(start_datetime_dublin.replace('Z', '+00:00'))
+    end_dt_dublin = datetime.fromisoformat(end_datetime_dublin.replace('Z', '+00:00'))
+    
+    # Convert to UTC for ICS format
+    start_dt_utc = start_dt_dublin.astimezone(utc_tz)
+    end_dt_utc = end_dt_dublin.astimezone(utc_tz)
+    
+    # Format for ICS (YYYYMMDDTHHMMSSZ)
+    start_ics = start_dt_utc.strftime('%Y%m%dT%H%M%SZ')
+    end_ics = end_dt_utc.strftime('%Y%m%dT%H%M%SZ')
+    
     ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//DCU Fotosoc//Equipment Loan//EN
 BEGIN:VEVENT
 UID:{booking['id']}@dcufotosoc.ie
-DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}
-DTSTART:{booking['start_datetime'].replace('-', '').replace(':', '')}
-DTEND:{booking['end_datetime'].replace('-', '').replace(':', '')}
+DTSTAMP:{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}
+DTSTART:{start_ics}
+DTEND:{end_ics}
 SUMMARY:DCU Fotosoc Equipment Loan: {booking['equipment_name']}
 DESCRIPTION:Equipment Loan Request - APPROVED\\n\\nEquipment: {booking['equipment_name']}\\nQuantity: {booking['amount']}\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc
 LOCATION:DCU Fotosoc
@@ -243,20 +279,17 @@ Great news! Your DCU Fotosoc equipment loan request has been approved.
 🔢 Amount: {amount}
 📅 Loan Period: From {start_formatted} until {end_formatted}
 
-You can view your loan details in your Google Calendar:
-{event_link}
-
-Alternatively, import the attached ICS file into your calendar.
-
 If you have any questions or need to make changes, please reply to this email!
 
 Kind regards,
-Magdalena Kudlewska
+Magdalena Kudlewska,
 DCU Fotosoc Equipment Officer 25/26
+
+https://dcufotosoc.ie/
         """
 
-        # Attach ICS file
-        ics_file_path = generate_ics_file(booking)
+        # Attach ICS file with properly converted times
+        ics_file_path = generate_ics_file(booking, start_datetime, end_datetime)
         with open(ics_file_path, "rb") as f:
             msg.attach("DCU_Fotosoc_Equipment_Loan.ics", "text/calendar", f.read())
 
@@ -367,17 +400,18 @@ class EquipmentBooking(Resource):
         }
 
         try:
-            # Sync with Google Calendar
-            event_id = add_booking_to_calendar(booking_data)
-            if not event_id:
+            # Sync with Google Calendar and get converted times
+            calendar_result = add_booking_to_calendar(booking_data)
+            if not calendar_result:
                 # Rollback amount if calendar creation fails
                 update_current_quantity_in_sheet(equipment_name, current_qty)
                 return {"error": "Failed to create calendar event"}, 500
-
+            
+            event_id, start_datetime_dublin, end_datetime_dublin = calendar_result
             event_link = f"https://www.google.com/calendar/event?eid={event_id}" if event_id else "N/A"
 
             # Send email confirmation with ICS file
-            send_booking_email(user_email, equipment_name, amount, start_datetime, end_datetime, event_link, booking_data)
+            send_booking_email(user_email, equipment_name, amount, start_datetime_dublin, end_datetime_dublin, event_link, booking_data)
 
             return {"message": "Booking successful", "booking_id": booking_data['id'], "event_id": event_id}, 200
 

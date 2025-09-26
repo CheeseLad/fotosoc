@@ -57,6 +57,7 @@ export default function LoanBookingForm() {
       amount: amount,
       start_datetime: startDateTime.replace("T", " "),
       end_datetime: endDateTime.replace("T", " "),
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     };
 
     try {
@@ -67,7 +68,7 @@ export default function LoanBookingForm() {
       });
 
       const result = await res.json();
-      setMessage(res.ok ? "Booking successful!" : result.error || "Failed to book equipment.");
+      setMessage(res.ok ? "Booking successful! Check your email for the confirmation. If you don't see it, check your spam folder." : result.error || "Failed to book equipment.");
     } catch (err) {
       setMessage("Error connecting to the server.");
     }
