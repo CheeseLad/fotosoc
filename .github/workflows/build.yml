@@ -9,7 +9,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
 
     permissions:
@@ -53,3 +53,40 @@ jobs:
             REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
             REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}
             REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+
+  build-backend:
+    runs-on: ubuntu-latest
+
+    permissions:
+      packages: write
+      contents: read
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract backend metadata for Docker
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}-backend
+          tags: |
+            type=sha,format=long
+            type=match,pattern=main
+            type=raw,value=latest,enable={{is_default_branch}}
+          flavor: |
+            latest=auto
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: true
+          tags: ${{ steps['meta-backend'].outputs.tags }}
+          labels: ${{ steps['meta-backend'].outputs.labels }}
