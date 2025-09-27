@@ -323,16 +323,16 @@ def send_booking_email(user_email, equipment_list, start_datetime, end_datetime,
             equipment_summary = f"1 item (Total: {amount})"
 
         msg.body = f"""
-Hey {first_name},
+Dear {first_name},
 
-Great news! Your DCU Fotosoc equipment loan request has been approved.
+Your DCU Fotosoc equipment loan request has been approved.
 
 📸 Equipment ({equipment_summary}):
 {equipment_text}
 
 📅 Loan Period: From {start_formatted} until {end_formatted}
 
-If you have any questions or need to make changes, please reply to this email!
+If you have any questions or need to make changes to your request, please reply to this email!
 
 Kind regards,
 Magdalena Kudlewska,
