@@ -4,7 +4,7 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { getAuth } from "firebase/auth"; // Import Firebase Auth
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PageHeading from '../PageHeading';
+import PageHeading from "../PageHeading";
 import {
   faLinkedinIn,
   faInstagram,
@@ -19,7 +19,7 @@ import { faEnvelope, faLink, faGlobe } from "@fortawesome/free-solid-svg-icons";
 import Gallery from "../gallery/Gallery";
 import { useNavigate } from "react-router-dom"; // For navigation
 import { doc, deleteDoc } from "firebase/firestore";
-import committeeNamesData from '../../data/committee_names.json';
+import committeeNamesData from "../../data/committee_names.json";
 
 const MemberPortfolio = () => {
   const { portfolioLink } = useParams();
@@ -110,26 +110,32 @@ const MemberPortfolio = () => {
             </div>
             <div className="text-center">
               <h3 className="text-3xl font-semibold">{portfolio.name}</h3>
-              <p className="text-xl italic">{committeeNamesData.includes(portfolio.name) ? "Committee" : "Member"}</p>
+              <p className="text-xl italic">
+                {committeeNamesData.includes(portfolio.name)
+                  ? "Committee"
+                  : "Member"}
+              </p>
               <div className="flex justify-center mt-4">
-                {portfolio.socialButtons.map((button, index) => (
-                  <a
-                    key={index}
-                    href={
-                      button.platform === "email"
-                        ? `mailto:${button.url}`
-                        : button.url
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mx-4 hvr-bob"
-                  >
-                    <FontAwesomeIcon
-                      icon={socialIcons[button.platform]}
-                      className="text-4xl text-white"
-                    />
-                  </a>
-                ))}
+                {portfolio.socialButtons
+                  .filter((button) => button.url && button.url.trim() !== "")
+                  .map((button, index) => (
+                    <a
+                      key={index}
+                      href={
+                        button.platform === "email"
+                          ? `mailto:${button.url}`
+                          : button.url
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mx-4 hvr-bob"
+                    >
+                      <FontAwesomeIcon
+                        icon={socialIcons[button.platform]}
+                        className="text-4xl text-white"
+                      />
+                    </a>
+                  ))}
               </div>
             </div>
           </div>
@@ -141,23 +147,23 @@ const MemberPortfolio = () => {
           </div>
         </div>
         <div className="flex flex-col justify-center items-center">
-        {isOwner && (
-          <>
-            <button
-              onClick={() => navigate(`/edit-portfolio/${portfolioLink}`)} // Navigate to the edit page
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
-            >
-              Edit Portfolio
-            </button>
-            <button
-              onClick={handleDelete} // Trigger delete function
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
-            >
-              Delete Portfolio
-            </button>
-          </>
-        )}
-      </div>
+          {isOwner && (
+            <>
+              <button
+                onClick={() => navigate(`/edit-portfolio/${portfolioLink}`)} // Navigate to the edit page
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-4"
+              >
+                Edit Portfolio
+              </button>
+              <button
+                onClick={handleDelete} // Trigger delete function
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4"
+              >
+                Delete Portfolio
+              </button>
+            </>
+          )}
+        </div>
       </div>
 
       <Gallery galleries={portfolio.galleries} returnValue="portfolios" />

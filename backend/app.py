@@ -133,23 +133,64 @@ def add_booking_to_calendar(booking):
         print(f"🚨 ERROR: Timezone conversion failed: {e}")
         return None
 
-    event = {
-        "summary": f"DCU Fotosoc Equipment Loan: {booking['equipment_name']}",
-        "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {booking['equipment_name']}\nQuantity: {booking['amount']}\nBorrower: {booking['user_email']}",
-        "start": {
-            "dateTime": start_datetime,
-            "timeZone": "Europe/Dublin"
-        },
-        "end": {
-            "dateTime": end_datetime,
-            "timeZone": "Europe/Dublin"
-        },
-        "location": "DCU Fotosoc",
-        "organizer": {
-            "displayName": "Magdalena Kudlewska",
-            "email": app.config["MAIL_DEFAULT_SENDER"]
+    # Format equipment list for calendar event
+    equipment_list = booking.get('equipment', [])
+    if isinstance(equipment_list, list) and len(equipment_list) > 0:
+        # Multiple equipment items
+        equipment_names = [item.get('name', 'Unknown') for item in equipment_list]
+        equipment_quantities = [item.get('quantity', 1) for item in equipment_list]
+        
+        # Create equipment summary for title
+        if len(equipment_names) == 1:
+            equipment_summary = f"{equipment_names[0]} (x{equipment_quantities[0]})"
+        else:
+            equipment_summary = f"{len(equipment_names)} items"
+        
+        # Create detailed equipment description
+        equipment_details = []
+        for i, (name, qty) in enumerate(zip(equipment_names, equipment_quantities)):
+            equipment_details.append(f"• {name}: {qty}")
+        equipment_description = "\n".join(equipment_details)
+        
+        event = {
+            "summary": f"DCU Fotosoc Equipment Loan: {equipment_summary}",
+            "description": f"Equipment Loan Request - APPROVED\n\nEquipment:\n{equipment_description}\n\nBorrower: {booking['user_email']}",
+            "start": {
+                "dateTime": start_datetime,
+                "timeZone": "Europe/Dublin"
+            },
+            "end": {
+                "dateTime": end_datetime,
+                "timeZone": "Europe/Dublin"
+            },
+            "location": "DCU Fotosoc",
+            "organizer": {
+                "displayName": "Magdalena Kudlewska",
+                "email": app.config["MAIL_DEFAULT_SENDER"]
+            }
         }
-    }
+    else:
+        # Fallback for single equipment (backward compatibility)
+        equipment_name = booking.get('equipment_name', 'Unknown Equipment')
+        amount = booking.get('amount', 1)
+        
+        event = {
+            "summary": f"DCU Fotosoc Equipment Loan: {equipment_name}",
+            "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {equipment_name}\nQuantity: {amount}\nBorrower: {booking['user_email']}",
+            "start": {
+                "dateTime": start_datetime,
+                "timeZone": "Europe/Dublin"
+            },
+            "end": {
+                "dateTime": end_datetime,
+                "timeZone": "Europe/Dublin"
+            },
+            "location": "DCU Fotosoc",
+            "organizer": {
+                "displayName": "Magdalena Kudlewska",
+                "email": app.config["MAIL_DEFAULT_SENDER"]
+            }
+        }
 
     try:
         event_response = service.events().insert(calendarId=CALENDAR_ID, body=event).execute()
@@ -180,6 +221,34 @@ def generate_ics_file(booking, start_datetime_dublin, end_datetime_dublin):
     start_ics = start_dt_utc.strftime('%Y%m%dT%H%M%SZ')
     end_ics = end_dt_utc.strftime('%Y%m%dT%H%M%SZ')
     
+    # Format equipment list for ICS description
+    equipment_list = booking.get('equipment', [])
+    if isinstance(equipment_list, list) and len(equipment_list) > 0:
+        # Multiple equipment items
+        equipment_names = [item.get('name', 'Unknown') for item in equipment_list]
+        equipment_quantities = [item.get('quantity', 1) for item in equipment_list]
+        
+        # Create equipment summary for title
+        if len(equipment_names) == 1:
+            equipment_summary = f"{equipment_names[0]} (x{equipment_quantities[0]})"
+        else:
+            equipment_summary = f"{len(equipment_names)} items"
+        
+        # Create detailed equipment description
+        equipment_details = []
+        for name, qty in zip(equipment_names, equipment_quantities):
+            equipment_details.append(f"• {name}: {qty}")
+        equipment_description = "\\n".join(equipment_details)
+        
+        summary = f"DCU Fotosoc Equipment Loan: {equipment_summary}"
+        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment:\\n{equipment_description}\\n\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
+    else:
+        # Fallback for single equipment (backward compatibility)
+        equipment_name = booking.get('equipment_name', 'Unknown Equipment')
+        amount = booking.get('amount', 1)
+        summary = f"DCU Fotosoc Equipment Loan: {equipment_name}"
+        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment: {equipment_name}\\nQuantity: {amount}\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
+    
     ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//DCU Fotosoc//Equipment Loan//EN
@@ -188,8 +257,8 @@ UID:{booking['id']}@dcufotosoc.ie
 DTSTAMP:{datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ')}
 DTSTART:{start_ics}
 DTEND:{end_ics}
-SUMMARY:DCU Fotosoc Equipment Loan: {booking['equipment_name']}
-DESCRIPTION:Equipment Loan Request - APPROVED\\n\\nEquipment: {booking['equipment_name']}\\nQuantity: {booking['amount']}\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc
+SUMMARY:{summary}
+DESCRIPTION:{description}
 LOCATION:DCU Fotosoc
 ORGANIZER;CN=Magdalena Kudlewska:mailto:equipment@dcufotosoc.ie
 ATTENDEE;CN={booking['user_email']}:mailto:{booking['user_email']}
@@ -213,7 +282,7 @@ def get_ordinal_suffix(day):
         suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
     return suffix
 
-def send_booking_email(user_email, equipment_name, amount, start_datetime, end_datetime, event_link, booking):
+def send_booking_email(user_email, equipment_list, start_datetime, end_datetime, event_link, booking):
     """Send an email confirmation with an ICS file for adding to a personal calendar."""
     try:
         # Extract and capitalize first name from email (format: first.last@mail.com)
@@ -233,13 +302,34 @@ def send_booking_email(user_email, equipment_name, amount, start_datetime, end_d
             recipients=[user_email]
         )
 
+        # Format equipment list for email
+        if isinstance(equipment_list, list) and len(equipment_list) > 0:
+            # Multiple equipment items
+            equipment_details = []
+            total_items = 0
+            for item in equipment_list:
+                name = item.get('name', 'Unknown Equipment')
+                quantity = item.get('quantity', 1)
+                total_items += quantity
+                equipment_details.append(f"• {name}: {quantity}")
+            
+            equipment_text = "\n".join(equipment_details)
+            equipment_summary = f"{len(equipment_list)} item{'s' if len(equipment_list) != 1 else ''} (Total: {total_items})"
+        else:
+            # Fallback for single equipment (backward compatibility)
+            equipment_name = booking.get('equipment_name', 'Unknown Equipment')
+            amount = booking.get('amount', 1)
+            equipment_text = f"• {equipment_name}: {amount}"
+            equipment_summary = f"1 item (Total: {amount})"
+
         msg.body = f"""
 Hey {first_name},
 
 Great news! Your DCU Fotosoc equipment loan request has been approved.
 
-📸 Equipment: {equipment_name}
-🔢 Amount: {amount}
+📸 Equipment ({equipment_summary}):
+{equipment_text}
+
 📅 Loan Period: From {start_formatted} until {end_formatted}
 
 If you have any questions or need to make changes, please reply to this email!
@@ -307,13 +397,16 @@ def book_equipment():
         data = request.json
 
         user_email = data.get("user_email")
-        equipment_name = data.get("equipment")
-        amount = int(data.get("amount", 1))
+        equipment_list = data.get("equipment", [])  # Get equipment array from frontend
         start_datetime_str = data.get("start_datetime")
         end_datetime_str = data.get("end_datetime")
 
-        if not user_email or not equipment_name or not start_datetime_str or not end_datetime_str:
+        if not user_email or not equipment_list or not start_datetime_str or not end_datetime_str:
             return {"error": "Missing required fields"}, 400
+
+        # Validate equipment list
+        if not isinstance(equipment_list, list) or len(equipment_list) == 0:
+            return {"error": "Equipment list must be a non-empty array"}, 400
 
         try:
             # Parse and validate datetime format from frontend
@@ -327,32 +420,56 @@ def book_equipment():
         if end_datetime <= start_datetime:
             return {"error": "End date/time must be after start date/time"}, 400
 
-        # Get current amount from Google Sheet
+        # Get current equipment from Google Sheet
         sheet_equipment = get_equipment_from_sheet()
-        eq_row = next((item for item in sheet_equipment if item.get('EQUIPMENT_NAME') == equipment_name), None)
-        if not eq_row:
-            return {"error": f"Equipment {equipment_name} not found in sheet"}, 400
-        try:
-            current_qty = int(eq_row.get('CURRENT_AMOUNT', eq_row.get('MAX_AMOUNT', 0)))
-        except Exception:
-            current_qty = 0
-        if current_qty < amount:
-            return {"error": f"Not enough {equipment_name} available"}, 400
+        
+        # Validate and check availability for each equipment item
+        equipment_validation = []
+        for item in equipment_list:
+            name = item.get('name')
+            quantity = int(item.get('quantity', 1))
+            
+            if not name:
+                return {"error": "Equipment name is required for all items"}, 400
+            
+            # Find equipment in sheet
+            eq_row = next((item for item in sheet_equipment if item.get('EQUIPMENT_NAME') == name), None)
+            if not eq_row:
+                return {"error": f"Equipment {name} not found in sheet"}, 400
+            
+            try:
+                current_qty = int(eq_row.get('CURRENT_AMOUNT', eq_row.get('MAX_AMOUNT', 0)))
+            except Exception:
+                current_qty = 0
+            
+            if current_qty < quantity:
+                return {"error": f"Not enough {name} available (requested: {quantity}, available: {current_qty})"}, 400
+            
+            equipment_validation.append({
+                'name': name,
+                'quantity': quantity,
+                'current_qty': current_qty,
+                'new_qty': current_qty - quantity
+            })
 
-        # Update CURRENT_AMOUNT in Google Sheet
-        new_qty = current_qty - amount
-        update_success = update_current_quantity_in_sheet(equipment_name, new_qty)
-        if not update_success:
-            return {"error": "Failed to update amount in sheet"}, 500
+        # Update quantities in Google Sheet for all equipment
+        updated_equipment = []
+        for item in equipment_validation:
+            update_success = update_current_quantity_in_sheet(item['name'], item['new_qty'])
+            if not update_success:
+                # Rollback all previously updated quantities
+                for rollback_item in updated_equipment:
+                    update_current_quantity_in_sheet(rollback_item['name'], rollback_item['current_qty'])
+                return {"error": f"Failed to update amount for {item['name']} in sheet"}, 500
+            updated_equipment.append(item)
 
         # Create booking object for calendar and email (no database storage)
         booking_data = {
             'user_email': user_email,
-            'user_phone': data.get('user_phone', ''),
-            'equipment_name': equipment_name,
-            'amount': amount,
+            'equipment': equipment_list,  # Pass the full equipment array
             'start_datetime': start_datetime_str,  # Use original format for calendar function
             'end_datetime': end_datetime_str,      # Use original format for calendar function
+            'timezone': data.get('timezone', 'Europe/Dublin'),
             'id': int(time.time())  # Generate a simple ID based on timestamp
         }
 
@@ -360,22 +477,24 @@ def book_equipment():
             # Sync with Google Calendar and get converted times
             calendar_result = add_booking_to_calendar(booking_data)
             if not calendar_result:
-                # Rollback amount if calendar creation fails
-                update_current_quantity_in_sheet(equipment_name, current_qty)
+                # Rollback all quantities if calendar creation fails
+                for rollback_item in updated_equipment:
+                    update_current_quantity_in_sheet(rollback_item['name'], rollback_item['current_qty'])
                 return {"error": "Failed to create calendar event"}, 500
             
             event_id, start_datetime_dublin, end_datetime_dublin = calendar_result
             event_link = f"https://www.google.com/calendar/event?eid={event_id}" if event_id else "N/A"
 
             # Send email confirmation with ICS file
-            send_booking_email(user_email, equipment_name, amount, start_datetime_dublin, end_datetime_dublin, event_link, booking_data)
+            send_booking_email(user_email, equipment_list, start_datetime_dublin, end_datetime_dublin, event_link, booking_data)
 
             return {"message": "Booking successful", "booking_id": booking_data['id'], "event_id": event_id}, 200
 
         except Exception as e:
-            # Rollback amount if any error occurs during booking process
-            print(f"❌ Booking failed, rolling back amount: {e}")
-            update_current_quantity_in_sheet(equipment_name, current_qty)
+            # Rollback all quantities if any error occurs during booking process
+            print(f"❌ Booking failed, rolling back quantities: {e}")
+            for rollback_item in updated_equipment:
+                update_current_quantity_in_sheet(rollback_item['name'], rollback_item['current_qty'])
             return {"error": f"Booking failed: {str(e)}"}, 500
 
       
@@ -413,7 +532,7 @@ def get_bookings():
 
 @app.route('/', methods=['GET'])
 def serve_index():
-    return "DCU Fotosoc Equipment Booking Backend is running."
+    return jsonify({"status": "ok"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

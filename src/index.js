@@ -31,8 +31,7 @@ import FotoOfTheWeek from "./components/home/FotoOfTheWeek";
 import WhatWeDo from "./components/home/WhatWeDo";
 import Stats from "./components/home/Stats";
 import ContinuousScrollZoom from "./components/home/ContinuousScrollZoom";
-import LoanBookingForm from "./components/loans/LoanBookingForm";
-import EquipmentList from "./components/loans/EquipmentList";
+import LoanBooking from "./components/loans/LoanBooking";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -91,8 +90,7 @@ root.render(
           element={
             <div>
               <Navbar />
-              <EquipmentList />
-              <LoanBookingForm />
+              <LoanBooking />
               <Footer />
             </div>
           }
