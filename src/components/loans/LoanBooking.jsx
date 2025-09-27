@@ -33,7 +33,7 @@ const LoanBooking = () => {
   //const [phoneError, setPhoneError] = useState("");
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/api/equipment")
+    fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/equipment`)
       .then((res) => res.json())
       .then((data) => {
         setEquipmentList(data);
@@ -149,7 +149,7 @@ const LoanBooking = () => {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:5000/api/book", {
+      const res = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/book`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(bookingData),
