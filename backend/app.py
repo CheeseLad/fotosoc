@@ -40,7 +40,7 @@ CALENDAR_ID = os.environ.get('CALENDAR_ID')
 # Google Sheets API setup
 SHEETS_SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SHEET_ID = os.environ.get('SHEET_ID')  # Set this in your .env or environment
-SHEET_RANGE = os.environ.get('SHEET_RANGE', 'Sheet1!A1:D100')  # Adjust as needed
+SHEET_RANGE = os.environ.get('SHEET_RANGE', 'EQUIPMENT_LIST!A1:D100')  # Adjust as needed
 
 def update_current_quantity_in_sheet(equipment_name, new_quantity):
     creds = service_account.Credentials.from_service_account_file(
@@ -61,7 +61,7 @@ def update_current_quantity_in_sheet(equipment_name, new_quantity):
     for i, row in enumerate(values[1:], start=2):  # start=2 for 1-based row in sheet
         if len(row) > name_idx and row[name_idx] == equipment_name:
             # Prepare the range for CURRENT_AMOUNT cell
-            cell_range = f"Sheet1!{chr(65+curr_idx)}{i}"
+            cell_range = f"EQUIPMENT_LIST!{chr(65+curr_idx)}{i}"
             sheet.values().update(
                 spreadsheetId=SHEET_ID,
                 range=cell_range,
@@ -88,6 +88,56 @@ def get_equipment_from_sheet():
             item = dict(zip(headers, row))
             equipment_list.append(item)
     return equipment_list
+
+def log_loan_request_to_sheet(booking_data):
+    """Log the loan request to LOAN_REQUESTS sheet"""
+    try:
+        creds = service_account.Credentials.from_service_account_file(
+            SERVICE_ACCOUNT_FILE, scopes=SHEETS_SCOPES
+        )
+        sheets_service = build('sheets', 'v4', credentials=creds)
+        sheet = sheets_service.spreadsheets()
+        
+        # Format timestamp
+        timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+        
+        # Format equipment list as "Item1 - Qty1, Item2 - Qty2"
+        equipment_list = booking_data.get('equipment', [])
+        if isinstance(equipment_list, list) and len(equipment_list) > 0:
+            equipment_formatted = ", ".join([f"{item.get('name', 'Unknown')} - {item.get('quantity', 1)}" for item in equipment_list])
+        else:
+            # Fallback for single equipment (backward compatibility)
+            equipment_name = booking_data.get('equipment_name', 'Unknown Equipment')
+            amount = booking_data.get('amount', 1)
+            equipment_formatted = f"{equipment_name} - {amount}"
+        
+        # Prepare the row data
+        row_data = [
+            timestamp,
+            booking_data.get('user_email', ''),
+            booking_data.get('student_id', ''),
+            booking_data.get('user_phone', ''),
+            booking_data.get('start_datetime', ''),
+            booking_data.get('end_datetime', ''),
+            equipment_formatted
+        ]
+        
+        # Append to LOAN_REQUESTS sheet
+        loan_requests_range = 'LOAN_REQUESTS!A:G'
+        result = sheet.values().append(
+            spreadsheetId=SHEET_ID,
+            range=loan_requests_range,
+            valueInputOption='RAW',
+            insertDataOption='INSERT_ROWS',
+            body={'values': [row_data]}
+        ).execute()
+        
+        print(f"✅ Loan request logged to spreadsheet: {result.get('updates', {}).get('updatedRows', 0)} row(s) added")
+        return True
+        
+    except Exception as e:
+        print(f"❌ Failed to log loan request to spreadsheet: {e}")
+        return False
 
 # Authenticate Google Calendar API
 credentials = service_account.Credentials.from_service_account_file(
@@ -154,7 +204,7 @@ def add_booking_to_calendar(booking):
         
         event = {
             "summary": f"DCU Fotosoc Equipment Loan: {equipment_summary}",
-            "description": f"Equipment Loan Request - APPROVED\n\nEquipment:\n{equipment_description}\n\nBorrower: {booking['user_email']}",
+            "description": f"Equipment Loan Request - APPROVED\n\nEquipment:\n{equipment_description}\n\nBorrower: {booking['user_email']}\nStudent ID: {booking.get('student_id', 'N/A')}\nPhone: {booking.get('user_phone', 'N/A')}",
             "start": {
                 "dateTime": start_datetime,
                 "timeZone": "Europe/Dublin"
@@ -176,7 +226,7 @@ def add_booking_to_calendar(booking):
         
         event = {
             "summary": f"DCU Fotosoc Equipment Loan: {equipment_name}",
-            "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {equipment_name}\nQuantity: {amount}\nBorrower: {booking['user_email']}",
+            "description": f"Equipment Loan Request - APPROVED\n\nEquipment: {equipment_name}\nQuantity: {amount}\nBorrower: {booking['user_email']}\nStudent ID: {booking.get('student_id', 'N/A')}\nPhone: {booking.get('user_phone', 'N/A')}",
             "start": {
                 "dateTime": start_datetime,
                 "timeZone": "Europe/Dublin"
@@ -241,13 +291,13 @@ def generate_ics_file(booking, start_datetime_dublin, end_datetime_dublin):
         equipment_description = "\\n".join(equipment_details)
         
         summary = f"DCU Fotosoc Equipment Loan: {equipment_summary}"
-        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment:\\n{equipment_description}\\n\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
+        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment:\\n{equipment_description}\\n\\nBorrower: {booking['user_email']}\\nStudent ID: {booking.get('student_id', 'N/A')}\\nPhone: {booking.get('user_phone', 'N/A')}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
     else:
         # Fallback for single equipment (backward compatibility)
         equipment_name = booking.get('equipment_name', 'Unknown Equipment')
         amount = booking.get('amount', 1)
         summary = f"DCU Fotosoc Equipment Loan: {equipment_name}"
-        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment: {equipment_name}\\nQuantity: {amount}\\nBorrower: {booking['user_email']}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
+        description = f"Equipment Loan Request - APPROVED\\n\\nEquipment: {equipment_name}\\nQuantity: {amount}\\nBorrower: {booking['user_email']}\\nStudent ID: {booking.get('student_id', 'N/A')}\\nPhone: {booking.get('user_phone', 'N/A')}\\n\\nEquipment Officer: Magdalena Kudlewska\\nDCU Fotosoc"
     
     ics_content = f"""BEGIN:VCALENDAR
 VERSION:2.0
@@ -322,10 +372,18 @@ def send_booking_email(user_email, equipment_list, start_datetime, end_datetime,
             equipment_text = f"• {equipment_name}: {amount}"
             equipment_summary = f"1 item (Total: {amount})"
 
+        student_id = booking.get('student_id', 'N/A')
+        phone_number = booking.get('user_phone', 'N/A')
+        
         msg.body = f"""
 Dear {first_name},
 
 Your DCU Fotosoc equipment loan request has been approved.
+
+👤 Student Details:
+• Student ID: {student_id}
+• Phone: {phone_number}
+• Email: {user_email}
 
 📸 Equipment ({equipment_summary}):
 {equipment_text}
@@ -375,34 +433,20 @@ def get_equipment():
             })
         return jsonify(equipment_list)
 
-@app.route('/api/equipment/<string:equipment_name>', methods=["PATCH"])
-def update_equipment(equipment_name):
-        """Update only CURRENT_AMOUNT for an equipment item in Google Sheets"""
-        data = request.json
-        if 'amount' in data:
-            new_quantity = data['amount']
-            update_success = update_current_quantity_in_sheet(equipment_name, new_quantity)
-            if update_success:
-                return {'message': 'Current amount updated successfully'}, 200
-            else:
-                return {'error': 'Equipment not found or update failed'}, 404
-        else:
-            return {'error': 'No amount provided'}, 400
-
-
-# ---------------- Booking Endpoint ----------------
 @app.route("/api/book", methods=["POST"])
 def book_equipment():
         """Book equipment, sync with Google Calendar, and send email confirmation with ICS file."""
         data = request.json
 
         user_email = data.get("user_email")
+        student_id = data.get("student_id")
+        user_phone = data.get("user_phone")
         equipment_list = data.get("equipment", [])  # Get equipment array from frontend
         start_datetime_str = data.get("start_datetime")
         end_datetime_str = data.get("end_datetime")
 
-        if not user_email or not equipment_list or not start_datetime_str or not end_datetime_str:
-            return {"error": "Missing required fields"}, 400
+        if not user_email or not student_id or not user_phone or not equipment_list or not start_datetime_str or not end_datetime_str:
+            return {"error": "Missing required fields (email, student ID, phone, equipment, start/end datetime)"}, 400
 
         # Validate equipment list
         if not isinstance(equipment_list, list) or len(equipment_list) == 0:
@@ -466,6 +510,8 @@ def book_equipment():
         # Create booking object for calendar and email (no database storage)
         booking_data = {
             'user_email': user_email,
+            'student_id': student_id,
+            'user_phone': user_phone,
             'equipment': equipment_list,  # Pass the full equipment array
             'start_datetime': start_datetime_str,  # Use original format for calendar function
             'end_datetime': end_datetime_str,      # Use original format for calendar function
@@ -488,6 +534,11 @@ def book_equipment():
             # Send email confirmation with ICS file
             send_booking_email(user_email, equipment_list, start_datetime_dublin, end_datetime_dublin, event_link, booking_data)
 
+            # Log the loan request to the spreadsheet
+            log_success = log_loan_request_to_sheet(booking_data)
+            if not log_success:
+                print("⚠️ Warning: Booking succeeded but failed to log to spreadsheet")
+
             return {"message": "Booking successful", "booking_id": booking_data['id'], "event_id": event_id}, 200
 
         except Exception as e:
@@ -496,39 +547,6 @@ def book_equipment():
             for rollback_item in updated_equipment:
                 update_current_quantity_in_sheet(rollback_item['name'], rollback_item['current_qty'])
             return {"error": f"Booking failed: {str(e)}"}, 500
-
-      
-      
-@app.route("/api/book", methods=["GET"])
-def get_bookings():
-        """List all bookings from Google Calendar"""
-        try:
-            events = service.events().list(calendarId=CALENDAR_ID).execute()
-            bookings = []
-            for event in events.get("items", []):
-                if event.get("summary", "").startswith("Booking:"):
-                    # Extract booking info from calendar event
-                    summary = event.get("summary", "")
-                    description = event.get("description", "")
-                    equipment_name = summary.replace("Booking: ", "")
-                    
-                    # Parse description for user email and amount
-                    lines = description.split('\n')
-                    user_email = lines[0].replace("User: ", "") if lines else ""
-                    amount = int(lines[1].replace("Amount: ", "")) if len(lines) > 1 else 1
-                    
-                    bookings.append({
-                        "id": event.get("id", ""),
-                        "user_email": user_email,
-                        "equipment_name": equipment_name,
-                        "amount": amount,
-                        "start_datetime": event.get("start", {}).get("dateTime", ""),
-                        "end_datetime": event.get("end", {}).get("dateTime", "")
-                    })
-            return bookings
-        except Exception as e:
-            print(f"❌ Error fetching bookings from calendar: {e}")
-            return {"error": "Failed to fetch bookings"}, 500
 
 @app.route('/', methods=['GET'])
 def serve_index():

@@ -8,7 +8,8 @@ const LoanBooking = () => {
   const [quantities, setQuantities] = useState({});
   const [bookingRequest, setBookingRequest] = useState([]);
   const [email, setEmail] = useState("");
-  //const [phoneNumber, setPhoneNumber] = useState("");
+  const [studentId, setStudentId] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   // Helper to get local datetime string for input[type="datetime-local"]
   const getLocalDateTimeString = () => {
     const now = new Date();
@@ -30,7 +31,8 @@ const LoanBooking = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [emailError, setEmailError] = useState("");
-  //const [phoneError, setPhoneError] = useState("");
+  const [studentIdError, setStudentIdError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_BACKEND_API_URL}/api/equipment`)
@@ -106,6 +108,18 @@ const LoanBooking = () => {
     );
   };
 
+  const validateStudentId = (studentId) => {
+    // Must be alphanumeric and max 9 characters
+    const regex = /^[a-zA-Z0-9]{1,9}$/;
+    return regex.test(studentId);
+  };
+
+  const validatePhoneNumber = (phone) => {
+    // Basic phone validation - allows various formats
+    const regex = /^[+]?[1-9][\d]{0,15}$/;
+    return phone.length >= 7 && regex.test(phone.replace(/[\s\-()]/g, ''));
+  };
+
   // Calculate real-time availability for equipment
   const getAvailableQuantity = (equipmentName) => {
     const equipment = equipmentList.find(eq => eq.name === equipmentName);
@@ -120,17 +134,23 @@ const LoanBooking = () => {
   const handleBooking = async (e) => {
     e.preventDefault();
     setEmailError("");
-    //setPhoneError("");
+    setStudentIdError("");
+    setPhoneError("");
     
     if (!validateEmail(email)) {
       setEmailError("Email must end with @mail.dcu.ie or @dcu.ie");
       return;
     }
     
-    //if (!phoneNumber || !isValidPhoneNumber(phoneNumber)) {
-    //  setPhoneError("Please enter a valid phone number");
-    //  return;
-    //}
+    if (!validateStudentId(studentId)) {
+      setStudentIdError("Student ID must be alphanumeric and maximum 9 characters");
+      return;
+    }
+    
+    if (!phoneNumber || !validatePhoneNumber(phoneNumber)) {
+      setPhoneError("Please enter a valid phone number");
+      return;
+    }
     
     if (bookingRequest.length === 0) {
       setMessage("Please add at least one equipment item to your booking request.");
@@ -141,7 +161,8 @@ const LoanBooking = () => {
 
     const bookingData = {
       user_email: email,
-      //user_phone: phoneNumber,
+      student_id: studentId,
+      user_phone: phoneNumber,
       equipment: bookingRequest, // Send the entire booking request array
       start_datetime: startDateTime.replace("T", " "),
       end_datetime: endDateTime.replace("T", " "),
@@ -163,7 +184,9 @@ const LoanBooking = () => {
         // Clear the booking request after successful submission
         setBookingRequest([]);
         setEmail("");
-        //setPhoneNumber("");
+        setStudentId("");
+        setPhoneNumber("");
+        setMessage("");
       } else {
         setMessage(result.error || "Failed to book equipment.");
         alert(result.error || "Failed to book equipment.");
@@ -359,38 +382,46 @@ const LoanBooking = () => {
                     )}
                   </div>
 
+                  {/* Student ID Input */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-1">
+                      Student ID
+                    </label>
+                    <input
+                      type="text"
+                      value={studentId}
+                      onChange={(e) => setStudentId(e.target.value.toUpperCase())}
+                      required
+                      maxLength="9"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter your student ID (max 9 characters)"
+                    />
+                    {studentIdError && (
+                      <div className="text-red-500 text-xs mt-1">
+                        {studentIdError}
+                      </div>
+                    )}
+                  </div>
+
                   {/* Phone Number Input */}
-                  {/*<div>
+                  <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-1">
                       Phone Number
                     </label>
-                    <PhoneInput
+                    <input
+                      type="tel"
                       value={phoneNumber}
-                      onChange={setPhoneNumber}
-                      defaultCountry="IE"
-                      placeholder="Enter your phone number"
-                      className="phone-input"
-                      style={{
-                        "--PhoneInput-color--focus": "#3b82f6",
-                        "--PhoneInputCountrySelect-marginRight": "0.5em",
-                        "--PhoneInputCountrySelectArrow-color": "#6b7280",
-                      }}
-                      inputComponent={React.forwardRef(
-                        ({ className, ...props }, ref) => (
-                          <input
-                            ref={ref}
-                            className={`${className} w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
-                            {...props}
-                          />
-                        )
-                      )}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      placeholder="Enter your phone number (e.g., +353 1 234 5678)"
                     />
                     {phoneError && (
                       <div className="text-red-500 text-xs mt-1">
                         {phoneError}
                       </div>
                     )}
-                  </div>*/}
+                  </div>
 
                   {/* Start Date & Time */}
                   <div>
