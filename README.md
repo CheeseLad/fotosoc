@@ -1,12 +1,11 @@
 # fotosoc
 
-*Full Stack Website Built For DCU Fotosoc - DCU's Photography Society (Website currently in development)*
+*Full Stack Website Built For DCU Fotosoc - DCU's Photography Society*
 
 ## Tech Stack Used:
 - React
 - TailwindCSS
 - Firebase
-- MongoDB, Express (Deprecated)
 - Nginx
 - Docker
 - [Clubs & Socs API](https://github.com/CheeseLad/clubsandsocs-api)
