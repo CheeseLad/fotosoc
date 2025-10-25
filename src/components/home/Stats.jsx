@@ -133,7 +133,7 @@ const Stats = () => {
           label="Years Running"
           endValue={23}
         />
-        <StatBox icon={Users} label="Active Members" endValue={73} />
+        <StatBox icon={Users} label="Active Members" endValue={157} />
         <StatBox icon={Image} label="Fotos Uploaded" endValue={imageCount} />
         <StatBox
           icon={Award}

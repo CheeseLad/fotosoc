@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "url": "https://drive.google.com/file/d/1kxtmNjMrZSQsU8akMax9RirwO7q-RhwE/preview",
+    "title": "Developing Your Own Photography Style",
+    "thumbnail": "/workshops/1.png"
+  },
+  {
+    "id": 2,
+    "url": "https://drive.google.com/file/d/1zjaZoUlE3uCooeTgu5o7mxop4vZMDDnh/preview",
+    "title": "Lighting Walkshop",
+    "thumbnail": "/workshops/2.png"
+  },
+  {
+    "id": 3,
+    "url": "https://drive.google.com/file/d/1wtT3g9z5TdRej5IEBDEXSqJtRMahFTu-/preview",
+    "title": "Everything You Need To Know About Film",
+    "thumbnail": "/workshops/3.png"
+  }
+]

@@ -1,0 +1,20 @@
+[
+  { 
+    "id": 1,
+    "heading": "Fun & Educational Events",
+    "text": "We host workshops that are aimed at all levels of photographers, whether you're just getting started or you're a seasoned pro. We also host regular Fotocrawls around the city and other areas.",
+    "image": "/whatwedo/fotocrawl.png"
+  },
+  { 
+    "id": 2,
+    "heading": "Yearly Photobook Issue",
+    "text": "Each year we release a photobook that showcases the best photos taken by our members. This is a great way to get your work published and seen by others. Last year's theme was 'Wild'.",
+    "image": "/whatwedo/connection.png"
+  },
+  { 
+    "id": 3,
+    "heading": "Photography Discounts",
+    "text": "We have partnered up with John Gunn Camera Shop in Dublin to provide all DCU Fotosoc members with a 10% discount on development, scanning and printing services.",
+    "image": "/whatwedo/johngunn.png"
+  }
+]
