@@ -3,10 +3,13 @@ import { ChevronDown } from 'lucide-react';
 import JoinButton from './../Joinbutton';
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 
+const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID;
+
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [accountMenuOpen, setAccountMenuOpen] = useState(false);
   const [user, setUser] = useState(null); // Track logged-in user
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const auth = getAuth();
 
@@ -14,6 +17,11 @@ function Navbar() {
     // Monitor authentication state
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser); // Set user state if logged in
+      if (currentUser && currentUser.uid === ALLOWED_USER_ID) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
     });
 
     // Cleanup subscription on component unmount
@@ -92,6 +100,11 @@ function Navbar() {
                     <a href="/create-portfolio" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                       Create Portfolio
                     </a>
+                    {isAdmin && (
+                      <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        Create Gallery
+                      </a>
+                    )}
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
@@ -141,6 +154,11 @@ function Navbar() {
                     <a href="/create-portfolio" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
                       Create Portfolio
                     </a>
+                    {isAdmin && (
+                      <a href="/create-gallery" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                        Create Gallery
+                      </a>
+                    )}
                     <button
                       onClick={handleLogout}
                       className="block w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-600"

@@ -196,6 +196,16 @@ root.render(
           }
         />
         <Route
+          path="/edit-gallery/:link"
+          element={
+            <div>
+              <Navbar />
+              <AdminGalleryForm />
+              <Footer />
+            </div>
+          }
+        />
+        <Route
           path="/register"
           element={
             <div>

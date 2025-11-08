@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { db } from "../../firebase";
+import { db, auth } from "../../firebase";
 import { collection, getDocs } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 import PageHeading from "../PageHeading";
 import Button from "../Button";
 
+const ALLOWED_USER_ID = process.env.REACT_APP_ADMIN_USER_ID;
+
 const GalleryHomepage = () => {
   const [galleries, setGalleries] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchGalleries = async () => {
@@ -19,6 +23,18 @@ const GalleryHomepage = () => {
     };
 
     fetchGalleries();
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user && user.uid === ALLOWED_USER_ID) {
+        setIsAdmin(true);
+      } else {
+        setIsAdmin(false);
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const getRandomImage = (images) => {
@@ -47,11 +63,20 @@ const GalleryHomepage = () => {
                 <h2 className="text-lg font-semibold text-black">
                   {gallery.title}
                 </h2>
-                <Button
-                  href={`/gallery/${gallery.link}`}
-                  text="View Gallery"
-                  color="purple"
-                />
+                <div className="flex gap-1">
+                  <Button
+                    href={`/gallery/${gallery.link}`}
+                    text="View Gallery"
+                    color="purple"
+                  />
+                  {isAdmin && (
+                    <Button
+                      href={`/edit-gallery/${gallery.link}`}
+                      text="Edit Gallery"
+                      color="green"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           ))}
