@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { db } from '../../firebase';
 import { doc, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import { faChevronLeft, faChevronRight, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,28 @@ const Gallery = ({ galleries, returnValue }) => {
   const [modalImage, setModalImage] = useState(null);
   const [currentGallery, setCurrentGallery] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleCloseModal = () => {
+    setModalImage(null);
+  };
+
+  const handleNextImage = useCallback(() => {
+    if (currentGallery !== null && galleries[currentGallery]) {
+      const galleryImages = galleries[currentGallery].images;
+      const nextIndex = (currentIndex + 1) % galleryImages.length;
+      setModalImage(galleryImages[nextIndex]);
+      setCurrentIndex(nextIndex);
+    }
+  }, [currentGallery, currentIndex, galleries]);
+
+  const handlePrevImage = useCallback(() => {
+    if (currentGallery !== null && galleries[currentGallery]) {
+      const galleryImages = galleries[currentGallery].images;
+      const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+      setModalImage(galleryImages[prevIndex]);
+      setCurrentIndex(prevIndex);
+    }
+  }, [currentGallery, currentIndex, galleries]);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -29,7 +51,7 @@ const Gallery = ({ galleries, returnValue }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentIndex, currentGallery]);
+  }, [handleNextImage, handlePrevImage]);
 
   const handleAddCaption = (imageKey) => {
     setCaptions((prev) => ({
@@ -78,24 +100,6 @@ const Gallery = ({ galleries, returnValue }) => {
     setCurrentIndex(imageIndex);
   };
 
-  const handleCloseModal = () => {
-    setModalImage(null);
-  };
-
-  const handleNextImage = () => {
-    const galleryImages = galleries[currentGallery].images;
-    const nextIndex = (currentIndex + 1) % galleryImages.length;
-    setModalImage(galleryImages[nextIndex]);
-    setCurrentIndex(nextIndex);
-  };
-
-  const handlePrevImage = () => {
-    const galleryImages = galleries[currentGallery].images;
-    const prevIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
-    setModalImage(galleryImages[prevIndex]);
-    setCurrentIndex(prevIndex);
-  };
-
   return (
     <div className="flex flex-col justify-center items-center text-white py-8">
       <div className="w-full">
@@ -120,6 +124,7 @@ const Gallery = ({ galleries, returnValue }) => {
                           src={image}
                           alt={`Gallery Item ${imageIndex}`}
                           className="object-cover w-full h-full"
+                          loading="lazy"
                         />
                         <div className="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black to-transparent text-white opacity-0 hover:opacity-100 transition-opacity duration-300">
                           <div className="flex justify-between">
