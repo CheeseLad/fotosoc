@@ -15,10 +15,10 @@
     "name": "Matt Surkov",
     "position": "Vice Chairperson",
     "image": "/committee/Matt.jpg",
-    "social1": "",
-    "social1_type": "",
-    "social2": "",
-    "social2_type": "",
+    "social1": "https://www.instagram.com/mattsurkov ",
+    "social1_type": "faInstagram",
+    "social2": "https://matttsurkov.wixsite.com/justsendproductions",
+    "social2_type": "faLink",
     "email": "vicechair@dcufotosoc.ie"
   },
   {
@@ -59,10 +59,10 @@
     "name": "Ciara Elton",
     "position": "Brand Design Officer",
     "image": "/committee/Ciara-E.jpg",
-    "social1": "",
-    "social1_type": "",
-    "social2": "",
-    "social2_type": "",
+    "social1": "https://www.instagram.com/pinkshadowgirl1",
+    "social1_type": "faInstagram",
+    "social2": "https://www.instagram.com/ciara.elton_media",
+    "social2_type": "faInstagram",
     "email": "bdo@dcufotosoc.ie"
   },
   {
@@ -70,8 +70,8 @@
     "name": "Enya O’Reilly Huerta",
     "position": "Curations Officer",
     "image": "/committee/Enya.jpg",
-    "social1": "",
-    "social1_type": "",
+    "social1": "https://www.instagram.com/enyaaa00",
+    "social1_type": "faInstagram",
     "social2": "",
     "social2_type": "",
     "email": "curations@dcufotosoc.ie"
@@ -81,10 +81,10 @@
     "name": "Magdalena Kudlewska",
     "position": "Equipment Officer",
     "image": "/committee/Magdalena.jpg",
-    "social1": "",
-    "social1_type": "",
-    "social2": "",
-    "social2_type": "",
+    "social1": "https://www.instagram.com/magdakudlewska",
+    "social1_type": "faInstagram",
+    "social2": "https://www.instagram.com/analogmenace",
+    "social2_type": "faInstagram",
     "email": "equipment@dcufotosoc.ie"
   },
   {
@@ -92,8 +92,8 @@
     "name": "Nicole Kenna",
     "position": "Events Officer",
     "image": "/committee/Nicole.jpg",
-    "social1": "",
-    "social1_type": "",
+    "social1": "https://www.linkedin.com/in/nicole-kenna-826385305",
+    "social1_type": "faLinkedin",
     "social2": "",
     "social2_type": "",
     "email": "events@dcufotosoc.ie"
