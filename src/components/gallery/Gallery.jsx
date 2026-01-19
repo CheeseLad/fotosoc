@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import { db } from '../../firebase';
-import { doc, setDoc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 import { faChevronLeft, faChevronRight, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Gallery = ({ galleries, returnValue }) => {
+const Gallery = ({ galleries, returnValue, galleryLink }) => {
+  const params = useParams();
+  // Use galleryLink prop if provided, otherwise try to get from URL params
+  const currentGalleryLink = galleryLink || params.portfolioLink || params.link;
   const [captions, setCaptions] = useState({});
   const [modalImage, setModalImage] = useState(null);
   const [currentGallery, setCurrentGallery] = useState(null);
@@ -67,19 +71,45 @@ const Gallery = ({ galleries, returnValue }) => {
     }));
   };
 
-  const handleSubmitCaption = async (imageKey) => {
+  const getImageKey = (galleryTitle, imageIndex) => {
+    // Create a key that includes gallery title and image index for local state
+    const galleryKey = galleryTitle.replace(/[^a-zA-Z0-9]/g, '_').toLowerCase();
+    return `${galleryKey}_${imageIndex + 1}`;
+  };
+
+  const handleSubmitCaption = async (imageKey, galleryTitle, imageIndex) => {
+    if (!currentGalleryLink) {
+      alert('Error: Gallery link not found. Cannot save caption.');
+      return;
+    }
+
     if (captions[imageKey]) {
       try {
-        const captionRef = doc(db, 'captions', imageKey);
+        // Use gallery link as document ID (e.g., "fotocrawl-2-captions")
+        const captionRef = doc(db, 'captions', currentGalleryLink);
         const docSnap = await getDoc(captionRef);
 
+        // Image number as string (e.g., "1", "2", etc.)
+        const imageNumber = String(imageIndex + 1);
+
         if (docSnap.exists()) {
+          const existingData = docSnap.data();
+          // Get existing captions for this image number, or initialize empty array
+          const existingCaptions = existingData.captions?.[imageNumber] || [];
+          
+          // Add new caption to the array
+          const updatedCaptions = [...existingCaptions, captions[imageKey]];
+          
+          // Update the document with the new captions array for this image number
           await updateDoc(captionRef, {
-            captions: arrayUnion(captions[imageKey]),
+            [`captions.${imageNumber}`]: updatedCaptions,
           });
         } else {
+          // Create new document with captions indexed by image number
           await setDoc(captionRef, {
-            captions: [captions[imageKey]],
+            captions: {
+              [imageNumber]: [captions[imageKey]],
+            },
           });
         }
 
@@ -112,7 +142,7 @@ const Gallery = ({ galleries, returnValue }) => {
               <h4 className="text-xl font-semibold text-center mb-4">Click on a photo to view it in full size!</h4>
               <div className="bg-white rounded-lg shadow-xl p-6 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {gallery.images.map((image, imageIndex) => {
-                  const imageKey = `${imageIndex + 1}`;
+                  const imageKey = getImageKey(gallery.title, imageIndex);
                   return (
                     <div key={imageKey}>
                       <div
@@ -175,7 +205,7 @@ const Gallery = ({ galleries, returnValue }) => {
                                 className="mt-2 p-2 border-2 border-blue-500 rounded text-black"
                               />
                               <button
-                                onClick={() => handleSubmitCaption(imageKey)}
+                                onClick={() => handleSubmitCaption(imageKey, gallery.title, imageIndex)}
                                 className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                               >
                                 Submit Caption
