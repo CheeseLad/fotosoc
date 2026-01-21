@@ -21,6 +21,7 @@ import ResetPassword from "./components/user/ResetPassword";
 import AdminGalleryForm from "./components/user/AdminGalleryForm";
 import MemberGallery from "./components/user/AdminGallery";
 import GalleryHomepage from "./components/gallery/GalleryHomepage";
+import CaptionDashboard from "./components/gallery/CaptionDashboard";
 import MemberPortfoliosGrid from "./components/portfolio/MemberPortfolioGrid";
 import EditMemberPortfolioForm from "./components/portfolio/EditMemberPortfolioForm";
 import HeroSection from "./components/home/HeroSection";
@@ -81,6 +82,16 @@ root.render(
             <div>
               <Navbar />
               <GalleryHomepage />
+              <Footer />
+            </div>
+          }
+        />
+        <Route
+          path="/caption-dashboard"
+          element={
+            <div>
+              <Navbar />
+              <CaptionDashboard />
               <Footer />
             </div>
           }

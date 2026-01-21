@@ -101,9 +101,14 @@ function Navbar() {
                       Create Portfolio
                     </a>
                     {isAdmin && (
-                      <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        Create Gallery
-                      </a>
+                      <>
+                        <a href="/create-gallery" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          Create Gallery
+                        </a>
+                        <a href="/caption-dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                          Caption Dashboard
+                        </a>
+                      </>
                     )}
                     <button
                       onClick={handleLogout}
@@ -155,9 +160,14 @@ function Navbar() {
                       Create Portfolio
                     </a>
                     {isAdmin && (
-                      <a href="/create-gallery" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
-                        Create Gallery
-                      </a>
+                      <>
+                        <a href="/create-gallery" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                          Create Gallery
+                        </a>
+                        <a href="/caption-dashboard" className="block px-4 py-2 text-sm text-white hover:bg-gray-600">
+                          Caption Dashboard
+                        </a>
+                      </>
                     )}
                     <button
                       onClick={handleLogout}
