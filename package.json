@@ -55,5 +55,10 @@
     "tailwindcss": "^3.4.3",
     "webpack": "^5.92.0",
     "webpack-cli": "^5.1.4"
+  },
+  "allowScripts": {
+    "core-js-pure@3.37.0": true,
+    "core-js@3.37.0": true,
+    "protobufjs@7.3.2": true
   }
 }

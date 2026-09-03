@@ -44,7 +44,7 @@ function HeroSection() {
             </p>
             <div>
               <Button
-                href="https://dcuclubsandsocs.ie/society/fotosoc"
+                href="https://campus.hellorubric.com/?s=14325"
                 text="Join Now"
                 color="green"
                 target="_blank"

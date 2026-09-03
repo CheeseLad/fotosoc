@@ -10,7 +10,7 @@ function EventSection() {
   const [modalTitle, setModalTitle] = useState("");
 
   useEffect(() => {
-    fetch("https://clubsandsocs.jakefarrell.ie/dcuclubsandsocs.ie/society/fotosoc/events")
+    fetch("https://clubsandsocs.jakefarrell.ie/dcuclubsandsocs.ie/society/14325/events")
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -128,7 +128,7 @@ function EventSection() {
                 View Description
               </button>
               <a 
-                href="https://dcuclubsandsocs.ie/society/fotosoc#events" 
+                href="https://campus.hellorubric.com/?s=14325#events" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="flex-1"
