@@ -1,0 +1,51 @@
+services:
+  dcufotosoc-website:
+    image: ghcr.io/cheeselad/fotosoc:latest
+    container_name: dcufotosoc-website
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dcufotosoc-website-jf.entrypoints=https"
+      - "traefik.http.routers.dcufotosoc-website-jf.rule=Host(`dcufotosoc.jakefarrell.ie`)"
+      - "traefik.http.routers.dcufotosoc-website.entrypoints=https"
+      - "traefik.http.routers.dcufotosoc-website.rule=Host(`www.dcufotosoc.ie`)"
+      - "traefik.http.routers.dcufotosoc-website.tls.certresolver=dcufotosoc"
+      - "traefik.http.routers.dcufotosoc-website-base-url.entrypoints=https"
+      - "traefik.http.routers.dcufotosoc-website-base-url.rule=Host(`dcufotosoc.ie`)"
+      - "traefik.http.routers.dcufotosoc-website-base-url.tls.certresolver=dcufotosoc"
+    environment:
+      - REACT_APP_ADMIN_USER_ID=${REACT_APP_ADMIN_USER_ID}
+      - REACT_APP_FIREBASE_API_KEY=${REACT_APP_FIREBASE_API_KEY}
+      - REACT_APP_FIREBASE_AUTH_DOMAIN=${REACT_APP_FIREBASE_AUTH_DOMAIN}
+      - REACT_APP_FIREBASE_PROJECT_ID=${REACT_APP_FIREBASE_PROJECT_ID}
+      - REACT_APP_FIREBASE_STORAGE_BUCKET=${REACT_APP_FIREBASE_STORAGE_BUCKET}
+      - REACT_APP_FIREBASE_MESSAGING_SENDER_ID=${REACT_APP_FIREBASE_MESSAGING_SENDER_ID}
+      - REACT_APP_FIREBASE_APP_ID=${REACT_APP_FIREBASE_APP_ID}
+      - REACT_APP_BACKEND_API_URL=${REACT_APP_BACKEND_API_URL}
+
+  dcufotosoc-backend:
+    image: ghcr.io/cheeselad/fotosoc-backend:latest
+    container_name: dcufotosoc-backend
+    restart: unless-stopped
+    expose:
+      - "5000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dcufotosoc-backend.entrypoints=https"
+      - "traefik.http.routers.dcufotosoc-backend.rule=Host(`api.dcufotosoc.ie`)"
+      - "traefik.http.routers.dcufotosoc-backend.tls.certresolver=dcufotosoc"
+      - "traefik.http.services.dcufotosoc-backend.loadbalancer.server.port=5000"
+    environment:
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_DEFAULT_SENDER=${MAIL_DEFAULT_SENDER}
+      - MAIL_REPLY_TO=${MAIL_REPLY_TO}
+      - SHEET_ID=${SHEET_ID}
+      - CALENDAR_ID=${CALENDAR_ID}
+    volumes:
+      - "./credentials.json:/app/credentials.json:ro"
+
+networks:
+  default:
+    name: traefik_net
+    external: true
