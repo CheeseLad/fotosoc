@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal";
+import Button from "../Button";
 
 function EventSection() {
   const [events, setEvents] = useState([]);
@@ -8,6 +9,7 @@ function EventSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
+  const [showPastEvents, setShowPastEvents] = useState(false);
 
   useEffect(() => {
     fetch("https://clubsandsocs.jakefarrell.ie/dcuclubsandsocs.ie/society/14325/events")
@@ -79,68 +81,112 @@ function EventSection() {
     );
   }
 
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
+
+  const upcomingEvents = events.filter((event) => {
+    const eventDate = new Date(event.end || event.start);
+    return eventDate >= startOfToday;
+  });
+
+  const pastEvents = events.filter((event) => {
+    const eventDate = new Date(event.end || event.start);
+    return eventDate < startOfToday;
+  });
+
+  const renderEventCard = (event, index) => (
+    <div 
+      className="bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] p-6 rounded-lg shadow-lg flex flex-col" 
+      key={index}
+    >
+      <div className="flex-1 bg-white rounded-lg p-4">
+        <h2 className="text-2xl font-bold mb-2 text-center">{event.name}</h2>
+        <div className="my-4">
+          <img
+            src={event.image || "/fotosoc_logo_square.png"}
+            alt={`${event.name} event`}
+            className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-[#4a7f7f] rounded-lg"
+          />
+        </div>
+        <p className="text-gray-600 text-sm mb-2">
+        <b>Starts:</b> {formatDateTime(event.start)}
+        </p>
+        <p className="text-gray-600 text-sm mb-2">
+        <b>Ends:</b> {formatDateTime(event.end)}
+        </p>
+        <p className="text-gray-600 text-sm mb-2">
+          <b>Location:</b> {event.location}
+        </p>
+        {event.cost > 0 && (
+          <p className="text-gray-600 text-sm mb-2">
+          <b>Cost:</b> €{event.cost.toFixed(2)}
+          </p>
+        )}
+        {event.capacity && (
+          <p className="text-gray-600 text-sm mb-2">
+          <b>Capacity:</b> {event.capacity} people
+          </p>
+        )}
+        <p className="text-gray-600 text-sm mb-2">
+          <b>Type:</b> {event.type}
+        </p>
+      </div>
+      <div className="flex justify-between mt-4 gap-4">
+        <button
+          className="bg-orange-400 text-white px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-600/50 hvr-grow flex-1"
+          onClick={() => openModal(event.name, event.description)}
+        >
+          View Description
+        </button>
+        <a 
+          href="https://campus.hellorubric.com/?s=14325#events" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex-1"
+        >
+          <button className="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-600/50 hvr-grow">
+            View Event
+          </button>
+        </a>
+      </div>
+    </div>
+  );
+
   return (
     <div className="container mx-auto py-12 bg-white">
       <h2 className="text-3xl font-bold text-center mb-8">Upcoming Events</h2>
-      <div className="px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
-        {events.map((event, index) => (
-          <div 
-            className="bg-gradient-to-r from-[#60a4a4] to-[#4a7f7f] p-6 rounded-lg shadow-lg flex flex-col" 
-            key={index}
-          >
-            <div className="flex-1 bg-white rounded-lg p-4">
-              <h2 className="text-2xl font-bold mb-2 text-center">{event.name}</h2>
-              <div className="my-4">
-                <img
-                  src={event.image || "/fotosoc_logo_square.png"}
-                  alt={`${event.name} event`}
-                  className="w-90 h-90 shadow-md border-8 transition-transform duration-300 transform hover:scale-105 border-[#4a7f7f] rounded-lg"
-                />
-              </div>
-              <p className="text-gray-600 text-sm mb-2">
-              <b>Starts:</b> {formatDateTime(event.start)}
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-              <b>Ends:</b> {formatDateTime(event.end)}
-              </p>
-              <p className="text-gray-600 text-sm mb-2">
-                <b>Location:</b> {event.location}
-              </p>
-              {event.cost > 0 && (
-                <p className="text-gray-600 text-sm mb-2">
-                <b>Cost:</b> €{event.cost.toFixed(2)}
-                </p>
-              )}
-              {event.capacity && (
-                <p className="text-gray-600 text-sm mb-2">
-                <b>Capacity:</b> {event.capacity} people
-                </p>
-              )}
-              <p className="text-gray-600 text-sm mb-2">
-                <b>Type:</b> {event.type}
-              </p>
-            </div>
-            <div className="flex justify-between mt-4 gap-4">
-              <button
-                className="bg-orange-400 text-white px-4 py-2 rounded-lg hover:bg-orange-500 transition-colors shadow-lg shadow-orange-600/50 hvr-grow flex-1"
-                onClick={() => openModal(event.name, event.description)}
-              >
-                View Description
-              </button>
-              <a 
-                href="https://campus.hellorubric.com/?s=14325#events" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex-1"
-              >
-                <button className="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors shadow-lg shadow-green-600/50 hvr-grow">
-                  View Event
-                </button>
-              </a>
-            </div>
+      {upcomingEvents.length > 0 ? (
+        <div className="px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+          {upcomingEvents.map((event, index) => renderEventCard(event, index))}
+        </div>
+      ) : (
+        <div className="text-center mb-8">
+          <p className="text-xl font-semibold mb-2">No Upcoming Events</p>
+          <p className="italic text-gray-600">Check back later!</p>
+        </div>
+      )}
+
+      {pastEvents.length > 0 && (
+        <div className="mt-4">
+          <div className="p-4 text-center">
+            <Button
+              text={showPastEvents ? "Hide Past Events" : "Show Past Events"}
+              color="purple"
+              onClick={() => setShowPastEvents(!showPastEvents)}
+            />
           </div>
-        ))}
-      </div>
+
+          {showPastEvents && (
+            <div className="mt-8">
+              <h2 className="text-3xl font-bold text-center mb-8">Past Events</h2>
+              <div className="px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+                {pastEvents.map((event, index) => renderEventCard(event, index))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
       {isModalOpen && (
         <Modal
           title={modalTitle}

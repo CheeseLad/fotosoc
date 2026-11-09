@@ -59,6 +59,7 @@
   "allowScripts": {
     "core-js-pure@3.37.0": true,
     "core-js@3.37.0": true,
-    "protobufjs@7.3.2": true
+    "@fortawesome/fontawesome-free@6.5.2": true,
+    "protobufjs@7.6.6": true
   }
 }
